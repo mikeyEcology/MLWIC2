@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1574972134595.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A20CEC47",
+    "lastKnownWriteTime" : 1574972659,
+    "last_content_update" : 1574972659959,
+    "path" : "~/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2/R/make_output.R",
+    "project_path" : "R/make_output.R",
+    "properties" : {
+        "cursorPosition" : "53,25",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

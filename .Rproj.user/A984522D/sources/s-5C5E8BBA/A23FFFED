@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1574969143080.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A23FFFED",
+    "lastKnownWriteTime" : 1574971345,
+    "last_content_update" : 1574971345138,
+    "path" : "~/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2/R/train.R",
+    "project_path" : "R/train.R",
+    "properties" : {
+        "cursorPosition" : "158,16",
+        "scrollLine" : "144",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
