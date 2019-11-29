@@ -2,7 +2,7 @@
 #'
 #' \code{classify} Uses the predicts the species in each image. 
 #' This function uses absolute paths, but if you are unfamilliar with this
-#' process, you can put all of your images, the image label csv ("data_info") and the L1 folder that you
+#' process, you can put all of your images, the image label csv ("data_info") and the trained_model folder that you
 #' downloaded following the directions at https://github.com/mikeyEcology/MLWIC into one directory on
 #' your computer. Then set your working directory to this location and the function will find the
 #' absolute paths for you.
@@ -27,7 +27,7 @@
 #' @param os the operating system you are using. If you are using windows, set this to
 #'  "Windows", otherwise leave as default
 #' @param num_classes The number of classes in your model. If you are using
-#'  the Species Level model from Tabak et al., the number is `28`.
+#'  the built in model, the number is `59`.
 #' @param delimiter this will be a `,` for a csv.
 #' @param log_dir If you trained a model with \code{train}, this
 #'  will be the log_directory that you specified when using that function.
@@ -41,7 +41,7 @@
 #'  If you are using a model that you trained, use the same architecture and depth as that model.
 #' @param top_n the number of guesses you want the model to make (how many species do you want to
 #'  see the confidence for?). This number must be less than or equal to `num_classes`.
-#' @param model_dir Absolute path to the location where you stored the L1 folder
+#' @param model_dir Absolute path to the location where you stored the trained folder
 #'  that you downloaded from github.
 #' @param batch_size The number of images for the model to evaluate in each batch. Larger numbers will run faster
 #' @export
@@ -52,7 +52,7 @@ classify <- function(
   save_predictions = "model_predictions.txt", # txt file where you want model output to go
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
-  num_classes = 28, # number of classes in model
+  num_classes = 59, # number of classes in model
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
@@ -142,7 +142,7 @@ classify <- function(
   
   # end function
   txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
-                "The results are stored in ", model_dir, "/L1/", save_predictions, ". ", "\n",
+                "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
                 "To view the results in a viewer-friendly format, please use the function make_output", "\n")
   print(txt)
   

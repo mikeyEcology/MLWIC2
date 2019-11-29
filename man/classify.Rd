@@ -7,7 +7,7 @@
 classify(path_prefix = paste0(getwd(), "/images"),
   data_info = paste0(getwd(), "/image_labels.csv"),
   model_dir = getwd(), save_predictions = "model_predictions.txt",
-  python_loc = "/anaconda3/bin/", os = "Mac", num_classes = 28,
+  python_loc = "/anaconda3/bin/", os = "Mac", num_classes = 59,
   delimiter = ",", architecture = "resnet", depth = "18",
   top_n = 5, num_threads = 1, batch_size = 128, num_gpus = 2,
   log_dir = "trained_model")
@@ -23,7 +23,7 @@ The second column can be the number corresponding to the species or group in the
 See Table 1 in Tabak et al. for the numbers (if using the built in model. If you do not know the species in the image,
 put a zero in each row of column 2.}
 
-\item{model_dir}{Absolute path to the location where you stored the L1 folder
+\item{model_dir}{Absolute path to the location where you stored the trained folder
 that you downloaded from github.}
 
 \item{save_predictions}{File name where model predictions will be stored.
@@ -37,7 +37,7 @@ make the output in a more viewer friendly format}
 "Windows", otherwise leave as default}
 
 \item{num_classes}{The number of classes in your model. If you are using
-the Species Level model from Tabak et al., the number is `28`.}
+the built in model, the number is `59`.}
 
 \item{delimiter}{this will be a `,` for a csv.}
 
@@ -61,7 +61,7 @@ that you used for training.}
 \description{
 \code{classify} Uses the predicts the species in each image. 
 This function uses absolute paths, but if you are unfamilliar with this
-process, you can put all of your images, the image label csv ("data_info") and the L1 folder that you
+process, you can put all of your images, the image label csv ("data_info") and the trained_model folder that you
 downloaded following the directions at https://github.com/mikeyEcology/MLWIC into one directory on
 your computer. Then set your working directory to this location and the function will find the
 absolute paths for you.

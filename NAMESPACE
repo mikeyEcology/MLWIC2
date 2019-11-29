@@ -2,6 +2,7 @@
 
 export(classify)
 export(evaluate_performance)
+export(make_input)
 export(make_output)
 export(setup)
 export(tensorflow)
