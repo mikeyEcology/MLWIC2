@@ -9,7 +9,7 @@ classify(path_prefix = paste0(getwd(), "/images"),
   model_dir = getwd(), save_predictions = "model_predictions.txt",
   python_loc = "/anaconda3/bin/", os = "Mac", num_classes = 28,
   delimiter = ",", architecture = "resnet", depth = "18",
-  top_n = "5", num_threads = 1, batch_size = 128, num_gpus = 2,
+  top_n = 5, num_threads = 1, batch_size = 128, num_gpus = 2,
   log_dir = "trained_model")
 }
 \arguments{

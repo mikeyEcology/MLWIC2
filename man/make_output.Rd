@@ -6,7 +6,8 @@
 \usage{
 make_output(output_location = getwd(), model_dir = getwd(),
   output_name = "output.csv",
-  saved_predictions = "model_predictions.txt", top_n = "5")
+  saved_predictions = "model_predictions.txt", return_df = FALSE,
+  top_n = "5")
 }
 \arguments{
 \item{output_location}{Absolute path where you want the output csv stored. This path
@@ -20,11 +21,16 @@ that you downloaded from github.}
 \item{saved_predictions}{This is the file name where you stored predictions when you ran
 \code{classify}. If you used the default in that function, you can use the default here.}
 
+\item{return_df}{If TRUE, this will return the model output. This allows you to create a variable that 
+is the model output.}
+
 \item{top_n}{The number of guesses that you wanted classify to save. This needs to mach what you specified 
 for top_n in \code{classify}}
 }
 \description{
 \code{make_output} will make a clean csv presenting the results from your run
 of \code{classify}. If you are planning to avoid typing absolute paths, you need to first
-set your working directory to the location where you stored your images folder and data_info csv.
+set your working directory to the location where you stored your images folder and data_info csv. 
+If you set this function to run and assign it to a variable, you can specify \code{return_df=TRUE}
+and produce a variable in your R session that is the model output.
 }

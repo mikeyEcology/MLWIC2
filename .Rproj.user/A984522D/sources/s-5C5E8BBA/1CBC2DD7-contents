@@ -56,7 +56,7 @@ classify <- function(
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
-  top_n = "5",
+  top_n = 5,
   num_threads = 1,
   batch_size = 128,
   num_gpus = 2,

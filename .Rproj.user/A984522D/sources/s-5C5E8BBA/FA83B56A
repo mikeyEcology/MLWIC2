@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1575035223683.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FA83B56A",
+    "lastKnownWriteTime" : 1575040206,
+    "last_content_update" : 1575040206676,
+    "path" : "~/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2/R/evaluate_performance.R",
+    "project_path" : "R/evaluate_performance.R",
+    "properties" : {
+        "cursorPosition" : "18,11",
+        "scrollLine" : "8",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
