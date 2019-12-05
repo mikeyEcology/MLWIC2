@@ -175,7 +175,7 @@ train <- function(
     txt <- paste0("training of model took ", runtime, " ", units(runtime),  ". ",
                   "The trained model is in ", log_dir_train, ". ",
                   "Specify this directory as the log_dir when you use classify(). ")
-    print(txt)
+    cat(txt)
   }
   
 }

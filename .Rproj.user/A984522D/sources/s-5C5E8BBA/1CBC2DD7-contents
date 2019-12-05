@@ -70,11 +70,7 @@ classify <- function(
   path_prefix = path_prefix
   data_info = data_info
   model_dir = model_dir
-  
-  # test if tensorflow is installed
-  sink("test_tensorflow.py")
-  cat("import tensorflow")
-  sink()
+
   
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
@@ -94,6 +90,22 @@ classify <- function(
     setwd(wd)
   }
 
+  # test if tensorflow is installed
+  sink("test_tensorflow.py")
+  cat("import tensorflow as tf")
+  cat("\n")
+  cat("print('Tensorflow is installed')")
+  sink()
+  test_tf <- paste0(python_loc, "python test_tensorflow.py")
+  test_result <- system(test_tf, intern=TRUE)
+  if(test_result == 'Tensorflow is installed'){
+    cat(paste("Tensorflow and Python are properly installed.", 
+          "Now proceeding to run classify.", sep="\n"))
+  }else{
+    stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
+         "Please see https://www.tensorflow.org/install for help.")))
+  }
+  
   
   # load in data_info and store it in the model_dir
   # lbls <- utils::read.csv(data_info, header=FALSE)
@@ -167,7 +179,7 @@ classify <- function(
   txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
                 "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
                 "To view the results in a viewer-friendly format, please use the function make_output", "\n")
-  print(txt)
+  cat(txt)
   
   # return to previous working directory
   setwd(wd1)
