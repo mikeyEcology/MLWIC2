@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "8290581",
+    "hash" : "3332603575",
     "id" : "C1B33002",
-    "lastKnownWriteTime" : 1575506261,
-    "last_content_update" : 1575506261440,
+    "lastKnownWriteTime" : 1575509955,
+    "last_content_update" : 1575509955981,
     "path" : "~/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2/R/setup.R",
     "project_path" : "R/setup.R",
     "properties" : {
-        "cursorPosition" : "36,2",
+        "cursorPosition" : "27,15",
         "scrollLine" : "23",
         "tempName" : "Untitled1"
     },

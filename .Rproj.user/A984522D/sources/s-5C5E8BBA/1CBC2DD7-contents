@@ -71,13 +71,18 @@ classify <- function(
   data_info = data_info
   model_dir = model_dir
   
+  # test if tensorflow is installed
+  sink("test_tensorflow.py")
+  cat("import tensorflow")
+  sink()
+  
   # navigate to directory with trained model
-  if(endsWith(model_dir, "/")){
-    setwd(paste0(model_dir, "trained_model"))
-  } else {
-    setwd(paste0(model_dir, "/trained_model"))
-  }
-  wd <- getwd()
+  # if(endsWith(model_dir, "/")){
+  #   setwd(paste0(model_dir, "trained_model"))
+  # } else {
+  #   setwd(paste0(model_dir, "/trained_model"))
+  # }
+  # wd <- getwd()
   
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){

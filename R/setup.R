@@ -24,7 +24,8 @@ setup <- function(
   # packages needed for MLWIC
   packs <- c(#"re", "math",
     "numpy", "cycler", "matplotlib", "tornado", #"StringIO", "sys",
-    "six", "scipy" #"datetime",
+    "six", "scipy", #"datetime",
+    "tensorflow"
   )
   
   #- create a conda environment if it doesn't already exist
