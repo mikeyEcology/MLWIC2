@@ -135,7 +135,7 @@ server <- function(input, output) {
 ui <- fluidPage(
   
   # App title ----
-  titlePanel("quantile"),
+  titlePanel("Classify images"),
   
   # Sidebar layout with input and output definitions ----
   sidebarLayout(

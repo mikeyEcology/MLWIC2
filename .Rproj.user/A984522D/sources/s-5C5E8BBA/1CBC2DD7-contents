@@ -60,7 +60,8 @@ classify <- function(
   num_threads = 1,
   batch_size = 128,
   num_gpus = 2,
-  log_dir = "trained_model"
+  log_dir = "trained_model",
+  shiny=FALSE
   
 ){
   wd1 <- getwd() # the starting working directory
@@ -77,6 +78,17 @@ classify <- function(
     setwd(paste0(model_dir, "/trained_model"))
   }
   wd <- getwd()
+  
+  # navigate to directory with trained model
+  if(endsWith(model_dir, "/")){
+    wd <- (paste0(model_dir, "trained_model"))
+  } else {
+    wd <- (paste0(model_dir, "/trained_model"))
+  }
+  if(shiny==FALSE){
+    setwd(wd)
+  }
+
   
   # load in data_info and store it in the model_dir
   # lbls <- utils::read.csv(data_info, header=FALSE)
@@ -136,7 +148,13 @@ classify <- function(
   
   # run code
   toc <- Sys.time()
-  system(eval_py)
+  if(shiny){
+    system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
+                  eval_py))
+  } else {
+    system(eval_py)
+  }
+
   tic <- Sys.time()
   runtime <- difftime(tic, toc, units="auto")
   

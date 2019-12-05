@@ -1,7 +1,7 @@
-#' Setup your computer to run \code{MLWIC}
+#' Setup your computer to run \code{MLWIC2}
 #'
 #'
-#' \code{setup} installs necessary R packages on your computer. You will
+#' \code{setup} installs necessary Python packages on your computer. You will
 #' need to run this before running \code{classify} and \code{train}. If this is your first time using
 #' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
 #' If you follow the link to install Anacoda and you are using a Mac, it should be in the default location.
