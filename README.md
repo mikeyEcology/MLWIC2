@@ -1,6 +1,6 @@
 MLWIC2: Machine Learning for Wildlife Image Classification
 
-<b>This package is in the development stage.</b> It is an improvement from the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. Many aspects will run the same as MLWIC, but the trained model is now located [here](https://drive.google.com/drive/folders/1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx?usp=sharing). While there is not the extensive documentation here as in the MLWIC readme, there is a lot of information if the help files which can be accessed by typing, for example, `?classify`.
+<b>This package is in the development stage.</b> It is an improvement from the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. Many aspects will run the same as MLWIC, but the trained model is now located [here](https://drive.google.com/drive/folders/1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx?usp=sharing). While there is not yet the extensive documentation here as in the MLWIC readme, there is a lot of information in the help files which can be accessed by typing, for example, `?classify`.
 
 
 

@@ -35,9 +35,9 @@ make_output <- function(
   #- read in text file of model output
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    setwd(paste0(model_dir, "L1"))
-  } else {
-    setwd(paste0(model_dir, "/L1"))
+    setwd(paste0(model_dir, "trained_model"))
+  } else { 
+    setwd(paste0(model_dir, "/trained_model"))
   }
   out <- utils::read.csv(saved_predictions, header=FALSE)
   

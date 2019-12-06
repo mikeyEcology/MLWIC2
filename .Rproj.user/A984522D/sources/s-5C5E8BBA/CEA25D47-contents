@@ -28,7 +28,7 @@ tensorflow <- function(os="Mac"){
       system("brew install protobuf")
       system("sudo easy_install --upgrade pip")
       system("sudo easy_install --upgrade six")
-      
+      system("sudo conda update --all")
       system("sudo pip install tensorflow")
       ## Something to validate installation, beyond this.
       #system("python import_tf.py")
