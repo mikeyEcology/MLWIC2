@@ -1,5 +1,4 @@
 # shiny
-library(shiny)
 server <- function(input, output) {
   
   # run classify
