@@ -1,11 +1,26 @@
 # shiny
-server <- function(input, output) {
+server <- function(input, output, session) {
+  
+  # base directory for fileChoose
+  volumes = getVolumes()
+  #volumes = "/Volumes/Macintosh HD/Users/mikeytabak/Desktop/MLWIC_package/MLWIC_examples/"
+  shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
+  #dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
+  dirname_path_prefix <- reactive({textOutput("path_prefix")})
+
+  ## Observe input dir. changes
+  observe({
+    if(!is.null(dirname_path_prefix)){
+      print(dirname_path_prefix())
+      output$path_prefix <- renderText(dirname_path_prefix())
+    }
+  })
   
   # run classify
   shiny::observeEvent(input$runClassify, {
-    classify(path_prefix = input$path_prefix,
-              data_info = input$data_info,
-              model_dir = input$model_dir,
+    classify(path_prefix = input$path_prefix, 
+             data_info = input$data_info,
+             model_dir = input$model_dir,
              save_predictions = input$save_predictions,
              python_loc = input$python_loc,
              num_classes = input$num_classes,
@@ -14,16 +29,16 @@ server <- function(input, output) {
              top_n = input$top_n,
              batch_size = input$batch_size,
              log_dir= input$log_dir
-             )
-  })
-  shiny::observeEvent(input$runClassify, {
-    make_output(
-      output_location = input$model_dir,
-      model_dir= input$model_dir,
-      saved_predictions = input$save_predictions,
-      top_n = input$top_n
     )
   })
+  # shiny::observeEvent(input$runClassify, {
+  #   make_output(
+  #     output_location = input$model_dir,
+  #     model_dir= input$model_dir,
+  #     saved_predictions = input$save_predictions,
+  #     top_n = input$top_n
+  #   )
+  # })
   
   # observeEvent(input$runClassify, {
   #   wd <- getwd()
@@ -46,7 +61,9 @@ ui <- fluidPage(
     # ), # this works with option 1
     
     shiny::sidebarPanel(
-      textInput("path_prefix", "Path Prefix"),
+      shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
+      textOutput('path_prefix'),
+      #textInput("path_prefix", "Path Prefix"),
       textInput("data_info", "Image Label Location"),
       textInput("model_dir", "Model Directory"),
       textInput("python_loc", "Location of Python on your computer"),
@@ -59,6 +76,7 @@ ui <- fluidPage(
       textInput("batch_size", "Batch size (BILB)"),
       actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
+  
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
@@ -68,7 +86,7 @@ ui <- fluidPage(
       #h3(renderText(textOutput("quant")))
       #renderPrint("quant")
       #textOutput("value")
-      
+      #verbatimTextOutput("folder1", placeholder = TRUE) 
     )
   )
 )
@@ -80,4 +98,5 @@ shiny::shinyApp(ui, server)
 #path prefix: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images
 #image label location: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv
 #model directory: /Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/
-  #*** In model.py file, I commented out line 279: self.pretrained_loader.restore(sess, ckpt.model_checkpoint_path)
+#python: /anaconda3/bin/
+#*** In model.py file, I commented out line 279: self.pretrained_loader.restore(sess, ckpt.model_checkpoint_path)

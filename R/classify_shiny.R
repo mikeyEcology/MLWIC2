@@ -4,8 +4,8 @@ server <- function(input, output) {
   # run classify
   shiny::observeEvent(input$runClassify, {
     classify(path_prefix = input$path_prefix,
-              data_info = input$data_info,
-              model_dir = input$model_dir,
+             data_info = input$data_info,
+             model_dir = input$model_dir,
              save_predictions = input$save_predictions,
              python_loc = input$python_loc,
              num_classes = input$num_classes,
@@ -14,7 +14,7 @@ server <- function(input, output) {
              top_n = input$top_n,
              batch_size = input$batch_size,
              log_dir= input$log_dir
-             )
+    )
   })
   shiny::observeEvent(input$runClassify, {
     make_output(
@@ -80,4 +80,4 @@ shiny::shinyApp(ui, server)
 #path prefix: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images
 #image label location: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv
 #model directory: /Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/
-  #*** In model.py file, I commented out line 279: self.pretrained_loader.restore(sess, ckpt.model_checkpoint_path)
+#*** In model.py file, I commented out line 279: self.pretrained_loader.restore(sess, ckpt.model_checkpoint_path)

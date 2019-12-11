@@ -91,13 +91,13 @@ classify <- function(
   }
 
   # test if tensorflow is installed
-  sink("test_tensorflow.py")
+  sink("MLWIC2_test_tf.py")
   cat("import tensorflow as tf")
   cat("\n")
   cat("print('Tensorflow is installed')")
   sink()
-  test_tf <- paste0(python_loc, "python test_tensorflow.py")
-  test_result <- system(test_tf, intern=TRUE)
+  test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
+  test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
   if(test_result == 'Tensorflow is installed'){
     cat(paste("Tensorflow and Python are properly installed.", 
           "Now proceeding to run classify.", sep="\n"))
@@ -116,17 +116,17 @@ classify <- function(
   
   if(os=="Windows"){
     # deal with windows file format issues
-    data_file <- read.table(data_info, header=FALSE, sep=",")
-    output.file <- file("data_info.csv", "wb")
-    write.table(data_file,
-                file = output.file,
-                append = TRUE,
-                quote = FALSE,
-                row.names = FALSE,
-                col.names = FALSE,
-                sep = ",")
-    close(output.file)
-    rm(output.file)
+    # data_file <- read.table(data_info, header=FALSE, sep=",")
+    # output.file <- file("data_info.csv", "wb")
+    # write.table(data_file,
+    #             file = output.file,
+    #             append = TRUE,
+    #             quote = FALSE,
+    #             row.names = FALSE,
+    #             col.names = FALSE,
+    #             sep = ",")
+    # close(output.file)
+    # rm(output.file)
   } else {
     
     cpfile <- paste0("cp ", data_info, " ", wd, "/data_info.csv")
@@ -185,3 +185,8 @@ classify <- function(
   setwd(wd1)
   
 }
+
+classify(path_prefix = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images",
+         data_info = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv",
+         model_dir = "/Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/"
+         )
