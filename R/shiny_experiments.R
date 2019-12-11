@@ -202,34 +202,85 @@ server <- function(input,output,session){
 }
 shinyApp(ui = ui, server = server)
 
-# another 1:
+
+
+printFun <- function(x){
+  print(paste0(x))
+}
+
 # UI ~~~ I think this works!
 ui <- fluidPage(
   shinyDirButton('path_prefix', 'Select a directory', title='Select a directory'),
   textOutput('path_prefix'),
+  textInput("same_path", "Copy and paste path from above"),
   actionButton("run", "run test")
 )
 # Server
 server <- function(input, output, session) {
-  volumes <- c(home = "~/") #getVolumes()
+  volumes <- c(home = "") 
+  #volumes <- getVolumes()
   shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
-  dirname <- reactive({parseDirPath(volumes, input$path_prefix)})
-  
+  dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
   
   # Observe input dir
   observe({
     #fileinfo <- parseSavePath(volumes, input$path_prefix)
-    if(!is.null(dirname)){
-      print(dirname())
-      output$path_prefix <- renderText(dirname())
+    if(!is.null(dirname_path_prefix)){
+      print(dirname_path_prefix())
+      output$path_prefix <- renderText(dirname_path_prefix())
     }
   })
   
   observeEvent(input$run, {
-    system(paste0("ls ", dirname()  #parseDirPath(volumes, input$path_prefix) # I think this would work if I got lower than MacIntosh HD
-    ))
+    printFun(dirname_path_prefix())
+    printFun(input$same_path)
   })
   
 }
+shinyApp(ui = ui, server = server)
+
+# simple example of function
+printFun <- function(a = 1, b =2, c =3, d = 4){
+  printVal <- paste0(
+    "one = ", a, "\n",
+    "two = ", b, "\n",
+    "three = ", c, "\n",
+    "four = ", d, "\n"
+  )
+  cat(printVal)
+}
+# ui function
+ui <- fluidPage(
+  textInput("a", "a value"),
+  textInput("b", "b value"),
+  textInput("c", "c value"),
+  textInput("d", "d value"),
+  actionButton("runFun", "run function")
+)
+server <- function(input, output){
+  observeEvent(input$runFun, {
+    printFun(
+      a=input$a,
+      b=input$b,
+      c=input$c,
+      d=input$d
+    )
+  })
+}
+server <- function(input, output){
+  observeEvent(input$runFun, {
+    vals <- Map(function(x) input[[x]], c("a","b","c","d"))
+    vals <- Map(as.numeric, vals)
+    vals <- Filter(function(x) !is.na(x), vals)
+    do.call("printFun", vals)
+  })
+}
+ui <- fluidPage(
+  textInput("a", "a value", value=formals(printFun)[["a"]]),
+  textInput("b", "b value", value=formals(printFun)[["b"]]),
+  textInput("c", "c value", value=formals(printFun)[["c"]]),
+  textInput("d", "d value", value=formals(printFun)[["d"]]),
+  actionButton("runFun", "run function")
+)
 shinyApp(ui = ui, server = server)
 

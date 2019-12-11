@@ -61,9 +61,11 @@ classify <- function(
   batch_size = 128,
   num_gpus = 2,
   log_dir = "trained_model",
-  shiny=FALSE
+  shiny=FALSE,
+  print_cmd = FALSE
   
 ){
+
   wd1 <- getwd() # the starting working directory
   
   # set these parameters before changing directory
@@ -71,7 +73,7 @@ classify <- function(
   data_info = data_info
   model_dir = model_dir
 
-  
+
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
   #   setwd(paste0(model_dir, "trained_model"))
@@ -91,20 +93,23 @@ classify <- function(
   }
 
   # test if tensorflow is installed
-  sink("MLWIC2_test_tf.py")
-  cat("import tensorflow as tf")
-  cat("\n")
-  cat("print('Tensorflow is installed')")
-  sink()
-  test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
-  test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
-  if(test_result == 'Tensorflow is installed'){
-    cat(paste("Tensorflow and Python are properly installed.", 
-          "Now proceeding to run classify.", sep="\n"))
-  }else{
-    stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
-         "Please see https://www.tensorflow.org/install for help.")))
+  if(print_cmd == FALSE){
+    sink("MLWIC2_test_tf.py")
+    cat("import tensorflow as tf")
+    cat("\n")
+    cat("print('Tensorflow is installed')")
+    sink()
+    test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
+    test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
+    if(test_result == 'Tensorflow is installed'){
+      cat(paste("Tensorflow and Python are properly installed.", 
+                "Now proceeding to run classify.", sep="\n"))
+    }else{
+      stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
+                      "Please see https://www.tensorflow.org/install for help.")))
+    }
   }
+
   
   
   # load in data_info and store it in the model_dir
@@ -165,12 +170,17 @@ classify <- function(
   
   # run code
   toc <- Sys.time()
-  if(shiny){
-    system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
-                  eval_py))
-  } else {
-    system(eval_py)
+  if(print_cmd){
+    print(eval_py)
+  }else{
+    if(shiny){
+      system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
+                    eval_py))
+    } else {
+      system(eval_py)
+    }
   }
+
 
   tic <- Sys.time()
   runtime <- difftime(tic, toc, units="auto")
@@ -179,7 +189,9 @@ classify <- function(
   txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
                 "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
                 "To view the results in a viewer-friendly format, please use the function make_output", "\n")
-  cat(txt)
+  if(print_cmd == FALSE){
+    cat(txt)
+  }
   
   # return to previous working directory
   setwd(wd1)
@@ -189,4 +201,4 @@ classify <- function(
 classify(path_prefix = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images",
          data_info = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv",
          model_dir = "/Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/"
-         )
+         ,print_cmd = TRUE)

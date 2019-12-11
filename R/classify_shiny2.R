@@ -2,11 +2,11 @@
 server <- function(input, output, session) {
   
   # base directory for fileChoose
-  volumes = getVolumes()
-  #volumes = "/Volumes/Macintosh HD/Users/mikeytabak/Desktop/MLWIC_package/MLWIC_examples/"
+  volumes =  c(home = "") #getVolumes()
+  #volumes = "/Users/mikeytabak/Desktop/MLWIC_package/MLWIC_examples/"
   shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
-  #dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
-  dirname_path_prefix <- reactive({textOutput("path_prefix")})
+  dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
+  #dirname_path_prefix <- reactive({textOutput("path_prefix")})
 
   ## Observe input dir. changes
   observe({
@@ -18,7 +18,9 @@ server <- function(input, output, session) {
   
   # run classify
   shiny::observeEvent(input$runClassify, {
-    classify(path_prefix = input$path_prefix, 
+    classify(#path_prefix = input$path_prefix, 
+      #path_prefix = renderText(dirname_path_prefix()),
+      path_prefix = dirname_path_prefix(),
              data_info = input$data_info,
              model_dir = input$model_dir,
              save_predictions = input$save_predictions,
@@ -28,7 +30,8 @@ server <- function(input, output, session) {
              depth = input$depth,
              top_n = input$top_n,
              batch_size = input$batch_size,
-             log_dir= input$log_dir
+             log_dir= input$log_dir,
+      print_cmd=TRUE
     )
   })
   # shiny::observeEvent(input$runClassify, {
@@ -67,13 +70,13 @@ ui <- fluidPage(
       textInput("data_info", "Image Label Location"),
       textInput("model_dir", "Model Directory"),
       textInput("python_loc", "Location of Python on your computer"),
-      textInput("num_classes", "Number of classes in trained model (BILB = If using built in model, you can leave these categories blank)"),
-      textInput("save_predictions", "Name of text file to save predictions (BILB; must end in .txt)"),
-      textInput("log_dir", "Directory name of trained model (BILB)"),
-      textInput("architecture", "CNN Architecture (BILB)"),
-      textInput("depth", "CNN Depth (BILB)"),
-      textInput("top_n", "Number of guesses to save (BILB)"),
-      textInput("batch_size", "Batch size (BILB)"),
+      textInput("num_classes", "Number of classes in trained model (BILD = if using Built In model, you can Leave these categories as Default)", formals(classify)[["num_classes"]]),
+      textInput("save_predictions", "Name of text file to save predictions (BILD; must end in .txt)", formals(classify)[["save_predictions"]]) ,
+      textInput("log_dir", "Directory name of trained model (BILD)", formals(classify)[["log_dir"]]),
+      textInput("architecture", "CNN Architecture (BILD)", formals(classify)[["architecture"]]),
+      textInput("depth", "CNN Depth (BILD)", formals(classify)[["depth"]]),
+      textInput("top_n", "Number of guesses to save (BILD)", formals(classify)[["top_n"]]),
+      textInput("batch_size", "Batch size (BILD)", formals(classify)[["batch_size"]]),
       actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
   
