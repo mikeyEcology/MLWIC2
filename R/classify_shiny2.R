@@ -1,47 +1,78 @@
 # shiny
 server <- function(input, output, session) {
   
+  #- make file selection for some variables
   # base directory for fileChoose
   volumes =  c(home = "") #getVolumes()
-  #volumes = "/Users/mikeytabak/Desktop/MLWIC_package/MLWIC_examples/"
+  #volumes = getVolumes()
+  # path_prefix
   shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
   dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
-  #dirname_path_prefix <- reactive({textOutput("path_prefix")})
-
-  ## Observe input dir. changes
+  # Observe path_prefix changes
   observe({
     if(!is.null(dirname_path_prefix)){
       print(dirname_path_prefix())
       output$path_prefix <- renderText(dirname_path_prefix())
     }
   })
-  
-  # run classify
+  # data_info
+  shinyFileChoose(input, "data_info", roots=volumes, session=session)
+  filename_data_info <- reactive({parseFilePaths(volumes, input$data_info)[length(parseFilePaths(volumes, input$data_info))]})
+  # observeEvent(input$data_info, {
+  #   filename <- parseFilePaths(volumes, input$data_info)
+  #   output$data_info <- renderText(filename$datapath)
+  # })
+  # model_dir
+  shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
+  dirname_model_dir <- reactive({parseDirPath(volumes, input$model_dir)})
+  # Observe model_dir changes
+  observe({
+    if(!is.null(dirname_model_dir)){
+      print(dirname_model_dir())
+      output$model_dir <- renderText(dirname_model_dir())
+    }
+  })
+  # python_loc
+  shinyDirChoose(input, 'python_loc', roots=volumes, session=session)
+  dirname_python_loc <- reactive({parseDirPath(volumes, input$python_loc)})
+  # Observe python_loc changes
+  observe({
+    if(!is.null(dirname_python_loc)){
+      print(dirname_python_loc())
+      output$python_loc <- renderText(dirname_python_loc())
+    }
+  })
+
+  #- run classify
   shiny::observeEvent(input$runClassify, {
     classify(#path_prefix = input$path_prefix, 
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = dirname_path_prefix(),
-             data_info = input$data_info,
-             model_dir = input$model_dir,
+             #data_info = input$data_info,
+      data_info = filename_data_info(),
+             #model_dir = input$model_dir,
+      model_dir = dirname_model_dir(),
              save_predictions = input$save_predictions,
-             python_loc = input$python_loc,
+             #python_loc = input$python_loc,
+      python_loc = dirname_python_loc(),
              num_classes = input$num_classes,
              architecture = input$architecture,
              depth = input$depth,
              top_n = input$top_n,
              batch_size = input$batch_size,
              log_dir= input$log_dir,
-      print_cmd=TRUE
+      shiny=TRUE,
+      print_cmd=FALSE
     )
   })
-  # shiny::observeEvent(input$runClassify, {
-  #   make_output(
-  #     output_location = input$model_dir,
-  #     model_dir= input$model_dir,
-  #     saved_predictions = input$save_predictions,
-  #     top_n = input$top_n
-  #   )
-  # })
+  shiny::observeEvent(input$runClassify, {
+    make_output(
+      output_location = input$model_dir,
+      model_dir= input$model_dir,
+      saved_predictions = input$save_predictions,
+      top_n = input$top_n
+    )
+  })
   
   # observeEvent(input$runClassify, {
   #   wd <- getwd()
@@ -67,9 +98,15 @@ ui <- fluidPage(
       shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       textOutput('path_prefix'),
       #textInput("path_prefix", "Path Prefix"),
-      textInput("data_info", "Image Label Location"),
-      textInput("model_dir", "Model Directory"),
-      textInput("python_loc", "Location of Python on your computer"),
+      #textInput("data_info", "Image Label Location"),
+      shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
+      textOutput("data_info"),
+      #textInput("model_dir", "Model Directory"),
+      shinyDirButton('model_dir', 'Trained model directory', title='Select the location where you stored the trained model'),
+      textOutput('model_dir'),
+      #textInput("python_loc", "Location of Python on your computer"),
+      shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
+      textOutput('python_loc'),
       textInput("num_classes", "Number of classes in trained model (BILD = if using Built In model, you can Leave these categories as Default)", formals(classify)[["num_classes"]]),
       textInput("save_predictions", "Name of text file to save predictions (BILD; must end in .txt)", formals(classify)[["save_predictions"]]) ,
       textInput("log_dir", "Directory name of trained model (BILD)", formals(classify)[["log_dir"]]),

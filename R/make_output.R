@@ -24,7 +24,8 @@ make_output <- function(
   output_name = "output.csv",
   saved_predictions = "model_predictions.txt",
   return_df = FALSE,
-  top_n = "5"
+  top_n = "5",
+  shiny=FALSE
 ){
   
   wd1 <- getwd() # the starting working directory
@@ -35,11 +36,18 @@ make_output <- function(
   #- read in text file of model output
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    setwd(paste0(model_dir, "trained_model"))
+    wd2 <- (paste0(model_dir, "trained_model"))
   } else { 
-    setwd(paste0(model_dir, "/trained_model"))
+    wd2 <- (paste0(model_dir, "/trained_model"))
   }
-  out <- utils::read.csv(saved_predictions, header=FALSE)
+  # if(shiny){
+  #   utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
+  # }else{
+  #   setwd(wd2)
+  #   out <- utils::read.csv(saved_predictions, header=FALSE)
+  # }
+  
+  utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
   
   # set new column names
   colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 

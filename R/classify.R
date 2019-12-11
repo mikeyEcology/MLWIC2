@@ -91,6 +91,9 @@ classify <- function(
   if(shiny==FALSE){
     setwd(wd)
   }
+  
+  # add a / to the end of python directory if applicable
+  python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
 
   # test if tensorflow is installed
   if(print_cmd == FALSE){

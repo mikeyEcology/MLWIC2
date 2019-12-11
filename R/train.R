@@ -88,6 +88,9 @@ train <- function(
   }
   wd <- getwd()
   
+  # add a / to the end of python directory if applicable
+  python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
+  
   # load in data_info and store it in the model_dir
   # labels <- utils::read.csv(data_info, header=FALSE)
   # utils::write.csv(labels, "data_info_train.csv", row.names=FALSE)

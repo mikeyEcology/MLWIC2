@@ -208,23 +208,22 @@ printFun <- function(x){
   print(paste0(x))
 }
 
-# UI ~~~ I think this works!
+# working version
+# UI 
 ui <- fluidPage(
   shinyDirButton('path_prefix', 'Select a directory', title='Select a directory'),
   textOutput('path_prefix'),
-  textInput("same_path", "Copy and paste path from above"),
+  textInput("path2", "Paste a path here"),
   actionButton("run", "run test")
 )
 # Server
 server <- function(input, output, session) {
-  volumes <- c(home = "") 
-  #volumes <- getVolumes()
+  volumes <- c(home = "")
   shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
   dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
   
   # Observe input dir
   observe({
-    #fileinfo <- parseSavePath(volumes, input$path_prefix)
     if(!is.null(dirname_path_prefix)){
       print(dirname_path_prefix())
       output$path_prefix <- renderText(dirname_path_prefix())
@@ -233,11 +232,95 @@ server <- function(input, output, session) {
   
   observeEvent(input$run, {
     printFun(dirname_path_prefix())
-    printFun(input$same_path)
+    printFun(input$path2)
   })
   
 }
 shinyApp(ui = ui, server = server)
+
+# works to have two shinyDirButtons
+# UI 
+ui <- fluidPage(
+  shinyDirButton('path_prefix', 'Select a directory', title='Select a directory'),
+  textOutput('path_prefix'),
+  shinyDirButton('path2', 'Select a directory', title='Select a directory'),
+  textOutput('path2'),
+  shinyFilesButton('data_info', "data file", title="select file", multiple=FALSE),
+  textOutput("data_info"),
+  actionButton("run", "run test")
+)
+# Server
+server <- function(input, output, session) {
+  volumes <- c(home = "")
+  shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
+  dirname_path_prefix <- reactive({parseDirPath(volumes, input$path_prefix)})
+  # Observe input dir
+  observe({
+    if(!is.null(dirname_path_prefix)){
+      print(dirname_path_prefix())
+      output$path_prefix <- renderText(dirname_path_prefix())
+    }
+  })
+  
+  shinyDirChoose(input, 'path2', roots=volumes, session=session)
+  dirname_path2 <- reactive({parseDirPath(volumes, input$path2)})
+  # Observe input dir
+  observe({
+    if(!is.null(dirname_path2)){
+      print(dirname_path2())
+      output$path_prefix <- renderText(dirname_path2())
+    }
+  })
+  
+  # data info file
+   shinyFileChoose(input, "data_info", roots=volumes, session=session)
+   filename_data_info <- reactive({parseFilePaths(volumes, input$data_info)[length(parseFilePaths(volumes, input$data_info))]})
+   observeEvent(input$data_info, {
+     filename <- parseFilePaths(volumes, input$data_info)
+     output$data_info <- renderText(filename$datapath)
+   })
+   # filename <- reactive({parseFilePaths(volumes, input$data_info)})
+   # if(!is.null(filename())){
+   #   output$data_info <- renderText(filename())
+   # }
+
+
+   #output$data_info <- renderText(inFile)
+     
+  
+  observeEvent(input$run, {
+    printFun(dirname_path_prefix())
+    printFun(dirname_path2())
+    printFun(filename_data_info())
+  })
+  
+}
+shinyApp(ui = ui, server = server)
+
+
+# file extract example from ?
+## Not run: 
+ui <- fluidPage(
+  shinyFilesButton('files', 'File select', 'Please select a file', FALSE),
+  verbatimTextOutput('rawInputValue'),
+  verbatimTextOutput('filepaths'),
+  actionButton("run", "run test")
+)
+server <- function(input, output) {
+  roots = c(wd='.')
+  shinyFileChoose(input, 'files', roots=roots, filetypes=c('', 'txt'))
+  output$rawInputValue <- renderPrint({str(input$files)})
+  output$filepaths <- renderPrint({parseFilePaths(roots, input$files)})
+  filename <- reactive({parseDirPath(roots, input$files)})
+  observeEvent(input$run{
+    printFun(filename())
+  })
+  
+}
+
+shinyApp(ui = ui, server = server)
+
+
 
 # simple example of function
 printFun <- function(a = 1, b =2, c =3, d = 4){
@@ -246,6 +329,16 @@ printFun <- function(a = 1, b =2, c =3, d = 4){
     "two = ", b, "\n",
     "three = ", c, "\n",
     "four = ", d, "\n"
+  )
+  cat(printVal)
+}
+printFun <- function(a, b, c, d){
+  useDef <- function(a,d) ifelse(isTruthy(a), a,d) 
+  printVal <- paste0(
+    "one = ", useDef(a,1), "\n",
+    "two = ",useDef(b,2), "\n",
+    "three = ", useDef(c,3), "\n",
+    "four = ", useDef(d,4), "\n"
   )
   cat(printVal)
 }
