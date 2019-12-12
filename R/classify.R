@@ -204,7 +204,7 @@ classify <- function(
 
   # make output in this function too
   if(make_output){
-    out <- utils::read.csv(paste0(wd, "/", saved_predictions), header=FALSE)
+    out <- utils::read.csv(paste0(wd, "/", save_predictions), header=FALSE)
     # set new column names
     colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 
                        paste0("confidence", 1:top_n))
