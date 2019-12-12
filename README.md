@@ -12,8 +12,8 @@ lapply(packages.vec, require, character.only=TRUE)
 ```
 Then install and load the package
 ```
-devtools::install_github("mikeyEcology/MLWIC")
-library(MLWIC)
+devtools::install_github("mikeyEcology/MLWIC2")
+library(MLWIC2)
 ```
 
 This package will be associated with a new publication, but for now, please cite this manuscript if you use this pacakge: \
