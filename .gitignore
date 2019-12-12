@@ -1,2 +1,4 @@
 timage_labels.csv
 .Rproj.user
+.DS)Store
+R/classify_shiny.R
