@@ -44,6 +44,7 @@
 #' @param model_dir Absolute path to the location where you stored the trained folder
 #'  that you downloaded from github.
 #' @param batch_size The number of images for the model to evaluate in each batch. Larger numbers will run faster
+#' @param make_output logical. Do you want the package to create a nice output file with column headers
 #' @export
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
@@ -61,8 +62,8 @@ classify <- function(
   batch_size = 128,
   num_gpus = 2,
   log_dir = "trained_model",
-  make_output=FALSE,
-  output_name = "MLWIC_output.csv",
+  make_output=TRUE,
+  output_name = "MLWIC2_output.csv",
   shiny=FALSE,
   print_cmd = FALSE
   
