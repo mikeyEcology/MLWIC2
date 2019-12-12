@@ -18,7 +18,7 @@
 #' @param path_prefix Path to where your images are stored. You need to specify this if 
 #'  you want MLWIC2 to `find_file_names`. 
 #' @param image_file_suffixes The suffix for your image files. Only specify this if you are 
-#'  using the `find_file_names` option. The default is .jpg files
+#'  using the `find_file_names` option. The default is .jpg files. This is case-sensitive.
 #' @param recursive logical. Only necessary if you are using the `find_file_names` option. 
 #'  If TRUE, the function will find all relevant image files in all subdirectories from the 
 #'  path you specify. If FALSE, it will only find images in the folder that you provide as your 

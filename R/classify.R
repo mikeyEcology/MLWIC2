@@ -45,6 +45,7 @@
 #'  that you downloaded from github.
 #' @param batch_size The number of images for the model to evaluate in each batch. Larger numbers will run faster
 #' @param make_output logical. Do you want the package to create a nice output file with column headers
+#' @param output_name Desired name of the output file. It must end in `.csv`
 #' @export
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer

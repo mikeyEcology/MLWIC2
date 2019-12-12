@@ -8,7 +8,7 @@
 #'
 #' @param output_location Absolute path where you want the output csv stored. This path
 #'  must exist on your computer.
-#' @param output_name Desired name of the output file
+#' @param output_name Desired name of the output file. It must end in `.csv`
 #' @param saved_predictions This is the file name where you stored predictions when you ran
 #'  \code{classify}. If you used the default in that function, you can use the default here.
 #' @param model_dir Absolute path to the location where you stored the L1 folder
