@@ -19,8 +19,8 @@
 #'  for top_n in \code{classify}
 #' @export
 make_output <- function(
-  output_location=getwd(),
-  model_dir=getwd(),
+  output_location, #=getwd(),
+  model_dir, #=getwd(),
   output_name = "output.csv",
   saved_predictions = "model_predictions.txt",
   return_df = FALSE,
@@ -30,16 +30,21 @@ make_output <- function(
   
   wd1 <- getwd() # the starting working directory
   # set these parameters before changing directory
-  output_location = output_location
+  output_location = as.character(output_location)
   model_dir = model_dir
   
   #- read in text file of model output
   # navigate to directory with trained model
-  if(endsWith(model_dir, "/")){
-    wd2 <- (paste0(model_dir, "trained_model"))
-  } else { 
+  if(shiny){ # shiny can't handle using endsWith function
     wd2 <- (paste0(model_dir, "/trained_model"))
+  }else{
+    if(endsWith(model_dir, "/")){
+      wd2 <- (paste0(model_dir, "trained_model"))
+    } else { 
+      wd2 <- (paste0(model_dir, "/trained_model"))
+    }
   }
+
   # if(shiny){
   #   utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
   # }else{
@@ -47,7 +52,7 @@ make_output <- function(
   #   out <- utils::read.csv(saved_predictions, header=FALSE)
   # }
   
-  utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
+  out <- utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
   
   # set new column names
   colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 
@@ -55,11 +60,16 @@ make_output <- function(
 
   
   # output
-  if(endsWith(output_location, "/")){
-    output_full <- paste0(output_location, output_name)
-  } else {
+  if(shiny){
     output_full <- paste0(output_location, "/", output_name)
+  } else {
+    if(endsWith(output_location, "/")){
+      output_full <- paste0(output_location, output_name)
+    } else {
+      output_full <- paste0(output_location, "/", output_name)
+    }
   }
+ 
   utils::write.csv(out[,-1], output_full)
   
   print(paste0("Output can be found here: ", output_full))
@@ -70,5 +80,7 @@ make_output <- function(
   }
   
   # return to previous working directory
-  setwd(wd1)
+  if(shiny == FALSE){
+    setwd(wd1)
+  }
 }

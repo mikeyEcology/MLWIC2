@@ -16,7 +16,7 @@ server <- function(input, output, session) {
     }
   })
   # data_info
-  shinyFileChoose(input, "data_info", roots=volumes, session=session)
+  shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
   filename_data_info <- reactive({parseFilePaths(volumes, input$data_info)[length(parseFilePaths(volumes, input$data_info))]})
   # observeEvent(input$data_info, {
   #   filename <- parseFilePaths(volumes, input$data_info)
@@ -45,7 +45,7 @@ server <- function(input, output, session) {
 
   #- run classify
   shiny::observeEvent(input$runClassify, {
-    classify(#path_prefix = input$path_prefix, 
+    classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = dirname_path_prefix(),
              #data_info = input$data_info,
@@ -62,17 +62,20 @@ server <- function(input, output, session) {
              batch_size = input$batch_size,
              log_dir= input$log_dir,
       shiny=TRUE,
+      make_output=TRUE,
+      output_name=input$output_name,
       print_cmd=FALSE
     )
   })
-  shiny::observeEvent(input$runClassify, {
-    make_output(
-      output_location = input$model_dir,
-      model_dir= input$model_dir,
-      saved_predictions = input$save_predictions,
-      top_n = input$top_n
-    )
-  })
+  # shiny::observeEvent(input$runClassify, {
+  #   make_output(
+  #     output_location = input$model_dir,
+  #     model_dir= input$model_dir,
+  #     saved_predictions = input$save_predictions,
+  #     top_n = input$top_n,
+  #     shiny=TRUE
+  #   )
+  # })
   
   # observeEvent(input$runClassify, {
   #   wd <- getwd()
@@ -102,7 +105,7 @@ ui <- fluidPage(
       shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
       textOutput("data_info"),
       #textInput("model_dir", "Model Directory"),
-      shinyDirButton('model_dir', 'Trained model directory', title='Select the location where you stored the trained model'),
+      shinyDirButton('model_dir', 'Trained model directory', title="Select the location where you stored the 'trained_model' folder"),
       textOutput('model_dir'),
       #textInput("python_loc", "Location of Python on your computer"),
       shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
@@ -114,6 +117,7 @@ ui <- fluidPage(
       textInput("depth", "CNN Depth (BILD)", formals(classify)[["depth"]]),
       textInput("top_n", "Number of guesses to save (BILD)", formals(classify)[["top_n"]]),
       textInput("batch_size", "Batch size (BILD)", formals(classify)[["batch_size"]]),
+      textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
       actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
   

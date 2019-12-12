@@ -61,6 +61,8 @@ classify <- function(
   batch_size = 128,
   num_gpus = 2,
   log_dir = "trained_model",
+  make_output=FALSE,
+  output_name = "MLWIC_output.csv",
   shiny=FALSE,
   print_cmd = FALSE
   
@@ -189,10 +191,25 @@ classify <- function(
   runtime <- difftime(tic, toc, units="auto")
   
   # end function
-  txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
-                "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
-                "To view the results in a viewer-friendly format, please use the function make_output", "\n")
-  if(print_cmd == FALSE){
+  if(make_output==FALSE){
+    txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
+                  "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
+                  "To view the results in a viewer-friendly format, please use the function make_output", "\n")
+    if(print_cmd == FALSE){
+      cat(txt)
+    }
+  }
+
+  # make output in this function too
+  if(make_output){
+    out <- utils::read.csv(paste0(wd, "/", saved_predictions), header=FALSE)
+    # set new column names
+    colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 
+                       paste0("confidence", 1:top_n))
+    utils::write.csv(out[,-1], paste0(output_location, "/", output_name))
+    
+    # put some info to user
+    txt <- paste0("A csv with model predictions can be found here: ", output_location, "/", output_name)
     cat(txt)
   }
   
