@@ -3,7 +3,7 @@ server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  volumes =  c(home = "") #getVolumes()
+  volumes =  c(home = "") #%%% Erica: You might have to comment out this line and run the next one instead
   #volumes = getVolumes()
   # path_prefix
   shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
