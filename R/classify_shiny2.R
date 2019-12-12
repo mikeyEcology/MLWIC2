@@ -70,7 +70,7 @@ server <- function(input, output, session) {
 
 }
 # Define UI for miles per gallon app ----
-ui <- fluidPage(
+ui <- shiny::fluidPage(
   
   # App title ----
   shiny::titlePanel("Classify images using MLWIC2"),
