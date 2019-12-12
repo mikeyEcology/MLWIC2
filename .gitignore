@@ -1,4 +1,7 @@
 timage_labels.csv
 .Rproj.user
-.DS)Store
+.DS_Store
 R/classify_shiny.R
+R/Untitled.R
+MLWIC2.Rproj
+MLWIC2_test_tensorflow.py
