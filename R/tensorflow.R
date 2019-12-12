@@ -29,7 +29,7 @@ tensorflow <- function(os="Mac"){
       system("sudo easy_install --upgrade pip")
       system("sudo easy_install --upgrade six")
       system("sudo conda update --all")
-      system("sudo pip install tensorflow")
+      system("sudo pip install tensorflow==1.4")
       ## Something to validate installation, beyond this.
       #system("python import_tf.py")
       
@@ -37,13 +37,14 @@ tensorflow <- function(os="Mac"){
       
     }else if(os == "Ubuntu"){
       system("sudo apt-get install python-pip python-dev")   # for Python 2.7
-      system("pip install tensorflow")
+      system("pip install tensorflow==1.4")
       
       #system("python import_tf.py")
       
     }else if(os == "Windows"){
-      print("Sorry. MLWIC cannot install tensorflow on Windows. Please visit
-            https://www.tensorflow.org/install/install_windows for tensorflow installation instructions.")
+      system("pip install --upgrade pip")
+      system("pip install tensorflow==1.4")
+      print("Installing tensorflow on Windows is more complicated and might not work. If you have problems see https://www.tensorflow.org/install/install_windows for tensorflow installation instructions.")
       
     }else{
       print('Specify operating system - \"Mac\", \"Windows\", or \"Ubuntu\"')

@@ -91,13 +91,13 @@ ui <- shiny::fluidPage(
       #textInput("python_loc", "Location of Python on your computer"),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       shiny::textOutput('python_loc'),
-      shiny::textInput("num_classes", "Number of classes in trained model (BILD = if using Built In model, you can Leave these categories as Default)", formals(classify)[["num_classes"]]),
-      shiny::textInput("save_predictions", "Name of text file to save predictions (BILD; must end in .txt)", formals(classify)[["save_predictions"]]) ,
-      shiny::textInput("log_dir", "Directory name of trained model (BILD)", formals(classify)[["log_dir"]]),
-      shiny::textInput("architecture", "CNN Architecture (BILD)", formals(classify)[["architecture"]]),
-      shiny::textInput("depth", "CNN Depth (BILD)", formals(classify)[["depth"]]),
-      shiny::textInput("top_n", "Number of guesses to save (BILD)", formals(classify)[["top_n"]]),
-      shiny::textInput("batch_size", "Batch size (BILD)", formals(classify)[["batch_size"]]),
+      shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(classify)[["num_classes"]]),
+      shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
+      shiny::textInput("log_dir", "Directory name of trained model", formals(classify)[["log_dir"]]),
+      shiny::textInput("architecture", "CNN Architecture", formals(classify)[["architecture"]]),
+      shiny::textInput("depth", "CNN Depth", formals(classify)[["depth"]]),
+      shiny::textInput("top_n", "Number of guesses to save", formals(classify)[["top_n"]]),
+      shiny::textInput("batch_size", "Batch size", formals(classify)[["batch_size"]]),
       shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
       shiny::actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
@@ -118,4 +118,3 @@ shiny::shinyApp(ui, server)
 #image label location: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv
 #model directory: /Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/
 #python: /anaconda3/bin/
-#*** In model.py file, I commented out line 279: self.pretrained_loader.restore(sess, ckpt.model_checkpoint_path)

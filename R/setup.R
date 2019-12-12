@@ -14,7 +14,7 @@
 #'
 #' @export
 setup <- function(
-  python_loc = "/anaconda2/bin/python",
+  python_loc = "/anaconda3/bin/",
   conda_loc = "auto", #"/anaconda2/bin/conda",
   r_reticulate = FALSE
 ){
