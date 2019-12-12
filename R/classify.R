@@ -110,11 +110,11 @@ classify <- function(
     test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
     test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
     if(test_result == 'Tensorflow is installed'){
-      cat(paste("Tensorflow and Python are properly installed.", 
-                "Now proceeding to run classify.", sep="\n"))
+      cat(paste0("Tensorflow and Python are properly installed.", "\n",
+                "Now proceeding to run classify.", "\n"))
     }else{
       stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
-                      "Please see https://www.tensorflow.org/install for help.")))
+                      "Please see https://www.tensorflow.org/install for help.", "\n")))
     }
   }
 
