@@ -64,6 +64,7 @@ classify <- function(
   num_gpus = 2,
   log_dir = "trained_model",
   make_output=TRUE,
+  output_location=getwd(),
   output_name = "MLWIC2_output.csv",
   shiny=FALSE,
   print_cmd = FALSE
