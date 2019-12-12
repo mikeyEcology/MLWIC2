@@ -4,10 +4,9 @@
 \alias{make_output}
 \title{Present output from a dataset classified by \code{MLWIC}}
 \usage{
-make_output(output_location = getwd(), model_dir = getwd(),
-  output_name = "output.csv",
+make_output(output_location, model_dir, output_name = "output.csv",
   saved_predictions = "model_predictions.txt", return_df = FALSE,
-  top_n = "5")
+  top_n = "5", shiny = FALSE)
 }
 \arguments{
 \item{output_location}{Absolute path where you want the output csv stored. This path
@@ -16,7 +15,7 @@ must exist on your computer.}
 \item{model_dir}{Absolute path to the location where you stored the L1 folder
 that you downloaded from github.}
 
-\item{output_name}{Desired name of the output file}
+\item{output_name}{Desired name of the output file. It must end in `.csv`}
 
 \item{saved_predictions}{This is the file name where you stored predictions when you ran
 \code{classify}. If you used the default in that function, you can use the default here.}

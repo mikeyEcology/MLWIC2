@@ -10,7 +10,9 @@ classify(path_prefix = paste0(getwd(), "/images"),
   python_loc = "/anaconda3/bin/", os = "Mac", num_classes = 59,
   delimiter = ",", architecture = "resnet", depth = "18",
   top_n = 5, num_threads = 1, batch_size = 128, num_gpus = 2,
-  log_dir = "trained_model")
+  log_dir = "trained_model", make_output = TRUE,
+  output_location = getwd(), output_name = "MLWIC2_output.csv",
+  shiny = FALSE, print_cmd = FALSE)
 }
 \arguments{
 \item{path_prefix}{Absolute path to location of the images on your computer (or computing cluster).
@@ -57,6 +59,10 @@ Options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg").
 If you are using the trained model that comes with MLWIC, use resnet 18 (the default).
 If you trained a model using a different architechture, you need to specify this same architechture and depth
 that you used for training.}
+
+\item{make_output}{logical. Do you want the package to create a nice output file with column headers}
+
+\item{output_name}{Desired name of the output file. It must end in `.csv`}
 }
 \description{
 \code{classify} Uses the predicts the species in each image. 

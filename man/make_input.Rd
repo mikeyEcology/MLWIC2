@@ -4,13 +4,31 @@
 \alias{make_input}
 \title{Create an input file to run \code{classify} or \code{train} in \code{MLWIC}}
 \usage{
-make_input(input_file = NULL, usingBuiltIn = TRUE,
-  images_classified = FALSE, trainTest = FALSE, file_prefix = "",
-  propTrain = 0.9, directory = getwd())
+make_input(input_file = paste0(getwd(), "input_file.csv"),
+  find_file_names = FALSE, path_prefix = getwd(),
+  image_file_suffixes = c(".jpg", ".JPG"), recursive = TRUE,
+  usingBuiltIn = TRUE, images_classified = FALSE, trainTest = FALSE,
+  file_prefix = "", propTrain = 0.9, directory = getwd())
 }
 \arguments{
 \item{input_file}{The name of your input csv. It must contain a column called "filename"
 and unless you are using the built in model, a column called "class" (which would be your species or group of species).}
+
+\item{find_file_names}{logical. If TRUE, this function will find all image files within a 
+specified directory. You must specify the directory (`path_prefix`) for this to work.
+If you already have a spreadsheet (eg. a `.csv`) with the names of files and their classifications,
+this is not the option for you.}
+
+\item{path_prefix}{Path to where your images are stored. You need to specify this if 
+you want MLWIC2 to `find_file_names`.}
+
+\item{image_file_suffixes}{The suffix for your image files. Only specify this if you are 
+using the `find_file_names` option. The default is .jpg files. This is case-sensitive.}
+
+\item{recursive}{logical. Only necessary if you are using the `find_file_names` option. 
+If TRUE, the function will find all relevant image files in all subdirectories from the 
+path you specify. If FALSE, it will only find images in the folder that you provide as your 
+`path_prefix`.}
 
 \item{usingBuiltIn}{logical. If TRUE, you are setting up a data file to classify images using
 the built in model.}
@@ -32,7 +50,12 @@ that will be used for testing the model.}
 The file created by this function will be stored in this same directory.}
 }
 \description{
-\code{make_inpu} will make a csv with the specifications necessary to either classify 
-images or to train a new model. Your `input_file` must contain a column called "filename"
-and a column called "species".
+\code{make_input} will make a csv with the specifications necessary to either classify 
+images or to train a new model. If you are using the `find_file_names` option, you
+only need to specify the `path_prefix` where all of your images are located and this
+function will generate a file to use with `classify`. Otherwise, you must provide an 
+`input_file` which contains columns called "filename". If you are using images that have 
+been classified and you want to evaluate how the model works on these images, set 
+`images_classified=TRUE` and your `input_file`` must also contain a column called "species", 
+which contains each image's classification.
 }

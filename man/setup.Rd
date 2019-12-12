@@ -2,9 +2,9 @@
 % Please edit documentation in R/setup.R
 \name{setup}
 \alias{setup}
-\title{Setup your computer to run \code{MLWIC}}
+\title{Setup your computer to run \code{MLWIC2}}
 \usage{
-setup(python_loc = "/anaconda2/bin/python", conda_loc = "auto",
+setup(python_loc = "/anaconda3/bin/", conda_loc = "auto",
   r_reticulate = FALSE)
 }
 \arguments{
@@ -17,7 +17,7 @@ using a Macintosh, the default is the likely location.}
 installed Python packages previously and want to retain these packages. Default is FALSE.}
 }
 \description{
-\code{setup} installs necessary R packages on your computer. You will
+\code{setup} installs necessary Python packages on your computer. You will
 need to run this before running \code{classify} and \code{train}. If this is your first time using
 this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
 If you follow the link to install Anacoda and you are using a Mac, it should be in the default location.

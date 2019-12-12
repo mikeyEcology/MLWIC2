@@ -39,9 +39,9 @@
 #' @export
 
 make_input <- function(
-  input_file = NULL,
+  input_file = paste0(getwd(), "input_file.csv"),
   find_file_names = FALSE,
-  path_prefix = NULL,
+  path_prefix = getwd(),
   image_file_suffixes = c(".jpg", ".JPG"),
   recursive = TRUE,
   usingBuiltIn = TRUE, 
@@ -116,7 +116,7 @@ make_input <- function(
       df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
       
       # write output
-      output.file <- file(paste0(file_prefix, "image_labels.csv"), "wb")
+      output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
       write.table(df,
                   row.names = FALSE,
                   col.names = FALSE,
@@ -126,7 +126,7 @@ make_input <- function(
                   sep = ",")
       close(output.file)
       rm(output.file) 
-      print(paste0("Your file is located at ", directory, file_prefix, "image_labels.csv."))
+      print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
       
     }else{
       cnames <- colnames(inFile)

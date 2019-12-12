@@ -3,11 +3,11 @@ server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  volumes =  c(home = "") #%%% Erica: You might have to comment out this line and run the next one instead
-  #volumes = getVolumes()
+  #volumes =  c(home = "") #%%% Erica: You might have to comment out this line and run the next one instead
+  volumes = shinyFiles::getVolumes()
   # path_prefix
   shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
-  dirname_path_prefix <- shiny::reactive({parseDirPath(volumes, input$path_prefix)})
+  dirname_path_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path_prefix)})
   # Observe path_prefix changes
   shiny::observe({
     if(!is.null(dirname_path_prefix)){
@@ -17,14 +17,14 @@ server <- function(input, output, session) {
   })
   # data_info
   shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
-  filename_data_info <- shiny::reactive({parseFilePaths(volumes, input$data_info)[length(parseFilePaths(volumes, input$data_info))]})
+  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
   # observeEvent(input$data_info, {
   #   filename <- parseFilePaths(volumes, input$data_info)
   #   output$data_info <- renderText(filename$datapath)
   # })
   # model_dir
   shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
-  dirname_model_dir <- shiny::reactive({parseDirPath(volumes, input$model_dir)})
+  dirname_model_dir <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$model_dir)})
   # Observe model_dir changes
   observe({
     if(!is.null(dirname_model_dir)){
@@ -34,7 +34,7 @@ server <- function(input, output, session) {
   })
   # python_loc
   shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes, session=session)
-  dirname_python_loc <- shiny::reactive({parseDirPath(volumes, input$python_loc)})
+  dirname_python_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$python_loc)})
   # Observe python_loc changes
   shiny::observe({
     if(!is.null(dirname_python_loc)){
