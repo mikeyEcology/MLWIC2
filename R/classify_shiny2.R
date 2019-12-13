@@ -48,14 +48,14 @@ server <- function(input, output, session) {
   shiny::observeEvent(input$runClassify, {
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
-      path_prefix = dirname_path_prefix(),
+      path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
              #data_info = input$data_info,
-      data_info = filename_data_info(),
+      data_info = normalizePath(filename_data_info()),
              #model_dir = input$model_dir,
-      model_dir = dirname_model_dir(),
+      model_dir = normalizePath(dirname_model_dir()),
              save_predictions = input$save_predictions,
              #python_loc = input$python_loc,
-      python_loc = dirname_python_loc(),
+      python_loc = normalizePath(dirname_python_loc()),
              num_classes = input$num_classes,
              architecture = input$architecture,
              depth = input$depth,
