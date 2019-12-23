@@ -23,9 +23,6 @@
 #'  (and you want to test how the model performs on these images).
 #' @param already_downloaded_model logical. If TRUE, you have already downloaded the model and 
 #'  will specify its location as `model_dir`. 
-#' @param tensorflow_installed logical. If TRUE, you have already downloaded tensorflow on 
-#'  your machine
-#' @param MLWIC2_already_setup logical. If TRUE, you have already setup MLWIC. 
 #' @param model_dir Absolute path to the location where you stored the trained folder
 #'  that you downloaded from github. If you specified `already_downloaded_model=TRUE`, then this
 #'  is the location where you stored the trained model folder.
@@ -38,8 +35,6 @@ setup_and_classify <- function(
   python_loc = "/anaconda3/bin/",
   conda_loc = "auto",
   already_downloaded_model = FALSE,
-  tensorflow_installed = FALSE,
-  MLWIC2_already_setup = FALSE,
   model_dir = getwd(),
   os = c("Mac", "Windows", "Ubuntu"),
   model_type = c("species", "empty_animal"),
@@ -49,53 +44,36 @@ setup_and_classify <- function(
   image_file_suffixes = c(".jpg", ".JPG"),
   recursive = TRUE,
   images_classified = FALSE,
-  output_location = getwd(),
   output_name = "MLWIC2_output.csv",
   shiny=FALSE,
   print_cmd = FALSE
   
 ){
-  cat("This function is brand new, so there may be some errors. \n
-      If you have problems, please submit them as issues at: \n
-      https://github.com/mikeyEcology/MLWIC2/issues")
+  stop("This function is not ready yet!")
   ## 1) install tensorflow: not sure of the best way to do this on Windows
-  if(!tensorflow_installed){
+  if(os == "Mac" | os == "Ubuntu"){
     MLWIC2::tensorflow(os=os)
   }
-  
-  ## setup some variables for the different model types
-  # these will be automatically passed to the classify function 
-  if(model_type=="species"){
-    url <- "https://drive.google.com/open?id=1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx.zip" # location of species model
-    num_classes <- 59
-    log_dir <- "trained_model"
-    top_n <- 5
-  }
-  if(model_type == "empty_animal"){
-    # add this URL when uploaded 
-    url <- " " # location of empty_animal model
-    num_classes <- 2
-    log_dir <- "empty_animal"
-    top_n <- 2
-  }
+  # Windows ?
   
   ## 2) download the trained model and store it where the images are if this has not been done
   # already
   if(already_downloaded_model == FALSE){
+    if(model_type=="species"){
+      url <- "https://drive.google.com/open?id=1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx.zip"
+    }
+    if(model_type == "empty_animal"){
+      # add this URL when uploaded 
+    }
     temp <- tempfile(fileext=".zip")
     utils::download.file(url, temp)
     out <- utils::unzip(temp, exdir=model_dir)
-    model_dir = getwd() # now the trained model has been downloaded to this location
-  } else{
-    model_dir = model_dir
   }
 
   ## 3) Setup environment for MLWIC
-  if(!MLWIC2_already_setup){
-    MLWIC2::setup(python_loc = python_loc,
-                  conda_loc = conda_loc,
-                  r_reticulate = FALSE)
-  }
+  MLWIC2::setup(python_loc = python_loc,
+                conda_loc = conda_loc,
+                r_reticulate = FALSE)
   
   ## 4) make input file
   # first bring in an input file if one has been made by the user
@@ -115,19 +93,7 @@ setup_and_classify <- function(
   }
   
   ## 5) Run classify
-  MLWIC2::classify(path_prefix = path_prefix,
-                   data_info = paste0(path_prefix, "/", "image_labels.csv"),
-                   model_dir = model_dir,
-                   python_loc = python_loc,
-                   os = os,
-                   num_classes = num_classes,
-                   log_dir = log_dir,
-                   top_n = top_n,
-                   make_output=TRUE,
-                   output_location = output_location,
-                   shiny = shiny,
-                   print_cmd = print_cmd
-                   )
+  
   
   
 
