@@ -11,7 +11,7 @@ train(path_prefix = paste0(getwd(), "/images"),
   architecture = "resnet", depth = "18", batch_size = 128,
   log_dir_train = "train_output", retrain = TRUE,
   retrain_from = "USDA182", num_epochs = 55, randomize = TRUE,
-  max_to_keep = 5, print_cmd = FALSE)
+  max_to_keep = 5, print_cmd = FALSE, shiny = FALSE)
 }
 \arguments{
 \item{path_prefix}{Absolute path to location of the images on your computer}
