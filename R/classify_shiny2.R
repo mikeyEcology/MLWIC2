@@ -3,9 +3,8 @@ server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  #volumes =  c(home = "") #%%% Erica: You might have to comment out this line and run the next one instead
+  #volumes =  c(home = "") 
   volumes = shinyFiles::getVolumes()
-  #%%% NEED TO USE normalizePath() to deal with output from getVolumes()
   # path_prefix
   shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
   dirname_path_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path_prefix)})
@@ -70,7 +69,7 @@ server <- function(input, output, session) {
   })
 
 }
-# Define UI for miles per gallon app ----
+
 ui <- shiny::fluidPage(
   
   # App title ----

@@ -3,7 +3,6 @@ server <- function(input, output, session) {
   #- make file selection for some variables
   # base directory for fileChoose
   volumes = shinyFiles::getVolumes()
-  #%%% NEED TO USE normalizePath() to deal with output from getVolumes()
   # path_prefix
   shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
   dirname_path_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path_prefix)})

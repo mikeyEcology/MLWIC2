@@ -221,7 +221,3 @@ classify <- function(
   
 }
 
-classify(path_prefix = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images",
-         data_info = "/Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv",
-         model_dir = "/Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/"
-         ,print_cmd = TRUE)

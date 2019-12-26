@@ -5,11 +5,12 @@
 \title{Automatically set up your computer to run \code{MLWIC2} and run \code{classify}}
 \usage{
 setup_and_classify(python_loc = "/anaconda3/bin/", conda_loc = "auto",
-  already_downloaded_model = FALSE, model_dir = getwd(),
-  os = c("Mac", "Windows", "Ubuntu"), model_type = c("species",
-  "empty_animal"), input_file = NULL, directory = getwd(),
-  path_prefix = getwd(), image_file_suffixes = c(".jpg", ".JPG"),
-  recursive = TRUE, images_classified = FALSE,
+  already_downloaded_model = FALSE, tensorflow_installed = FALSE,
+  MLWIC2_already_setup = FALSE, model_dir = getwd(), os = c("Mac",
+  "Windows", "Ubuntu"), model_type = c("species", "empty_animal"),
+  input_file = NULL, directory = getwd(), path_prefix = getwd(),
+  image_file_suffixes = c(".jpg", ".JPG"), recursive = TRUE,
+  images_classified = FALSE, output_location = getwd(),
   output_name = "MLWIC2_output.csv", shiny = FALSE,
   print_cmd = FALSE)
 }
@@ -21,6 +22,11 @@ using a Macintosh, the default is the likely location.}
 
 \item{already_downloaded_model}{logical. If TRUE, you have already downloaded the model and 
 will specify its location as `model_dir`.}
+
+\item{tensorflow_installed}{logical. If TRUE, you have already downloaded tensorflow on 
+your machine}
+
+\item{MLWIC2_already_setup}{logical. If TRUE, you have already setup MLWIC.}
 
 \item{model_dir}{Absolute path to the location where you stored the trained folder
 that you downloaded from github. If you specified `already_downloaded_model=TRUE`, then this
