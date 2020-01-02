@@ -4,15 +4,26 @@
 \alias{setup_and_classify}
 \title{Automatically set up your computer to run \code{MLWIC2} and run \code{classify}}
 \usage{
-setup_and_classify(python_loc = "/anaconda3/bin/", conda_loc = "auto",
-  already_downloaded_model = FALSE, tensorflow_installed = FALSE,
-  MLWIC2_already_setup = FALSE, model_dir = getwd(), os = c("Mac",
-  "Windows", "Ubuntu"), model_type = c("species", "empty_animal"),
-  input_file = NULL, directory = getwd(), path_prefix = getwd(),
-  image_file_suffixes = c(".jpg", ".JPG"), recursive = TRUE,
-  images_classified = FALSE, output_location = getwd(),
-  output_name = "MLWIC2_output.csv", shiny = FALSE,
-  print_cmd = FALSE)
+setup_and_classify(
+  python_loc = "/anaconda3/bin/",
+  conda_loc = "auto",
+  already_downloaded_model = FALSE,
+  tensorflow_installed = FALSE,
+  MLWIC2_already_setup = FALSE,
+  model_dir = getwd(),
+  os = c("Mac", "Windows", "Ubuntu"),
+  model_type = c("species", "empty_animal"),
+  input_file = NULL,
+  directory = getwd(),
+  path_prefix = getwd(),
+  image_file_suffixes = c(".jpg", ".JPG"),
+  recursive = TRUE,
+  images_classified = FALSE,
+  output_location = getwd(),
+  output_name = "MLWIC2_output.csv",
+  shiny = FALSE,
+  print_cmd = FALSE
+)
 }
 \arguments{
 \item{python_loc}{The location of python on your machine. If you are

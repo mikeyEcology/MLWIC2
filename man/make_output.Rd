@@ -4,9 +4,15 @@
 \alias{make_output}
 \title{Present output from a dataset classified by \code{MLWIC}}
 \usage{
-make_output(output_location, model_dir, output_name = "output.csv",
-  saved_predictions = "model_predictions.txt", return_df = FALSE,
-  top_n = "5", shiny = FALSE)
+make_output(
+  output_location,
+  model_dir,
+  output_name = "output.csv",
+  saved_predictions = "model_predictions.txt",
+  return_df = FALSE,
+  top_n = "5",
+  shiny = FALSE
+)
 }
 \arguments{
 \item{output_location}{Absolute path where you want the output csv stored. This path

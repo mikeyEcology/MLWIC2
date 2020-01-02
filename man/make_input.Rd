@@ -4,11 +4,19 @@
 \alias{make_input}
 \title{Create an input file to run \code{classify} or \code{train} in \code{MLWIC}}
 \usage{
-make_input(input_file = paste0(getwd(), "input_file.csv"),
-  find_file_names = FALSE, path_prefix = getwd(),
-  image_file_suffixes = c(".jpg", ".JPG"), recursive = TRUE,
-  usingBuiltIn = TRUE, images_classified = FALSE, trainTest = FALSE,
-  file_prefix = "", propTrain = 0.9, directory = getwd())
+make_input(
+  input_file = paste0(getwd(), "input_file.csv"),
+  find_file_names = FALSE,
+  path_prefix = getwd(),
+  image_file_suffixes = c(".jpg", ".JPG"),
+  recursive = TRUE,
+  usingBuiltIn = TRUE,
+  images_classified = FALSE,
+  trainTest = FALSE,
+  file_prefix = "",
+  propTrain = 0.9,
+  directory = getwd()
+)
 }
 \arguments{
 \item{input_file}{The name of your input csv. It must contain a column called "filename"

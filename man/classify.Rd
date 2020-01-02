@@ -4,15 +4,28 @@
 \alias{classify}
 \title{Classify images using the trained model}
 \usage{
-classify(path_prefix = paste0(getwd(), "/images"),
+classify(
+  path_prefix = paste0(getwd(), "/images"),
   data_info = paste0(getwd(), "/image_labels.csv"),
-  model_dir = getwd(), save_predictions = "model_predictions.txt",
-  python_loc = "/anaconda3/bin/", os = "Mac", num_classes = 59,
-  delimiter = ",", architecture = "resnet", depth = "18",
-  top_n = 5, num_threads = 1, batch_size = 128, num_gpus = 2,
-  log_dir = "trained_model", make_output = TRUE,
-  output_location = getwd(), output_name = "MLWIC2_output.csv",
-  shiny = FALSE, print_cmd = FALSE)
+  model_dir = getwd(),
+  save_predictions = "model_predictions.txt",
+  python_loc = "/anaconda3/bin/",
+  os = "Mac",
+  num_classes = 59,
+  delimiter = ",",
+  architecture = "resnet",
+  depth = "18",
+  top_n = 5,
+  num_threads = 1,
+  batch_size = 128,
+  num_gpus = 2,
+  log_dir = "trained_model",
+  make_output = TRUE,
+  output_location = getwd(),
+  output_name = "MLWIC2_output.csv",
+  shiny = FALSE,
+  print_cmd = FALSE
+)
 }
 \arguments{
 \item{path_prefix}{Absolute path to location of the images on your computer (or computing cluster).

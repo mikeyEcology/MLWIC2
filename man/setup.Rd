@@ -4,8 +4,7 @@
 \alias{setup}
 \title{Setup your computer to run \code{MLWIC2}}
 \usage{
-setup(python_loc = "/anaconda3/bin/", conda_loc = "auto",
-  r_reticulate = FALSE)
+setup(python_loc = "/anaconda3/bin/", conda_loc = "auto", r_reticulate = FALSE)
 }
 \arguments{
 \item{python_loc}{The location of python on your machine. If you are
