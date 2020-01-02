@@ -16,7 +16,7 @@ server <- function(input, output, session) {
   # data_info
   shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
   filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
-  
+
   # model_dir
   shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
   dirname_model_dir <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$model_dir)})
@@ -40,7 +40,7 @@ server <- function(input, output, session) {
   
   #- run train
   shiny::observeEvent(input$runTrain, {
-    train(#path_prefix = input$path_prefix,
+    MLWIC2::train(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
       #data_info = input$data_info,
@@ -67,3 +67,4 @@ server <- function(input, output, session) {
   })
   
 }
+

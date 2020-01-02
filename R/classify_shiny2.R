@@ -45,7 +45,7 @@ server <- function(input, output, session) {
 
   #- run classify
   shiny::observeEvent(input$runClassify, {
-    classify(#path_prefix = input$path_prefix,
+    MLWIC2::classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
              #data_info = input$data_info,
@@ -91,14 +91,14 @@ ui <- shiny::fluidPage(
       #textInput("python_loc", "Location of Python on your computer"),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       shiny::textOutput('python_loc'),
-      shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(classify)[["num_classes"]]),
-      shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
-      shiny::textInput("log_dir", "Directory name of trained model", formals(classify)[["log_dir"]]),
-      shiny::textInput("architecture", "CNN Architecture", formals(classify)[["architecture"]]),
-      shiny::textInput("depth", "CNN Depth", formals(classify)[["depth"]]),
-      shiny::textInput("top_n", "Number of guesses to save", formals(classify)[["top_n"]]),
-      shiny::textInput("batch_size", "Batch size", formals(classify)[["batch_size"]]),
-      shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
+      shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(MLWIC2::classify)[["num_classes"]]),
+      shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(MLWIC2::classify)[["save_predictions"]]) ,
+      shiny::textInput("log_dir", "Directory name of trained model", formals(MLWIC2::classify)[["log_dir"]]),
+      shiny::textInput("architecture", "CNN Architecture", formals(MLWIC2::classify)[["architecture"]]),
+      shiny::textInput("depth", "CNN Depth", formals(MLWIC2::classify)[["depth"]]),
+      shiny::textInput("top_n", "Number of guesses to save", formals(MLWIC2::classify)[["top_n"]]),
+      shiny::textInput("batch_size", "Batch size", formals(MLWIC2::classify)[["batch_size"]]),
+      shiny::textInput("output_name", "Name of cleaned output file", formals(MLWIC2::classify)[["output_name"]]),
       shiny::actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
   
