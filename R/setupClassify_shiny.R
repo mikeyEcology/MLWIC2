@@ -79,7 +79,7 @@ ui <- shiny::fluidPage(
   # Sidebar layout with input and output definitions ----
   shiny::sidebarLayout(
     shiny::sidebarPanel(
-     shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
+      shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       shiny::textOutput('python_loc'),
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       shiny::textOutput('path_prefix'),
@@ -98,8 +98,8 @@ ui <- shiny::fluidPage(
                            "No" = "FALSE",
                            "Yes" = "TRUE"
                          )),
-     shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="If you have already downloaded the trained model, select its location. Otherwise, select `cancel`"),
-     shiny::textOutput('model_dir'),
+      shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="If you have already downloaded the trained model, select its location. Otherwise, select `cancel`"),
+      shiny::textOutput('model_dir'),
       shiny::selectInput("tensorflow_installed", "Have you already installed tensorflow on your machine?",
                          choices = c(
                            "No" = "FALSE",
@@ -116,7 +116,9 @@ ui <- shiny::fluidPage(
                            "Identify animal species" = "species"
                          )),
       
-      #shiny::textInput("output_name", "Name of cleaned output file", formals(setup_and_classify)[["output_name"]]),
+      shiny::textInput("output_name", "Name of cleaned output file"
+                       #, formals(setup_and_classify)[["output_name"]]
+      ),
       shiny::actionButton("runSetup_and_classify", "Setup MLWIC2 and classify images")
     ), # this works with option 2
     

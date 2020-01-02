@@ -124,6 +124,7 @@ setup_and_classify <- function(
                    top_n = top_n,
                    make_output=TRUE,
                    output_location = output_location,
+                   output_name = output_name,
                    shiny = shiny,
                    print_cmd = print_cmd
                    )
