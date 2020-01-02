@@ -40,7 +40,7 @@ server <- function(input, output, session) {
   
   #- run train
   shiny::observeEvent(input$runTrain, {
-    MLWIC2::train(#path_prefix = input$path_prefix,
+    train(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
       #data_info = input$data_info,

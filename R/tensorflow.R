@@ -44,7 +44,7 @@ tensorflow <- function(os="Mac"){
     }else if(os == "Windows"){
       system("pip install --upgrade pip")
       system("pip install tensorflow==1.4")
-      print("Installing tensorflow on Windows is more complicated and might not work. If you have problems see https://www.tensorflow.org/install/install_windows for tensorflow installation instructions.")
+      print("Installing tensorflow on Windows is more complicated and might not work directly from R. If you have problems see https://www.tensorflow.org/install/install_windows for tensorflow installation instructions.")
       
     }else{
       print('Specify operating system - \"Mac\", \"Windows\", or \"Ubuntu\"')

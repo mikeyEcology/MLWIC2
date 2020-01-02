@@ -45,7 +45,7 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runSetup_and_classify, {
-    MLWIC2::setup_and_classify(
+    setup_and_classify(
       path_prefix = normalizePath(dirname_path_prefix()), 
       recursive=input$recursive,
       data_info = normalizePath(filename_data_info()),
@@ -116,7 +116,7 @@ ui <- shiny::fluidPage(
                            "Identify animal species" = "species"
                          )),
       
-      shiny::textInput("output_name", "Name of cleaned output file", formals(MLWIC2::setup_and_classify)[["output_name"]]),
+      shiny::textInput("output_name", "Name of cleaned output file", formals(setup_and_classify)[["output_name"]]),
       shiny::actionButton("runSetup_and_classify", "Setup MLWIC2 and classify images")
     ), # this works with option 2
     

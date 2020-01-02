@@ -44,7 +44,7 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runSetup_and_classify, {
-    MLWIC2::setup_and_classify(
+      MLWIC2::setup_and_classify(
       path_prefix = normalizePath(dirname_path_prefix()), 
       recursive=input$recursive,
       data_info = normalizePath(filename_data_info()),

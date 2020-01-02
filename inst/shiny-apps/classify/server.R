@@ -45,7 +45,7 @@ server <- function(input, output, session) {
 
   #- run classify
   shiny::observeEvent(input$runClassify, {
-    MLWIC2::classify(#path_prefix = input$path_prefix,
+    classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
              #data_info = input$data_info,

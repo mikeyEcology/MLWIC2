@@ -43,7 +43,7 @@ ui <- shiny::fluidPage(
                            "Identify animal species" = "species"
                          )),
       
-      shiny::textInput("output_name", "Name of cleaned output file", formals(MLWIC2::setup_and_classify)[["output_name"]]),
+shiny::textInput("output_name", "Name of cleaned output file", formals(MLWIC2::setup_and_classify)[["output_name"]]),
       shiny::actionButton("runSetup_and_classify", "Setup MLWIC2 and classify images")
     ), # this works with option 2
     

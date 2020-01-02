@@ -33,7 +33,6 @@
 #'  containing animals (`empty_animal`)? 
 #' @param output_name Desired name of the output file. It must end in `.csv`
 #' @export
-
 setup_and_classify <- function(
   python_loc = "/anaconda3/bin/",
   conda_loc = "auto",

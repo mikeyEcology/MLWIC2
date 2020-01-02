@@ -40,7 +40,7 @@ server <- function(input, output, session) {
   
   #- run train
   shiny::observeEvent(input$runTrain, {
-    MLWIC2::train(#path_prefix = input$path_prefix,
+    train(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
       #data_info = input$data_info,
@@ -86,24 +86,24 @@ ui <- shiny::fluidPage(
       shiny::textOutput('model_dir'),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       shiny::textOutput('python_loc'),
-      shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(MLWIC2::train)[["num_classes"]]),
-      shiny::textInput("log_dir_train", "Directory name of trained model", formals(MLWIC2::train)[["log_dir_train"]]),
-      shiny::textInput("architecture", "CNN Architecture", formals(MLWIC2::train)[["architecture"]]),
-      shiny::textInput("depth", "CNN Depth", formals(MLWIC2::train)[["depth"]]),
-      shiny::textInput("batch_size", "Batch size", formals(MLWIC2::train)[["batch_size"]]),
+      shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(train)[["num_classes"]]),
+      shiny::textInput("log_dir_train", "Directory name of trained model", formals(train)[["log_dir_train"]]),
+      shiny::textInput("architecture", "CNN Architecture", formals(train)[["architecture"]]),
+      shiny::textInput("depth", "CNN Depth", formals(train)[["depth"]]),
+      shiny::textInput("batch_size", "Batch size", formals(train)[["batch_size"]]),
       shiny::selectInput("os", "Operating system type", choices=c(
         "MacIntosh" = "Mac",
         "Windows"= "Windows",
         "Ubuntu" = "Ubuntu"
       )),
-      shiny::textInput("num_gpus", "Number of GPUs to use", formals(MLWIC2::train)[["num_gpus"]]),
+      shiny::textInput("num_gpus", "Number of GPUs to use", formals(train)[["num_gpus"]]),
       shiny::selectInput("retrain", "Are you retraining a model?", choices=c(
         "Yes" = "TRUE",
         "No" = "FALSE"
       )),
-      shiny::textInput("retrain_from", "Name of model you are retraining from", formals(MLWIC2::train)[["retrain_from"]]),
-      shiny::textInput("num_epochs", "Number of epochs to use for training", formals(MLWIC2::train)[["num_epochs"]]),
-      shiny::textInput("max_to_keep", "Maximum number of checkpoints to save", formals(MLWIC2::train)[["max_to_keep"]]),
+      shiny::textInput("retrain_from", "Name of model you are retraining from", formals(train)[["retrain_from"]]),
+      shiny::textInput("num_epochs", "Number of epochs to use for training", formals(train)[["num_epochs"]]),
+      shiny::textInput("max_to_keep", "Maximum number of checkpoints to save", formals(train)[["max_to_keep"]]),
       shiny::selectInput("randomize", "Do you want to randomize the order of images for training", c(
         "Yes" = "TRUE",
         "No" = "FALSE"
