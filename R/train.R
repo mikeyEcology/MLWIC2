@@ -4,7 +4,7 @@
 #' that have been manually classified. We recommend having at least 500 images per species,
 #' but accuracies will be higher with > 10,000 images. This model will take a very long
 #' time to run. We recommend using a GPU if possible. In the \code{data_info} csv, you must
-#' have two columns with NO HEADERS. Column 1 must be the file name of the image. Column 2
+#' have two columns with no headers. Column 1 must be the file name of the image. Column 2
 #' must be a number corresponding to the species. Give each species (or group of species) a
 #' number identifying it. You can use the \code{make_input} function for help making this csv.
 #' The first species must be 0, the next species 1, and so on. If this is your first time using
@@ -60,7 +60,7 @@ train <- function(
   python_loc = "/anaconda2/bin/",
   os="Mac",
   num_gpus = 2,
-  num_classes = 28, # number of classes in model
+  num_classes = 59, # number of classes in model
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
