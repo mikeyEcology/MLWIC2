@@ -1,15 +1,15 @@
 #' Classify images using the trained model
 #'
-#' \code{classify} Uses the predicts the species in each image. 
+#' \code{classify} predicts the species in each image. 
 #' This function uses absolute paths, but if you are unfamilliar with this
 #' process, you can put all of your images, the image label csv ("data_info") and the trained_model folder that you
-#' downloaded following the directions at https://github.com/mikeyEcology/MLWIC into one directory on
+#' downloaded following the directions at https://github.com/mikeyEcology/MLWIC2 into one directory on
 #' your computer. Then set your working directory to this location and the function will find the
 #' absolute paths for you.
 #' If you trained a model using \code{train},
 #' this function can also be used to evalute images using the model developed by
 #' \code{train} by specifying the \code{log_dir} of the trained model. If this is your first time using
-#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
+#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2 .
 #'
 #' @param path_prefix Absolute path to location of the images on your computer (or computing cluster).
 #'  All images must be stored in one folder.
@@ -17,7 +17,8 @@
 #'  This file must have Unix linebreaks!
 #'  This file must have only two columns and NO HEADERS. The first column must be the file name of the image
 #'  The second column can be the number corresponding to the species or group in the image.
-#'  See Table 1 in Tabak et al. for the numbers (if using the built in model. If you do not know the species in the image,
+#'  You can use the \code{make_input} function to easily make this data_info file.
+#'  See speciesID.csv on the github page for the numbers (if using the built in model) of each species. If you do not know the species in the image,
 #'  put a zero in each row of column 2.
 #' @param save_predictions File name where model predictions will be stored.
 #'  You should not need to change this parameter.

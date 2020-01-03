@@ -1,8 +1,9 @@
+# shiny
 server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  #volumes =  c(home = "") 
+  #volumes =  c(home = "")
   volumes = shinyFiles::getVolumes()
   # path_prefix
   shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
@@ -44,25 +45,16 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runSetup_and_classify, {
-      MLWIC2::setup_and_classify(
-      path_prefix = normalizePath(dirname_path_prefix()), 
+    setup_and_classify(
+      path_prefix = normalizePath(dirname_path_prefix()),
       recursive=input$recursive,
-      data_info = normalizePath(filename_data_info()),
       model_dir = normalizePath(dirname_model_dir()),
       os = input$os,
       already_downloaded_model = input$already_downloaded_model,
       tensorflow_installed = input$tensorflow_installed,
       MLWIC2_already_setup = input$MLWIC2_already_setup,
-      save_predictions = input$save_predictions,
       python_loc = normalizePath(dirname_python_loc()),
-      num_classes = input$num_classes,
-      architecture = input$architecture,
-      depth = input$depth,
-      top_n = input$top_n,
-      batch_size = input$batch_size,
-      log_dir= input$log_dir,
       shiny=TRUE,
-      make_output=TRUE,
       output_name=input$output_name,
       print_cmd=FALSE
     )

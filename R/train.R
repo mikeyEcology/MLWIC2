@@ -6,11 +6,12 @@
 #' time to run. We recommend using a GPU if possible. In the \code{data_info} csv, you must
 #' have two columns with NO HEADERS. Column 1 must be the file name of the image. Column 2
 #' must be a number corresponding to the species. Give each species (or group of species) a
-#' number identifying it. The first species must be 0, the next species 1, and so on. If this is your first time using
-#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
+#' number identifying it. You can use the \code{make_input} function for help making this csv.
+#' The first species must be 0, the next species 1, and so on. If this is your first time using
+#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2 .
 #' This function uses absolute paths, but if you are unfamilliar with this
-#' process, you can put all of your images, the image label csv ("data_info") and the L1 folder that you
-#' downloaded following the directions at https://github.com/mikeyEcology/MLWIC into one directory on
+#' process, you can put all of your images, the image label csv ("data_info") and the trained_model folder that you
+#' downloaded following the directions at https://github.com/mikeyEcology/MLWIC2 into one directory on
 #' your computer. Then set your working directory to this location and the function will find the
 #' absolute paths for you.
 #'
@@ -23,7 +24,7 @@
 #' @param num_gpus The number of GPUs available. If you are using a CPU, leave this as default.
 #' @param num_classes The number of classes (species or groups of species) in your model.
 #' @param delimiter this will be a `,` for a csv.
-#' @param model_dir Absolute path to the location where you stored the L1 folder
+#' @param model_dir Absolute path to the location where you stored the trained_model folder
 #'  that you downloaded from github.
 #' @param os the operating system you are using. If you are using windows, set this to
 #'  "Windows", otherwise leave as default
