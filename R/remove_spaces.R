@@ -36,4 +36,3 @@ remove_spaces <- function(
   }
 
 }
-remove_spaces("/Users/mikeytabak/Desktop/APHIS/folder 1", ".txt", copy=TRUE)
