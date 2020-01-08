@@ -32,12 +32,12 @@ classify(
 All images must be stored in one folder.}
 
 \item{data_info}{Name of a csv containing the file names of each image (including absolute path).
-This file must have Unix linebreaks!
-This file must have only two columns and NO HEADERS. The first column must be the file name of the image
-The second column can be the number corresponding to the species or group in the image.
-You can use the \code{make_input} function to easily make this data_info file.
-See speciesID.csv on the github page for the numbers (if using the built in model) of each species. If you do not know the species in the image,
-put a zero in each row of column 2.}
+It is recommended that you use the \code{make_input} function to make this \code{data_info} file
+in the proper format. See \code{speciesID} for the numbers (if using the built in model) of each
+species. If you do not know the species in the image, put a zero in each row of column 2.
+If you choose to make this file on your own: This file must have Unix linebreaks!
+This file must have only two columns and no headers. The first column must be the file name of the image
+The second column can be the number corresponding to the species or group in the image.}
 
 \item{model_dir}{Absolute path to the location where you stored the trained folder
 that you downloaded from github.}
@@ -84,8 +84,7 @@ This function uses absolute paths, but if you are unfamilliar with this
 process, you can put all of your images, the image label csv ("data_info") and the trained_model folder that you
 downloaded following the directions at https://github.com/mikeyEcology/MLWIC2 into one directory on
 your computer. Then set your working directory to this location and the function will find the
-absolute paths for you.
-If you trained a model using \code{train},
+absolute paths for you. If you trained a model using \code{train},
 this function can also be used to evalute images using the model developed by
 \code{train} by specifying the \code{log_dir} of the trained model. If this is your first time using
 this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2 .

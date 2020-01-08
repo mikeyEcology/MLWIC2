@@ -144,13 +144,13 @@ make_input <- function(
       
       if(images_classified){
         # create a lookup table
-        group_name <- unique(inFile$class) # species <- c("aa", "bb", "cc")
-        speciesID <- seq_along(group_name)
-        tblLu <- data.frame(speciesID, group_name)
+        group_name <- unique(inFile$class) 
+        class_ID <- seq_along(group_name)
+        tblLu <- data.frame(class_ID, group_name)
         
         # make a df that contains the ID for each file
         df1 <- merge(inFile, tblLu, by.x="class", by.y="group_name")
-        df2 <- data.frame(df1$filename, df1$speciesID)
+        df2 <- data.frame(df1$filename, df1$class_ID)
       } else{
         df2 <- data.frame(inFile$filename, rep(0, nrow(inFile)))
       }

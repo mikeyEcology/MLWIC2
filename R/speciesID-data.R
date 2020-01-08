@@ -10,6 +10,6 @@
 #' @format a dataframe
 #' 
 #' @examples
-#' data(specisID)
+#' head(speciesID)
 #' 
 "speciesID"

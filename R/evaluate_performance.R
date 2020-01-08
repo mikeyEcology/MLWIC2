@@ -11,15 +11,15 @@
 #'  This will only work if you saved at least 5 guesses from the model in \code{classify} by 
 #'  specifying `top_n=5` or greater. 
 #' @param label_tbl A table with words to identify the classes in your dataset. If you are 
-#'  using the built in model, this is the speciesID.csv file on the \code{MLWIC2} github page. 
-#'  Read this csv into R so that is a dataframe to pass to this function. If you are writing your own
-#'  `label_tbl`, you need to have columns called "class_ID" and "group_name". For example, see speciesID.csv. 
+#'  using the built in model, this is the speciesID data file that was downloaded with the package.
+#'  If you are writing your own `label_tbl`, you need to have columns called "class_ID" and "group_name".
+#'  For example, see head(speciesID)
 #' @export
 evaluate_performance <- 
   function(
     model_output,
     top5 = TRUE,
-    label_tbl = NULL
+    label_tbl = speciesID
   ){
     
     # make sure the column names are correct
@@ -41,17 +41,17 @@ evaluate_performance <-
     
     # make sure label file is set up properly
     if(!is.null(label_tbl)){
-      cnames_shouldBe <- c("speciesID", "group_name")
+      cnames_shouldBe <- c("class_ID", "group_name")
       cnames_bool <- cnames_shouldBe %in% colnames(label_tbl)
       if(any(cnames_bool==FALSE)){
-        stop("Your label_tbl needs to contain columns with the names 'speciesID' and 'group_name'. \n
+        stop("Your label_tbl needs to contain columns with the names 'class_ID' and 'group_name'. \n
              Either correct your label_tbl or set label_tbl=NULL. ")
       }
     }
     
     # rename for convenience
     s1 <- model_output
-    lab <- data.frame(label_tbl$speciesID)
+    lab <- data.frame(label_tbl$class_ID)
     lab$group_name <- as.character(label_tbl$group_name)
     
     # total values
@@ -105,18 +105,18 @@ evaluate_performance <-
       }
     }
     
-    colnames(tbl_study) <- c("speciesID", "n_images", "true_positives",
+    colnames(tbl_study) <- c("class_ID", "n_images", "true_positives",
                              "prop_true_positive", "false_negatives", "false_positives",
                              "recall", "precision", "top5_prop")
     
     tbl_study <- as.data.frame(tbl_study)
-    tbl_study2 <- tbl_study[order(tbl_study$speciesID),]
+    tbl_study2 <- tbl_study[order(tbl_study$class_ID),]
     
     if(is.null(label_tbl)){
       return(tbl_study2)
     }else{
       # merge with speciesID names
-      tbl_study3 <- merge(tbl_study2, lab, by.x=c("speciesID"), by.y="class_ID")
+      tbl_study3 <- merge(tbl_study2, lab, by.x=c("class_ID"), by.y="class_ID")
       tbl_study4 <- helper <- tbl_study3[,c(1,10,2:9)]
       
       # add a row with totals

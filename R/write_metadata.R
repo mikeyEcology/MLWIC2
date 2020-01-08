@@ -3,9 +3,8 @@
 #' Uses `exiftool` to add metadata to your image files based on output from running
 #' \code{classify} on your images. You must have ExifTool installed on your machine
 #' for this function to work (https://exiftool.org/install.html). This function is designed
-#' for those users who want to be able to view their classified images in software like ...
-#' At this point you need to have a dataframe in your session called speciesID which is
-#' the csv that is available here https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv
+#' for those users who want to be able to view their classified images along with the classifications
+#' from \code{MLWIC} in software like digiKam, MediaPro, and Lighthouse. 
 #' 
 #' @param output_location The path to the output file that you created with \code{classify} or \code{make_output}
 #' @param output_name The name of the output file that you created with \code{classify} or \code{make_output}

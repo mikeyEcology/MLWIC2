@@ -4,7 +4,7 @@
 \alias{evaluate_performance}
 \title{Evaluate performance of a model in \code{MLWIC2} on your dataset}
 \usage{
-evaluate_performance(model_output, top5 = TRUE, label_tbl = NULL)
+evaluate_performance(model_output, top5 = TRUE, label_tbl = speciesID)
 }
 \arguments{
 \item{model_output}{The output of running \code{classify} after you have run 
@@ -15,9 +15,9 @@ This will only work if you saved at least 5 guesses from the model in \code{clas
 specifying `top_n=5` or greater.}
 
 \item{label_tbl}{A table with words to identify the classes in your dataset. If you are 
-using the built in model, this is the speciesID.csv file on the \code{MLWIC2} github page. 
-Read this csv into R so that is a dataframe to pass to this function. If you are writing your own
-`label_tbl`, you need to have columns called "class_ID" and "group_name". For example, see speciesID.csv.}
+using the built in model, this is the speciesID data file that was downloaded with the package.
+If you are writing your own `label_tbl`, you need to have columns called "class_ID" and "group_name".
+For example, see head(speciesID)}
 }
 \description{
 \code{evaluate_performance} calculates some basic summary statistics of model 

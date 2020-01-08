@@ -13,7 +13,7 @@ This data is the `class_ID` identifier for each species or group of species
 in the \code{MLWIC2} trained model.
 }
 \examples{
-data(specisID)
+head(speciesID)
 
 }
 \keyword{datasets}
