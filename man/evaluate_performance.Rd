@@ -20,7 +20,7 @@ Read this csv into R so that is a dataframe to pass to this function. If you are
 `label_tbl`, you need to have columns called "class_ID" and "group_name". For example, see speciesID.csv.}
 }
 \description{
-\code{evaluate_performance} calculate some basic summary statistics of model 
+\code{evaluate_performance} calculates some basic summary statistics of model 
 performance using \code{classify}. After running \code{classify}, you will need
 to run \code{make_output} and have this output as your data frame to put into
 this function.

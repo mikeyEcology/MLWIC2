@@ -4,7 +4,7 @@
 \alias{remove_spaces}
 \title{Remove spaces from all files within a directory}
 \usage{
-remove_spaces(path = getwd(), pattern = c(".JPG", ".jpg"))
+remove_spaces(path = getwd(), pattern = c(".JPG", ".jpg"), copy = FALSE)
 }
 \arguments{
 \item{path}{The path to the image files whose names need to be changed. The default
@@ -12,6 +12,10 @@ is to use your current working directory.}
 
 \item{pattern}{A vector containing the file name suffixes for which you want to
 change the name.}
+
+\item{copy}{logical. If TRUE, the function will create new files with spaces absent from 
+the name. If FALSE, the function will delete the orginial files and create new files without spaces in names.
+If FALSE, you are deleting your original files, but saving storage space on your drive.}
 }
 \description{
 \code{remove_spaces} removes paces from file names, which is required to 

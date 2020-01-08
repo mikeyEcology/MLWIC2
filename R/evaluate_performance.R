@@ -1,6 +1,6 @@
 #' Evaluate performance of a model in \code{MLWIC2} on your dataset
 #'
-#' \code{evaluate_performance} calculate some basic summary statistics of model 
+#' \code{evaluate_performance} calculates some basic summary statistics of model 
 #' performance using \code{classify}. After running \code{classify}, you will need
 #' to run \code{make_output} and have this output as your data frame to put into
 #' this function.

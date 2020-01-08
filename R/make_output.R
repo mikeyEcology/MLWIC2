@@ -21,7 +21,7 @@
 make_output <- function(
   output_location, #=getwd(),
   model_dir, #=getwd(),
-  output_name = "output.csv",
+  output_name = "MLWIC2_output.csv",
   saved_predictions = "model_predictions.txt",
   return_df = FALSE,
   top_n = "5",

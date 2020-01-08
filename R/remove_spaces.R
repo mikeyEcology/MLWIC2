@@ -15,7 +15,7 @@
 remove_spaces <- function(
   path = getwd(),
   pattern = c(".JPG", ".jpg"),
-  copy=TRUE
+  copy=FALSE
 ){
   filist <- setdiff(list.files(path=path, pattern=paste0(pattern1, collapse="|")),
                     list.dirs(path=path, recursive = FALSE, full.names = FALSE))

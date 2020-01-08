@@ -7,7 +7,7 @@
 make_output(
   output_location,
   model_dir,
-  output_name = "output.csv",
+  output_name = "MLWIC2_output.csv",
   saved_predictions = "model_predictions.txt",
   return_df = FALSE,
   top_n = "5",
