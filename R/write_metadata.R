@@ -55,8 +55,6 @@ write_metadata <- function(
  close(fileConn)
  
  # read in output file created by MLWIC2
- output_location="/Users/mikeytabak/Desktop/MLWIC_package/MLWIC_examples"
- output_name="output.csv"
  output <- read.csv(paste0(output_location, "/", output_name))
  filenames <- gsub("b'", "", output$fileName) # remove quotes and b' from filenames
  filenames2 <- gsub("'", "", filenames)
