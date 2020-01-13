@@ -113,8 +113,3 @@ ui <- shiny::fluidPage(
 # function that uses these
 shiny::shinyApp(ui, server)
 
-# put in these vlues
-#path prefix: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/images
-#image label location: /Users/mikeytabak/Desktop/APHIS/mtMoran_projects/MLWIC_dir/MLWIC_package/MLWIC_examples/MLWIC_examples/image_labels.csv
-#model directory: /Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/fitted_model/
-#python: /anaconda3/bin/

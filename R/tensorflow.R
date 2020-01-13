@@ -1,6 +1,6 @@
-#' Install TensorFlow for use with \code{MLWIC}
+#' Install TensorFlow for use with \code{MLWIC2}
 #'
-#' \code{MLWIC} requires an installation of tensorflow that can be used by Python.
+#' \code{MLWIC2} requires an installation of tensorflow that can be used by Python.
 #'  You need to use this before using \code{classify} or \code{train}. If this is your first time using
 #'  this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
 #'  This function will install tensorflow on Linux machines; if you are using Windows,
@@ -20,10 +20,10 @@ tensorflow <- function(os="Mac"){
   vpython <- system("pyv=\"$(python -V 2>&1)\" | echo $pyv | grep \"Python\"") ## come back to this
   
   if(vpython == TRUE){
-    print("Python is installed. Installing homebrew, protobuf, pip, and tensorflow.")
+    print("Python is installed. Installing homebrew, protobuf, pip, and tensorflow.\n")
     
     if(os == "Mac"){
-      
+      print("Installing some software. You might need to enter your password to allow install.\n")
       system("/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"")
       system("brew install protobuf")
       system("sudo easy_install --upgrade pip")
@@ -36,6 +36,7 @@ tensorflow <- function(os="Mac"){
       # I think I need to add: conda install tensorflow
       
     }else if(os == "Ubuntu"){
+      print("Installing some software. You might need to enter your password to allow install.\n")
       system("sudo apt-get install python-pip python-dev")   # for Python 2.7
       system("pip install tensorflow==1.4")
       
