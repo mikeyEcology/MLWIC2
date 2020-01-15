@@ -2,7 +2,7 @@
 % Please edit documentation in R/tensorflow.R
 \name{tensorflow}
 \alias{tensorflow}
-\title{Install TensorFlow for use with \code{MLWIC}}
+\title{Install TensorFlow for use with \code{MLWIC2}}
 \usage{
 tensorflow(os = "Mac")
 }
@@ -12,7 +12,7 @@ Specifying "Windows" will thrown an error because we cannot automatically instal
 TensorFlow on Windows at this time.}
 }
 \description{
-\code{MLWIC} requires an installation of tensorflow that can be used by Python.
+\code{MLWIC2} requires an installation of tensorflow that can be used by Python.
  You need to use this before using \code{classify} or \code{train}. If this is your first time using
  this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
  This function will install tensorflow on Linux machines; if you are using Windows,

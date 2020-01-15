@@ -6,15 +6,12 @@ ui <- shiny::fluidPage(
   
   # Sidebar layout with input and output definitions ----
   shiny::sidebarLayout(
-
+    
     shiny::sidebarPanel(
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       shiny::textOutput('path_prefix'),
-      #textInput("path_prefix", "Path Prefix"),
-      #textInput("data_info", "Image Label Location"),
       shinyFiles::shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
       shiny::textOutput("data_info"),
-      #textInput("model_dir", "Model Directory"),
       shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="Select the location where you stored the 'trained_model' folder"),
       shiny::textOutput('model_dir'),
       #textInput("python_loc", "Location of Python on your computer"),
@@ -30,11 +27,16 @@ ui <- shiny::fluidPage(
       shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
       shiny::actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
-  
+    
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-
+      shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny"),
+      shiny::textOutput("path_prefix_print"),
+      shiny::textOutput("data_info_print"),
+      shiny::textOutput("model_dir_print"),
+      shiny::textOutput("python_loc_print")
     )
   )
 )
+
