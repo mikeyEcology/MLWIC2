@@ -56,7 +56,7 @@ train <- function(
   # set up some parameters for function
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
   data_info = paste0(getwd(), "/image_labels.csv"), # csv with file names for each photo. See details
-  model_dir = getwd(),
+  model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
   python_loc = "/anaconda2/bin/",
   os="Mac",
   num_gpus = 2,
@@ -65,10 +65,10 @@ train <- function(
   architecture = "resnet",
   depth = "18",
   batch_size = 128,
-  log_dir = "trained_model",
+  log_dir = "species_model",
   log_dir_train = "train_output",
   retrain = TRUE,
-  retrain_from = "USDA182",
+  retrain_from = "species_model",
   num_epochs = 55,
   randomize = TRUE, 
   max_to_keep = 5,
@@ -85,9 +85,9 @@ train <- function(
   
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    wd <- (paste0(model_dir, log_dir))
+    wd <- model_dir #(paste0(model_dir, log_dir))
   } else {
-    wd <- (paste0(model_dir, "/", log_dir))
+    wd <- model_dir #(paste0(model_dir, "/", log_dir))
   }
   if(shiny==FALSE){
     setwd(wd)

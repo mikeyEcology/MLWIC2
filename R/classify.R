@@ -50,7 +50,7 @@
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
   data_info = paste0(getwd(), "/image_labels.csv"), # csv with file names for each photo. See details
-  model_dir = getwd(),
+  model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
   save_predictions = "model_predictions.txt", # txt file where you want model output to go
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
@@ -62,7 +62,7 @@ classify <- function(
   num_threads = 1,
   batch_size = 128,
   num_gpus = 2,
-  log_dir = "trained_model",
+  log_dir = "species_model",
   make_output=TRUE,
   output_location=getwd(),
   output_name = "MLWIC2_output.csv",
@@ -89,9 +89,9 @@ classify <- function(
   
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    wd <- (paste0(model_dir, log_dir))
+    wd <- model_dir #(paste0(model_dir, log_dir))
   } else {
-    wd <- (paste0(model_dir, "/", log_dir))
+    wd <- model_dir #(paste0(model_dir, "/", log_dir))
   }
   if(shiny==FALSE){
     setwd(wd)

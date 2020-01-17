@@ -1,0 +1,1 @@
+class_ID,n_images,true_positives,prop_true_positive,false_negatives,false_positives,recall,precision,top5_prop0,51992,48777,0.9381636,3215,3004,0.9381636,0.9102882,NA1,52659,49655,0.9429537,3004,3215,0.9429537,0.9391905,NA

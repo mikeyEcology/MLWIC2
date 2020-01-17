@@ -64,19 +64,20 @@ setup_and_classify <- function(
   
   ## setup some variables for the different model types
   # these will be automatically passed to the classify function 
-  if(model_type=="species"){
-    url <- "https://drive.google.com/open?id=1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx.zip" # location of species model
+  if(model_type=="species" | model_type="species_model"){
     num_classes <- 59
-    log_dir <- "trained_model"
+    log_dir <- "species_model"
     top_n <- 5
   }
   if(model_type == "empty_animal"){
     # add this URL when uploaded 
-    url <- " " # location of empty_animal model
+    #url <- " " # location of empty_animal model
     num_classes <- 2
     log_dir <- "empty_animal"
     top_n <- 2
   }
+  url <- "https://drive.google.com/drive/folders/1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx?usp=sharing.zip" # location of species model
+  
   
   ## 2) download the trained model and store it where the images are if this has not been done
   # already
