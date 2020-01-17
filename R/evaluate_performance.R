@@ -49,12 +49,12 @@ evaluate_performance <-
         stop("Your label_tbl needs to contain columns with the names 'class_ID' and 'group_name'. \n
              Either correct your label_tbl or set label_tbl=NULL. ")
       }
+      lab <- data.frame(label_tbl$class_ID)
+      lab$group_name <- as.character(label_tbl$group_name)
     }
     
     # rename for convenience
     s1 <- model_output
-    lab <- data.frame(label_tbl$class_ID)
-    lab$group_name <- as.character(label_tbl$group_name)
     
     # total values
     ATP <- sum(s1$answer==s1$guess1)
