@@ -22,6 +22,8 @@ evaluate_performance <-
     label_tbl = speciesID
   ){
     
+    model_output <- read.csv(model_output)
+    
     # make sure the column names are correct
     cnames <- colnames(model_output)
     cnames_shouldBe <- c("answer", "guess1")
