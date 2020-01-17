@@ -81,17 +81,17 @@ classify <- function(
 
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
-  #   setwd(paste0(model_dir, "trained_model"))
+  #   setwd(paste0(model_dir, "log_dir"))
   # } else {
-  #   setwd(paste0(model_dir, "/trained_model"))
+  #   setwd(paste0(model_dir, "/log_dir"))
   # }
   # wd <- getwd()
   
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    wd <- (paste0(model_dir, "trained_model"))
+    wd <- (paste0(model_dir, log_dir))
   } else {
-    wd <- (paste0(model_dir, "/trained_model"))
+    wd <- (paste0(model_dir, "/", log_dir))
   }
   if(shiny==FALSE){
     setwd(wd)
@@ -196,7 +196,7 @@ classify <- function(
   # end function
   if(make_output==FALSE){
     txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
-                  "The results are stored in ", model_dir, "/trained_model/", save_predictions, ". ", "\n",
+                  "The results are stored in ", model_dir, log_dir, save_predictions, ". ", "\n",
                   "To view the results in a viewer-friendly format, please use the function make_output", "\n")
     if(print_cmd == FALSE){
       cat(txt)

@@ -65,6 +65,7 @@ train <- function(
   architecture = "resnet",
   depth = "18",
   batch_size = 128,
+  log_dir = "trained_model",
   log_dir_train = "train_output",
   retrain = TRUE,
   retrain_from = "USDA182",
@@ -84,9 +85,9 @@ train <- function(
   
   # navigate to directory with trained model
   if(endsWith(model_dir, "/")){
-    wd <- (paste0(model_dir, "trained_model"))
+    wd <- (paste0(model_dir, log_dir))
   } else {
-    wd <- (paste0(model_dir, "/trained_model"))
+    wd <- (paste0(model_dir, "/", log_dir))
   }
   if(shiny==FALSE){
     setwd(wd)

@@ -16,6 +16,7 @@ train(
   architecture = "resnet",
   depth = "18",
   batch_size = 128,
+  log_dir = "trained_model",
   log_dir_train = "train_output",
   retrain = TRUE,
   retrain_from = "USDA182",
