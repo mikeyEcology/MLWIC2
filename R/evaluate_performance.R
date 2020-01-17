@@ -118,6 +118,7 @@ evaluate_performance <-
       return(tbl_study2)
     }else{
       # merge with speciesID names
+      colnames(lab) <- c("class_ID", "group_name")
       tbl_study3 <- merge(tbl_study2, lab, by.x=c("class_ID"), by.y="class_ID")
       tbl_study4 <- helper <- tbl_study3[,c(1,10,2:9)]
       

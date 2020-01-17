@@ -29,10 +29,11 @@
 #' @param num_classes The number of classes in your model. If you are using
 #'  the built in model, the number is `59`.
 #' @param delimiter this will be a `,` for a csv.
-#' @param log_dir If you trained a model with \code{train}, this
+#' @param log_dir If you are IDing species, this should be "species_model". If you are
+#'  determining if images contain animals or if they are empty, this should be "empty_animal".
+#'  If you trained a model with \code{train}, this
 #'  will be the log_directory that you specified when using that function.
-#'  If you are using the built in model, the default is appropriate.
-#'  @param architecture the architecture of the deep neural network (DNN). Resnet-18 is the default.
+#' @param architecture the architecture of the deep neural network (DNN). Resnet-18 is the default.
 #'  Options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg").
 #'  If you are using the trained model that comes with MLWIC, use resnet 18 (the default).
 #'  If you trained a model using a different architechture, you need to specify this same architechture and depth
@@ -51,6 +52,7 @@ classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
   data_info = paste0(getwd(), "/image_labels.csv"), # csv with file names for each photo. See details
   model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
+  log_dir = "species_model",
   save_predictions = "model_predictions.txt", # txt file where you want model output to go
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
@@ -62,7 +64,6 @@ classify <- function(
   num_threads = 1,
   batch_size = 128,
   num_gpus = 2,
-  log_dir = "species_model",
   make_output=TRUE,
   output_location=getwd(),
   output_name = "MLWIC2_output.csv",

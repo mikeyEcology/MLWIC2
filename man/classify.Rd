@@ -7,7 +7,8 @@
 classify(
   path_prefix = paste0(getwd(), "/images"),
   data_info = paste0(getwd(), "/image_labels.csv"),
-  model_dir = getwd(),
+  model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
+  log_dir = "species_model",
   save_predictions = "model_predictions.txt",
   python_loc = "/anaconda3/bin/",
   os = "Mac",
@@ -19,7 +20,6 @@ classify(
   num_threads = 1,
   batch_size = 128,
   num_gpus = 2,
-  log_dir = "trained_model",
   make_output = TRUE,
   output_location = getwd(),
   output_name = "MLWIC2_output.csv",
@@ -42,6 +42,11 @@ The second column can be the number corresponding to the species or group in the
 \item{model_dir}{Absolute path to the location where you stored the trained folder
 that you downloaded from github.}
 
+\item{log_dir}{If you are IDing species, this should be "species_model". If you are
+determining if images contain animals or if they are empty, this should be "empty_animal".
+If you trained a model with \code{train}, this
+will be the log_directory that you specified when using that function.}
+
 \item{save_predictions}{File name where model predictions will be stored.
 You should not need to change this parameter.
 After running this function, you will run \code{make_output} to
@@ -57,6 +62,12 @@ the built in model, the number is `59`.}
 
 \item{delimiter}{this will be a `,` for a csv.}
 
+\item{architecture}{the architecture of the deep neural network (DNN). Resnet-18 is the default.
+Options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg").
+If you are using the trained model that comes with MLWIC, use resnet 18 (the default).
+If you trained a model using a different architechture, you need to specify this same architechture and depth
+that you used for training.}
+
 \item{depth}{the number of layers in the DNN. If you are using the built in model, do not adjust this parameter.
 If you are using a model that you trained, use the same architecture and depth as that model.}
 
@@ -64,15 +75,6 @@ If you are using a model that you trained, use the same architecture and depth a
 see the confidence for?). This number must be less than or equal to `num_classes`.}
 
 \item{batch_size}{The number of images for the model to evaluate in each batch. Larger numbers will run faster}
-
-\item{log_dir}{If you trained a model with \code{train}, this
-will be the log_directory that you specified when using that function.
-If you are using the built in model, the default is appropriate.
-@param architecture the architecture of the deep neural network (DNN). Resnet-18 is the default.
-Options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg").
-If you are using the trained model that comes with MLWIC, use resnet 18 (the default).
-If you trained a model using a different architechture, you need to specify this same architechture and depth
-that you used for training.}
 
 \item{make_output}{logical. Do you want the package to create a nice output file with column headers}
 
