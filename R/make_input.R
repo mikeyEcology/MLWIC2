@@ -39,7 +39,7 @@
 #' @export
 
 make_input <- function(
-  input_file = paste0(getwd(), "input_file.csv"),
+  input_file = NULL,
   find_file_names = FALSE,
   path_prefix = getwd(),
   image_file_suffixes = c(".jpg", ".JPG"),
@@ -111,7 +111,7 @@ make_input <- function(
       cnames <- colnames(inFile)
       cnames_bool <- "filename" %in% cnames
       if(!cnames_bool){
-        stop("Your inFile does not contain a column called 'filename'")
+        stop("Your input_file does not contain a column called 'filename'")
       } 
       df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
       

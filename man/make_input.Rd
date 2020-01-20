@@ -5,7 +5,7 @@
 \title{Create an input file to run \code{classify} or \code{train} in \code{MLWIC}}
 \usage{
 make_input(
-  input_file = paste0(getwd(), "input_file.csv"),
+  input_file = NULL,
   find_file_names = FALSE,
   path_prefix = getwd(),
   image_file_suffixes = c(".jpg", ".JPG"),
