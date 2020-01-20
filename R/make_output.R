@@ -36,16 +36,17 @@ make_output <- function(
   
   #- read in text file of model output
   # navigate to directory with trained model
-  if(shiny){ # shiny can't handle using endsWith function
-    wd2 <- (paste0(model_dir, "/", log_dir))
-  }else{
-    if(endsWith(model_dir, "/")){
-      wd2 <- (paste0(model_dir, log_dir))
-    } else { 
-      wd2 <- (paste0(model_dir, "/", log_dir))
-    }
-  }
-
+  # if(shiny){ # shiny can't handle using endsWith function
+  #   wd2 <- (paste0(model_dir, "/", log_dir))
+  # }else{
+  #   if(endsWith(model_dir, "/")){
+  #     wd2 <- (paste0(model_dir, log_dir))
+  #   } else { 
+  #     wd2 <- (paste0(model_dir, "/", log_dir))
+  #   }
+  # }
+  wd2 <- model_dir
+  
   # if(shiny){
   #   utils::read.csv(paste0(wd2, "/", saved_predictions), header=FALSE)
   # }else{
