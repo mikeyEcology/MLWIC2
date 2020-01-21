@@ -7,7 +7,7 @@
 classify(
   path_prefix = paste0(getwd(), "/images"),
   data_info = paste0(getwd(), "/image_labels.csv"),
-  model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
+  model_dir = paste0(getwd(), "/MLWIC2_helper_files/"),
   log_dir = "species_model",
   save_predictions = "model_predictions.txt",
   python_loc = "/anaconda3/bin/",
@@ -23,6 +23,7 @@ classify(
   make_output = TRUE,
   output_location = getwd(),
   output_name = "MLWIC2_output.csv",
+  test_tensorflow = TRUE,
   shiny = FALSE,
   print_cmd = FALSE
 )
@@ -79,6 +80,10 @@ see the confidence for?). This number must be less than or equal to `num_classes
 \item{make_output}{logical. Do you want the package to create a nice output file with column headers}
 
 \item{output_name}{Desired name of the output file. It must end in `.csv`}
+
+\item{test_tensorflow}{logical. Do you want to test your installation of tensorflow before running 
+\code{classify}? You want to do this the first time you run this function and any time you have made
+software changes on your computer, but on subsequent runs you can set this to FALSE.}
 }
 \description{
 \code{classify} predicts the species in each image. 

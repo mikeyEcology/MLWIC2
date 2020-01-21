@@ -7,7 +7,6 @@
 make_output(
   output_location,
   model_dir,
-  log_dir = "trained_model",
   output_name = "MLWIC2_output.csv",
   saved_predictions = "model_predictions.txt",
   return_df = FALSE,
@@ -19,8 +18,7 @@ make_output(
 \item{output_location}{Absolute path where you want the output csv stored. This path
 must exist on your computer.}
 
-\item{model_dir}{Absolute path to the location where you stored the L1 folder
-that you downloaded from github.}
+\item{model_dir}{Absolute path to the location where you stored the `MLWIC2_helper_files`}
 
 \item{output_name}{Desired name of the output file. It must end in `.csv`}
 

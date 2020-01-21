@@ -47,6 +47,9 @@
 #' @param batch_size The number of images for the model to evaluate in each batch. Larger numbers will run faster
 #' @param make_output logical. Do you want the package to create a nice output file with column headers
 #' @param output_name Desired name of the output file. It must end in `.csv`
+#' @param test_tensorflow logical. Do you want to test your installation of tensorflow before running 
+#'  \code{classify}? You want to do this the first time you run this function and any time you have made
+#'  software changes on your computer, but on subsequent runs you can set this to FALSE. 
 #' @export
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
@@ -67,6 +70,7 @@ classify <- function(
   make_output=TRUE,
   output_location=getwd(),
   output_name = "MLWIC2_output.csv",
+  test_tensorflow = TRUE,
   shiny=FALSE,
   print_cmd = FALSE
   
@@ -102,22 +106,25 @@ classify <- function(
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
 
   # test if tensorflow is installed
-  if(print_cmd == FALSE){
-    sink("MLWIC2_test_tf.py")
-    cat("import tensorflow as tf")
-    cat("\n")
-    cat("print('Tensorflow is installed')")
-    sink()
-    test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
-    test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
-    if(test_result == 'Tensorflow is installed'){
-      cat(paste0("Tensorflow and Python are properly installed.", "\n",
-                "Now proceeding to run classify.", "\n"))
-    }else{
-      stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
-                      "Please see https://www.tensorflow.org/install for help.", "\n")))
+  if(test_tensorflow){
+    if(print_cmd == FALSE ){
+      sink("MLWIC2_test_tf.py")
+      cat("import tensorflow as tf")
+      cat("\n")
+      cat("print('Tensorflow is installed')")
+      sink()
+      test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
+      test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
+      if(test_result == 'Tensorflow is installed'){
+        cat(paste0("Tensorflow and Python are properly installed.", "\n",
+                   "Now proceeding to run classify.", "\n"))
+      }else{
+        stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
+                        "Please see https://www.tensorflow.org/install for help.", "\n")))
+      }
     }
   }
+
 
   
   

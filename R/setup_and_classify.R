@@ -76,7 +76,7 @@ setup_and_classify <- function(
     log_dir <- "empty_animal"
     top_n <- 2
   }
-  url <- "https://drive.google.com/open?id=1kunyVXDXh6H1D1Kb7njmmgyc7pj9Zj0i.zip" # location of species model
+  url <- "https://drive.google.com/file/d/18lq__3ZAjzY0bpkXN3c6TQv78WMkP--c/view?usp=sharing" # location of species model
   
   
   ## 2) download the trained model and store it where the images are if this has not been done
