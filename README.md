@@ -1,6 +1,7 @@
 MLWIC2: Machine Learning for Wildlife Image Classification
 
-<b>This package is in the development stage.</b> It is an improvement from the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. Many aspects will run the same as MLWIC, but the trained model is now located [here](https://drive.google.com/open?id=1YGnHaVze7zBs_cRtgiFAgaBP_kz6xZPx); you'll need to download the whole folder. While there is not yet the extensive documentation here as in the MLWIC readme, there is a lot of information in the help files which can be accessed by typing, for example, `?classify`.
+<b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package, except that it contains two models: the `species_model` identifies 58 species and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using the `runShiny` function (for example `runShiny('classify')`). Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
+
 
 <b>Step 1: In R, install the `MLWIC` package</b>
 ```
@@ -11,13 +12,13 @@ devtools::install_github("mikeyEcology/MLWIC2")
 library(MLWIC2)
 ```
 
-<i> You only need to run steps 2-4 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip steps 2 and 4</i>
+You only need to run steps 2-4 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip steps 2 and 4
 
-<i> Shiny option: MLWIC::runShiny('setup_and_classify')</i>\
+<i> Shiny option for running steps 2-4: MLWIC::runShiny('setup_and_classify')</i>\
 <b>Step 2: Install TensorFlow (version 1.14) on your computer.</b>\
 The function `tensorflow` will do this on Macintosh and Ubuntu machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can try doing this independently by following the directions [here](https://www.tensorflow.org/install/). 
 
-<b>Step 3: Download the MLWIC2_helper_files folder from this [link][link expected 21/1/20].</b> Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. 
+<b>Step 3: Download the MLWIC2_helper_files folder from this [link](https://drive.google.com/file/d/1kunyVXDXh6H1D1Kb7njmmgyc7pj9Zj0i/view?usp=sharing).</b> Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. If you want to check md5sums for this file, the value should be `ccc9457b8de28d01b7da3fb8b9024e25`. If you don't understand, ignore. 
 
 <b>Step 4: Setup your environment for using `MLWIC`</b>\
 <i> Shiny option: MLWIC2::runShiny('setup') </i>\
@@ -42,14 +43,7 @@ Run the function `setup`.\
  `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=59`; if you're using the empty_animal model`num_classes=2`. If you trained your own model, this is the number that you specified.\
  `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).\
  See `?classify` for more options. \
- If you are having trouble finding your absolute paths, you can use the shiny option `MLWIC2::runShiny('classify')` and select your files/directories from a drop down menu. Your paths will be printed on the screen so that next time you can run directly in the R console if you prefer. \
- 
-
-`MLWIC2` includes Shiny apps for running functions. For example, you can run classify with:
-```
-MLWIC2::runShiny('classify')
-```
-Note that when you are using Shiny apps to select directories, you can only navigate using the top part half of the screen. 
+ If you are having trouble finding your absolute paths, you can use the shiny option `MLWIC2::runShiny('classify')` and select your files/directories from a drop down menu. Your paths will be printed on the screen so that next time you can run directly in the R console if you prefer. 
 
 
 
