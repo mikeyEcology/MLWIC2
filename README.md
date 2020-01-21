@@ -1,6 +1,6 @@
 # MLWIC2: Machine Learning for Wildlife Image Classification
 
-<b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. MLWIC2 contains two models: the `species_model` identifies 58 species and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
+<b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. MLWIC2 contains two models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
 
 
 ## <b>Step 1: Install the `MLWIC` package in R</b>
@@ -15,14 +15,14 @@ library(MLWIC2)
 You only need to run steps 2-4 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip steps 2 and 4
 
 ## <b>Step 2: Install TensorFlow (version 1.14) on your computer.</b>
-###### <i> Shiny option for running steps 2-4: MLWIC::runShiny('setup_and_classify')</i>
+###### <i> Shiny option for running steps 2-4: `MLWIC::runShiny('setup_and_classify')`</i>
 The function `tensorflow` will do this on Macintosh and Ubuntu machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can try doing this independently by following the directions [here](https://www.tensorflow.org/install/). 
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1kunyVXDXh6H1D1Kb7njmmgyc7pj9Zj0i/view?usp=sharing).</b> 
 Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. If you want to check md5sums for this file, the value should be `ccc9457b8de28d01b7da3fb8b9024e25`. If you don't understand, ignore. 
 
 ## <b>Step 4: Setup your environment for using `MLWIC` using the function `setup`</b>
-###### <i> Shiny option: MLWIC2::runShiny('setup') </i>
+###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
 - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. 
 - If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. \
 - This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
@@ -36,7 +36,7 @@ Unzip the folder and then store this folder in a location that makes sense on yo
  - Option 4: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files, see `?make_input` for more details. 
  
 ## Step 6: Classify images using `classify`
-###### <i> Shiny option: MLWIC2::runShiny('classify') </i>
+###### <i> Shiny option: `MLWIC2::runShiny('classify')` </i>
  - `path_prefix` is the absolute path where your images are stored. 
  - `data_info` is the absolute path to where your input file is stored. Check your output from `make_input`. 
  - `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
