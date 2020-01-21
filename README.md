@@ -3,7 +3,7 @@
 <b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. MLWIC2 contains two models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
 
 
-## <b>Step 1: Install the `MLWIC` package in R</b>
+## <b>Step 1: Install the `MLWIC2` package in R</b>
 ```
 # install devtools if you don't have it
 if (!require('devtools')) install.packages('devtools')
@@ -19,7 +19,7 @@ You only need to run steps 2-4 the first time you use this package on a computer
 The function `tensorflow` will do this on Macintosh and Ubuntu machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can try doing this independently by following the directions [here](https://www.tensorflow.org/install/). 
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/18lq__3ZAjzY0bpkXN3c6TQv78WMkP--c/view?usp=sharing).</b> 
-Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. If you want to check md5sums for this file, the value should be `403c3b46ae17b6d1fa1fe687b0f1c4d3`. If you don't understand, ignore. 
+Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `403c3b46ae17b6d1fa1fe687b0f1c4d3`. 
 
 ## <b>Step 4: Setup your environment for using `MLWIC` using the function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
