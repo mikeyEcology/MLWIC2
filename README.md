@@ -14,16 +14,15 @@ library(MLWIC2)
 
 You only need to run steps 2-4 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip steps 2 and 4
 
-###### <i> Shiny option for running steps 2-4: MLWIC::runShiny('setup_and_classify')</i>
 ## <b>Step 2: Install TensorFlow (version 1.14) on your computer.</b>
+###### <i> Shiny option for running steps 2-4: MLWIC::runShiny('setup_and_classify')</i>
 The function `tensorflow` will do this on Macintosh and Ubuntu machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can try doing this independently by following the directions [here](https://www.tensorflow.org/install/). 
 
-## <b>Step 3: Download the MLWIC2_helper_files folder from this [link](https://drive.google.com/file/d/1kunyVXDXh6H1D1Kb7njmmgyc7pj9Zj0i/view?usp=sharing).</b> 
+## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1kunyVXDXh6H1D1Kb7njmmgyc7pj9Zj0i/view?usp=sharing).</b> 
 Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. If you want to check md5sums for this file, the value should be `ccc9457b8de28d01b7da3fb8b9024e25`. If you don't understand, ignore. 
 
-## <b>Step 4: Setup your environment for using `MLWIC`</b>
+## <b>Step 4: Setup your environment for using `MLWIC` using the function `setup`</b>
 ###### <i> Shiny option: MLWIC2::runShiny('setup') </i>
-Run the function `setup`.\
 - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. 
 - If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. \
 - This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
@@ -31,10 +30,10 @@ Run the function `setup`.\
 ###### Before running models on your own data, I recommend you try running using the [example  provided](https://github.com/mikeyEcology/MLWIC_examples/tree/master). 
 
 ## <b> Step 5: Create a properly formatted input file using `make_input`</b>
- - Option 1: If you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv in your `directory` that has two columns with the column headers "class" and "filename". If you are using the species model the numbers in "class" should match up with the numbers [here](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv). You can have as many other columns as you want in this file. You will also need to specify `images_classified=TRUE` 
- - Option 2: If you do not have your images classified, but you have all of the filenames for your images, you can have an `input_file` csv in your `directory` with a column called "filename" and whatever other columns you would like. 
- - Option 3: MLWIC2 can find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images. If you have images stored in sub-folders within this directory, specify `recursive=TRUE`, if not, you can specify `recursive=FALSE`. You also need to specify the suffixes (e.g., ".jpg") for your filenames so that MLWIC2 knows what types of files to look for. By default (if you don't specify anything), it will look for ".JPG" and ".jpg". 
- - Option 4: If you are planning to train a model, you will need training and testing sets of images. This function will set up these files, see `?make_input` for more details. 
+ - Option 1: If you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv in your `directory` that has two columns with the column headers "class" and "filename". If you are using the `species_model` the numbers in "class" should match up with the numbers [here](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv). You can have as many other columns as you want in this file. You will also need to specify `images_classified=TRUE` 
+ - Option 2: If you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv in your `directory` with a column called "filename" and whatever other columns you would like. 
+ - Option 3: MLWIC2 can find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images. If you have images stored in sub-folders within this directory, specify `recursive=TRUE`, if not, you can specify `recursive=FALSE`. You also need to specify the `suffixes` (e.g., ".jpg") for your filenames so that MLWIC2 knows what types of files to look for. By default (if you don't specify anything), it will look for ".JPG" and ".jpg". 
+ - Option 4: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files, see `?make_input` for more details. 
  
 ## Step 6: Classify images using `classify`
 ###### <i> Shiny option: MLWIC2::runShiny('classify') </i>
