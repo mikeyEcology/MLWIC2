@@ -51,7 +51,7 @@
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer
   data_info = paste0(getwd(), "/image_labels.csv"), # csv with file names for each photo. See details
-  model_dir = paste0(getwd(), "/MLWIC2_helper_files"),
+  model_dir = paste0(getwd(), "/MLWIC2_helper_files/"),
   log_dir = "species_model",
   save_predictions = "model_predictions.txt", # txt file where you want model output to go
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
@@ -175,7 +175,8 @@ classify <- function(
                     " --save_predictions ", save_predictions,
                     " --top_n ", top_n,
                     " --num_gpus ", num_gpus,
-                    " --num_classes ", num_classes, "\n")
+                    #" --num_classes ", num_classes, 
+                    "\n")
   
   # run code
   toc <- Sys.time()
@@ -197,7 +198,7 @@ classify <- function(
   # end function
   if(make_output==FALSE){
     txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
-                  "The results are stored in ", model_dir, log_dir, save_predictions, ". ", "\n",
+                  "The results are stored in ", model_dir, "/", save_predictions, ". ", "\n",
                   "To view the results in a viewer-friendly format, please use the function make_output", "\n")
     if(print_cmd == FALSE){
       cat(txt)
