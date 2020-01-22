@@ -4,9 +4,10 @@ Title: Machine Learning for Wildlife Image Classification
 Version: 0.1
 Author: Mikey Tabak
 Maintainer: Mikey Tabak <tabakma@gmail.com>
-Description: This package evaluates images from 59 animal species using the built in model
-    in the function classify. It also allows users to train their own machine 
-    learning model to classify wildlife using the train.
+Description: This package evaluates images from 59 animal species using the species model
+    in the function classify. Users can also use classify to determine if images contain 
+    animals using the empty_animal model. MLWIC2 also allows users to train their own     
+    machine learning model to classify wildlife using the train.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
