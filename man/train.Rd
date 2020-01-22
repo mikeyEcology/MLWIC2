@@ -17,7 +17,7 @@ train(
   depth = "18",
   batch_size = 128,
   log_dir = "species_model",
-  log_dir_train = "train_output",
+  log_dir_train = "MLWIC2_train_output",
   retrain = TRUE,
   retrain_from = "species_model",
   num_epochs = 55,

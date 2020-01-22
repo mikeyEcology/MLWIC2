@@ -6,10 +6,11 @@
 #' function will generate a file to use with `classify`. Otherwise, you must provide an 
 #' `input_file` which contains columns called "filename". If you are using images that have 
 #' been classified and you want to evaluate how the model works on these images, set 
-#' `images_classified=TRUE` and your `input_file`` must also contain a column called "species", 
-#' which contains each image's classification.
+#' `images_classified=TRUE` and your `input_file`` must also contain a column called either "class", 
+#' which contains each image's text classification or "class_ID" which contains a number matching
+#' the \code{speciesID} table.
 #' 
-#' @param input_file The name of your input csv. It must contain a column called "filename"
+#' @param input_file The absolute path to your input csv. It must contain a column called "filename"
 #'  and unless you are using the built in model, a column called "class" (which would be your species or group of species).
 #' @param find_file_names logical. If TRUE, this function will find all image files within a 
 #'  specified directory. You must specify the directory (`path_prefix`) for this to work.
@@ -25,10 +26,13 @@
 #'  `path_prefix`.
 #' @param usingBuiltIn logical. If TRUE, you are setting up a data file to classify images using
 #'  the built in model. 
+#' @param model_type If usingBuiltIn=TRUE, you can specify `species_model` or `empty_animal` so that 
+#'  your class_ID's will match those of the model
 #' @param images_classified logical. If TRUE, you have classifications to go along with these images
 #'  (and you want to test how the model performs on these images).
-#' @param directory Directory of your input csv. The default option is your working directory.
-#'  The file created by this function will be stored in this same directory. 
+#' @param find_class_IDs logical. If TRUE, and you have images_classified, MLWIC2 will try to match up
+#'  your text classifications with the values from the trained model. If FALSE and you have images classified,
+#'  you need to have a column in your input file called `class_ID`. 
 #' @param trainTest logical. Do you want to create separate csvs for training and testing
 #' @param file_prefix What you want to appear as the filename before the suffix. If you are
 #'  only creating a file to test the model, you could specify "test_" and your output file name
@@ -45,18 +49,22 @@ make_input <- function(
   image_file_suffixes = c(".jpg", ".JPG"),
   recursive = TRUE,
   usingBuiltIn = TRUE, 
+  model_type = "species_model",
   images_classified = FALSE,
+  find_class_IDs = FALSE,
   trainTest = FALSE, 
   file_prefix = "",
-  propTrain = 0.9, 
-  directory = getwd()
+  propTrain = 0.9
 ){
+  
+  stop("This function is not ready for use")
   
   # 
   if(usingBuiltIn == TRUE & trainTest == TRUE){
     stop("You have specified trainTest == TRUE and usingBuiltIn == TRUE. \n
          This does not make sense because you do not want to make separate train and \n
-         test files if you are using the built in model.")
+         test files if you are using the built in model. trainTest is only used if \n
+         you are building a model. ")
   }
   if(trainTest==TRUE & images_classified == FALSE){
     stop("You have specified trainTest == TRUE and images_classified == FALSE. \n
@@ -75,7 +83,6 @@ make_input <- function(
   }
   
   # make input file using only the path
-  
   if(find_file_names){
     # make a pattern argument for list_files because it cannot take a vector
     pattern <- paste0(image_file_suffixes, collapse="|")
@@ -98,22 +105,122 @@ make_input <- function(
     print(paste0("Your file is located at ", path_prefix, "/", "image_labels.csv. \n
                  This is the same location where your images are stored."))
   } else {
-    # get in file
-    if(endsWith(directory, "/")){
-      inFile <- (paste0(directory, input_file))
-      wd <- directory
-    } else {
-      inFile <- (paste0(directory, "/", input_file))
-      wd <- paste0(directory, "/")
-    }
+    # load in file
+    inFile <- utils::read.csv(input_file)
     
     if(usingBuiltIn){
-      cnames <- colnames(inFile)
-      cnames_bool <- "filename" %in% cnames
-      if(!cnames_bool){
-        stop("Your input_file does not contain a column called 'filename'")
-      } 
-      df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
+      if(images_classified){
+        if(find_class_IDs){
+          cnames <- colnames(inFile)
+          cnames_shouldBe <- c("class", "filename")
+          cnames_bool <- cnames_shouldBe %in% cnames
+          if(!cnames_bool){
+            stop("You have specified that you want MLWIC2 to find_class_IDs. In order to do this,\n
+                 your inFile must contain a column called `class` and a column called `filename`")
+          }
+          
+          # setup a lower case
+          speciesID <- speciesID
+          contains <- (data.frame(lapply(speciesID[, 2:19], as.character), stringsAsFactors = FALSE))
+          contains <- sapply(contains, FUN=tolower)
+          
+          # test finding a classID of a name
+          # nm <- tolower("Cow")
+          # rowOfClass <- which(contains == nm, arr.ind=TRUE)[1]
+          # #grep(nm, contains, ignore.case=TRUE, value=FALSE)
+          # class_ID <- speciesID[rowOfClass,1]
+          # inFile <- data.frame(class = c("Cattle", "chickadee", "nada", "Eagle", "Eagle", "skunk"), num = 1:6)
+          
+          # function to get the classID of a given class
+          findClassID <- function(x){
+            rowOfClass <- which(contains == tolower(x), arr.ind=TRUE)[1]
+            class_ID <- speciesID[rowOfClass,1]
+            return(class_ID)
+          }
+          inFile$class_ID <- sapply(inFile$class, findClassID)
+          
+          if(model_type == "empty_animal"){
+            # if we're using the empty animal model, change to either 0 or one. 
+            inFile$class_ID_EA <- ifelse(inFile$class_ID == 27, 0, 1)
+            inFile$class_ID <- inFile$class_ID_EA
+          } # if species_model, leave as is. 
+          
+          # make some output to show how classes were changed
+          class_IDs_new <- inFile[match(unique(inFile$class), inFile$class), "class_ID"]
+          old_new <- data.frame(input_class = unique(inFile$class), 
+                                class_ID =class_IDs_new)
+          nas <- old_new[(is.na(old_new$class_ID)),]
+          nas_df <- data.frame(nas, group_name=rep("none", nrow(nas)))
+          old_new2 <- merge(old_new, speciesID, by="class_ID")
+          old_new3 <- data.frame(input_class = old_new2$input_class, 
+                                 class_ID = old_new2$class_ID, 
+                                 group_name = old_new2$group_name)
+          old_new4 <- rbind(old_new3, nas_df)
+          
+          # return a talbe showing how their labels were changed
+          cat("This function will return a table of how your class names were changed
+              to make class_ID's to match the function. If you are not happy with these, 
+              it is best for you to find class_IDs for your species using the table here:
+              https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv and specifying
+              find_class_IDs=FALSE the next time you run `make_input`")
+          return(old_new4)
+          
+          # remove rows from input file where there is no matching classID
+          inFile2 <- inFile[!is.na(inFile$class_ID),]
+          
+          # write output
+          df <- data.frame(inFile2$filename, inFile2$class_ID)
+          output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
+          write.table(df,
+                      row.names = FALSE,
+                      col.names = FALSE,
+                      file = output.file,
+                      quote = FALSE,
+                      append = TRUE,
+                      sep = ",")
+          close(output.file)
+          rm(output.file) 
+          print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
+          
+           
+        } else { # not finding file names; user is supplying class_ID. 
+          cnames <- colnames(inFile)
+          cnames_shouldBe <- c("class_ID", "filename")
+          cnames_bool <- cnames_shouldBe %in% cnames
+          if(!cnames_bool){
+            stop("You have specified that you want MLWIC2 to make an input file using your class_IDs and \n
+                 filenames. Your input file must contain a column called `class_ID` and a column called `filename`")
+          }
+        }
+        
+        # here we are just essentially reading and writing the file
+        
+        # write output
+        df <- data.frame(inFile$filename, inFile$class_ID)
+        output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
+        write.table(df,
+                    row.names = FALSE,
+                    col.names = FALSE,
+                    file = output.file,
+                    quote = FALSE,
+                    append = TRUE,
+                    sep = ",")
+        close(output.file)
+        rm(output.file) 
+        print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
+        
+
+        
+        
+      } else { # images not classified, but using builtin
+        cnames <- colnames(inFile)
+        cnames_bool <- "filename" %in% cnames
+        if(!cnames_bool){
+          stop("Your input_file does not contain a column called 'filename'")
+        } 
+        df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
+      }
+      
       
       # write output
       output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
@@ -128,7 +235,7 @@ make_input <- function(
       rm(output.file) 
       print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
       
-    }else{
+    } else { # (not using builtin)
       cnames <- colnames(inFile)
       if(images_classified){
         cnames_shouldBe <- c("class", "filename")
@@ -142,7 +249,7 @@ make_input <- function(
            The 'class' column contains the names of the species in each image. ")
       }
       
-      if(images_classified){
+      if(images_classified){ # not using builtin
         # create a lookup table
         group_name <- unique(inFile$class) 
         class_ID <- seq_along(group_name)
@@ -204,12 +311,12 @@ make_input <- function(
                      file_prefix, "train.csv."))
       }
       
-    }
+    } # end if not using builtin
     
-    if(images_classified){
-      # return the lookup table
-      return(tblLU)
-    }
+     if(images_classified & !(usingBuiltIn)){
+       # return the lookup table
+       return(tblLU)
+     }
     
   } # end else for not using find_file_names
 }

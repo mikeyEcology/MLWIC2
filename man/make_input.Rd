@@ -11,15 +11,16 @@ make_input(
   image_file_suffixes = c(".jpg", ".JPG"),
   recursive = TRUE,
   usingBuiltIn = TRUE,
+  model_type = "species_model",
   images_classified = FALSE,
+  find_class_IDs = FALSE,
   trainTest = FALSE,
   file_prefix = "",
-  propTrain = 0.9,
-  directory = getwd()
+  propTrain = 0.9
 )
 }
 \arguments{
-\item{input_file}{The name of your input csv. It must contain a column called "filename"
+\item{input_file}{The absolute path to your input csv. It must contain a column called "filename"
 and unless you are using the built in model, a column called "class" (which would be your species or group of species).}
 
 \item{find_file_names}{logical. If TRUE, this function will find all image files within a 
@@ -41,8 +42,15 @@ path you specify. If FALSE, it will only find images in the folder that you prov
 \item{usingBuiltIn}{logical. If TRUE, you are setting up a data file to classify images using
 the built in model.}
 
+\item{model_type}{If usingBuiltIn=TRUE, you can specify `species_model` or `empty_animal` so that 
+your class_ID's will match those of the model}
+
 \item{images_classified}{logical. If TRUE, you have classifications to go along with these images
 (and you want to test how the model performs on these images).}
+
+\item{find_class_IDs}{logical. If TRUE, and you have images_classified, MLWIC2 will try to match up
+your text classifications with the values from the trained model. If FALSE and you have images classified,
+you need to have a column in your input file called `class_ID`.}
 
 \item{trainTest}{logical. Do you want to create separate csvs for training and testing}
 
@@ -53,9 +61,6 @@ would be "test_image_labels.csv". If you specify `trainTest = TRUE`, your suffix
 
 \item{propTrain}{proportion of images you want for training. `1-propTrain` is the proportion
 that will be used for testing the model.}
-
-\item{directory}{Directory of your input csv. The default option is your working directory.
-The file created by this function will be stored in this same directory.}
 }
 \description{
 \code{make_input} will make a csv with the specifications necessary to either classify 
@@ -64,6 +69,7 @@ only need to specify the `path_prefix` where all of your images are located and 
 function will generate a file to use with `classify`. Otherwise, you must provide an 
 `input_file` which contains columns called "filename". If you are using images that have 
 been classified and you want to evaluate how the model works on these images, set 
-`images_classified=TRUE` and your `input_file`` must also contain a column called "species", 
-which contains each image's classification.
+`images_classified=TRUE` and your `input_file`` must also contain a column called either "class", 
+which contains each image's text classification or "class_ID" which contains a number matching
+the \code{speciesID} table.
 }
