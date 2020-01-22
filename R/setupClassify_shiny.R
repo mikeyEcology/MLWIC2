@@ -53,6 +53,7 @@ server <- function(input, output, session) {
       already_downloaded_model = input$already_downloaded_model,
       tensorflow_installed = input$tensorflow_installed,
       MLWIC2_already_setup = input$MLWIC2_already_setup,
+      model_type = input$model_type,
       python_loc = normalizePath(dirname_python_loc()),
       shiny=TRUE,
       output_name=input$output_name,
@@ -89,7 +90,7 @@ ui <- shiny::fluidPage(
                            "No" = "FALSE",
                            "Yes" = "TRUE"
                          )),
-      shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="If you have already downloaded the trained model, select its location. Otherwise, select `cancel`"),
+      shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="If you have already downloaded the MLWIC2_helper_files folder, select its location. Otherwise, select `cancel`"),
       shiny::textOutput('model_dir'),
       shiny::selectInput("tensorflow_installed", "Have you already installed tensorflow on your machine?",
                          choices = c(
@@ -104,7 +105,7 @@ ui <- shiny::fluidPage(
       shiny::selectInput("model_type", "What type of model do you want to use?", 
                          choices = c(
                            "Animal / Empty" = "empty_animal",
-                           "Identify animal species" = "species"
+                           "Identify animal species" = "species_model"
                          )),
       
       shiny::textInput("output_name", "Name of cleaned output file"

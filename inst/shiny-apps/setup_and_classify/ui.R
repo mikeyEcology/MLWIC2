@@ -20,12 +20,12 @@ ui <- shiny::fluidPage(
         "Windows"= "Windows",
         "Ubuntu" = "Ubuntu"
       )),
-      shiny::selectInput("already_downloaded_model", "Have you already downloaded the trained model?", 
+      shiny::selectInput("already_downloaded_model", "Have you already downloaded the trained model?",
                          choices = c(
                            "No" = "FALSE",
                            "Yes" = "TRUE"
                          )),
-      shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="If you have already downloaded the trained model, select its location. Otherwise, select `cancel`"),
+      shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="If you have already downloaded the MLWIC2_helper_files folder, select its location. Otherwise, select `cancel`"),
       shiny::textOutput('model_dir'),
       shiny::selectInput("tensorflow_installed", "Have you already installed tensorflow on your machine?",
                          choices = c(
@@ -37,13 +37,15 @@ ui <- shiny::fluidPage(
                            "No" = "FALSE",
                            "Yes" = "TRUE"
                          )),
-      shiny::selectInput("model_type", "What type of model do you want to use?", 
+      shiny::selectInput("model_type", "What type of model do you want to use?",
                          choices = c(
                            "Animal / Empty" = "empty_animal",
-                           "Identify animal species" = "species"
+                           "Identify animal species" = "species_model"
                          )),
       
-shiny::textInput("output_name", "Name of cleaned output file", formals(MLWIC2::setup_and_classify)[["output_name"]]),
+      shiny::textInput("output_name", "Name of cleaned output file"
+                       #, formals(setup_and_classify)[["output_name"]]
+      ),
       shiny::actionButton("runSetup_and_classify", "Setup MLWIC2 and classify images")
     ), # this works with option 2
     

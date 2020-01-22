@@ -1,4 +1,3 @@
-# shiny
 server <- function(input, output, session) {
   
   #- make file selection for some variables
@@ -53,6 +52,7 @@ server <- function(input, output, session) {
       already_downloaded_model = input$already_downloaded_model,
       tensorflow_installed = input$tensorflow_installed,
       MLWIC2_already_setup = input$MLWIC2_already_setup,
+      model_type = input$model_type,
       python_loc = normalizePath(dirname_python_loc()),
       shiny=TRUE,
       output_name=input$output_name,

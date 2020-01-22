@@ -1,4 +1,3 @@
-# UI
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -12,14 +11,14 @@ ui <- shiny::fluidPage(
       shiny::textOutput('path_prefix'),
       shinyFiles::shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
       shiny::textOutput("data_info"),
-      shinyFiles::shinyDirButton('model_dir', 'Trained model directory', title="Select the location where you stored the 'trained_model' folder"),
+      shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="Find and select the MLWIC2_helper_files folder"),
       shiny::textOutput('model_dir'),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       shiny::textOutput('python_loc'),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(train)[["num_classes"]]),
-      shiny::textInput("log_dir_train", "Directory name of trained model", formals(train)[["log_dir_train"]]),
-      shiny::textInput("architecture", "CNN Architecture", formals(train)[["architecture"]]),
-      shiny::textInput("depth", "CNN Depth", formals(train)[["depth"]]),
+      shiny::textInput("log_dir_train", "Directory name of trained model (=`log_dir_train`)", formals(train)[["log_dir_train"]]),
+      shiny::textInput("architecture", "CNN Architecture: must be either `alexnet``, `densenet`, `googlenet`, `nin`, `resnet`, `vgg`", formals(train)[["architecture"]]),
+      shiny::textInput("depth", "CNN Depth: if architecture=renset, this must be either (18, 34, 50, 101, 152). If architecture=densenet, this must be either (121, 161, 169, 201). Otherwise, automatic", formals(train)[["depth"]]),
       shiny::textInput("batch_size", "Batch size", formals(train)[["batch_size"]]),
       shiny::selectInput("os", "Operating system type", choices=c(
         "MacIntosh" = "Mac",
