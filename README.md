@@ -30,10 +30,13 @@ Unzip the folder and then store this folder in a location that makes sense on yo
 ###### Before running models on your own data, I recommend you try running using the [example  provided](https://github.com/mikeyEcology/MLWIC_examples/tree/master). 
 
 ## <b> Step 5: Create a properly formatted input file using `make_input`</b>
- - Option 1: If you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv in your `directory` that has two columns with the column headers "class" and "filename". If you are using the `species_model` the numbers in "class" should match up with the numbers [here](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv). You can have as many other columns as you want in this file. You will also need to specify `images_classified=TRUE` 
- - Option 2: If you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv in your `directory` with a column called "filename" and whatever other columns you would like. 
+###### <i> Shiny option: `MLWIC2::runShiny('make_input')` </i>
+ - Option 1: If you have labels for your images and you want to test the model on your images (set `images_classified=TRUE`), you need to have an `input_file` csv that has at last two columns and one of these must be "filename" and the other must be either "class" or "class_ID" depending on:
+   - Use `class` If you have your classifications as words (e.g., "dog" or "cattle", "empty"), the function will find the appropriate `class_ID` associated with these words. 
+   - Use `class_ID` if you found the class_ID numbers for each image in [this table](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and put them in this column. 
+ - Option 2: If you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv in your with a column called "filename" and whatever other columns you would like. 
  - Option 3: MLWIC2 can find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images. If you have images stored in sub-folders within this directory, specify `recursive=TRUE`, if not, you can specify `recursive=FALSE`. You also need to specify the `suffixes` (e.g., ".jpg") for your filenames so that MLWIC2 knows what types of files to look for. By default (if you don't specify anything), it will look for ".JPG" and ".jpg". 
- - Option 4: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files, see `?make_input` for more details. 
+ - Option 4: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also, see `?make_input` for more details. 
  
 ## Step 6: Classify images using `classify`
 ###### <i> Shiny option: `MLWIC2::runShiny('classify')` </i>
