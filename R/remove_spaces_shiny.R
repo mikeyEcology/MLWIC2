@@ -27,7 +27,7 @@ server <- function(input, output, session) {
 
 ui <- shiny::fluidPage(
   # App title ----
-  shiny::titlePanel("Remove spaces from file names"),
+  shiny::titlePanel("Remove spaces from file names. Use this function with caution as you are changing the names of files on your computer. "),
   
   # Sidebar layout with input and output definitions ----
   shiny::sidebarLayout(

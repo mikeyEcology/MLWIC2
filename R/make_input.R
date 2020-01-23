@@ -57,9 +57,7 @@ make_input <- function(
   propTrain = 0.9
 ){
   
-  stop("This function is not ready for use")
-  
-  # 
+  # make sure there is not overlapping logic
   if(usingBuiltIn == TRUE & trainTest == TRUE){
     stop("You have specified trainTest == TRUE and usingBuiltIn == TRUE. \n
          This does not make sense because you do not want to make separate train and \n
@@ -114,7 +112,7 @@ make_input <- function(
           cnames <- colnames(inFile)
           cnames_shouldBe <- c("class", "filename")
           cnames_bool <- cnames_shouldBe %in% cnames
-          if(!cnames_bool){
+          if(any(!cnames_bool)){
             stop("You have specified that you want MLWIC2 to find_class_IDs. In order to do this,\n
                  your inFile must contain a column called `class` and a column called `filename`")
           }
@@ -187,7 +185,7 @@ make_input <- function(
           cnames <- colnames(inFile)
           cnames_shouldBe <- c("class_ID", "filename")
           cnames_bool <- cnames_shouldBe %in% cnames
-          if(!cnames_bool){
+          if(any(!cnames_bool)){
             stop("You have specified that you want MLWIC2 to make an input file using your class_IDs and \n
                  filenames. Your input file must contain a column called `class_ID` and a column called `filename`")
           }
@@ -215,7 +213,7 @@ make_input <- function(
       } else { # images not classified, but using builtin
         cnames <- colnames(inFile)
         cnames_bool <- "filename" %in% cnames
-        if(!cnames_bool){
+        if(any(!cnames_bool)){
           stop("Your input_file does not contain a column called 'filename'")
         } 
         df <- data.frame(inFile$filename, rep(0, nrow(inFile)))

@@ -1,7 +1,8 @@
 #' Remove spaces from all files within a directory
 #'
 #' \code{remove_spaces} removes paces from file names, which is required to 
-#' run MLWIC2 functions on these images. In the future, it is good practice to 
+#' run MLWIC2 functions on these images. Note: use this function with caution as you are essentially
+#' renaming files. In the future, it is good practice to 
 #' avoid putting spaces in any folder or file name. 
 #' 
 #' @param path The path to the image files whose names need to be changed. The default
@@ -17,6 +18,7 @@ remove_spaces <- function(
   pattern = c(".JPG", ".jpg"),
   copy=FALSE
 ){
+  pattern1 <- pattern
   filist <- setdiff(list.files(path=path, pattern=paste0(pattern1, collapse="|")),
                     list.dirs(path=path, recursive = FALSE, full.names = FALSE))
   # elements that have spaces in file names
@@ -25,7 +27,9 @@ remove_spaces <- function(
     stop("There are no file names with spaces in this directory")
   }
   # make a file list without spaces
-  filist_ns <- gsub(" ", "_", filist, fixed=TRUE)
+  #filist_ns <- gsub(" ", "_", filist, fixed=TRUE)
+  filist_ns <- paste0(path, "", gsub(" ", "_", filist, fixed=TRUE))
+  filist <- paste0(path, "", filist)
   # create only files where the originals didn't have spaces
   file.create(filist_ns[names_w_spaces])
   # move them
