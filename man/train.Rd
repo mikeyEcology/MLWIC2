@@ -21,6 +21,7 @@ train(
   retrain = TRUE,
   retrain_from = "species_model",
   num_epochs = 55,
+  num_cores = 4,
   randomize = TRUE,
   max_to_keep = 5,
   print_cmd = FALSE,
@@ -74,6 +75,9 @@ but training from scratch will be more flexible.}
 \item{num_epochs}{the number of epochs you want to use for training. The default is 55 and this is
 recommended for training a full model. But if you need to start and stop training, you may want to use
 a smaller number at times.}
+
+\item{num_cores}{The number of cores you want to use. You can find the number on your computer using
+parallel::detectCores()}
 
 \item{randomize}{If TRUE, this will randomize the order in which images are passed to training}
 

@@ -13,6 +13,7 @@ classify(
   python_loc = "/anaconda3/bin/",
   os = "Mac",
   num_classes = 59,
+  num_cores = 4,
   delimiter = ",",
   architecture = "resnet",
   depth = "18",
@@ -60,6 +61,9 @@ make the output in a more viewer friendly format}
 
 \item{num_classes}{The number of classes in your model. If you are using
 the built in model, the number is `59`.}
+
+\item{num_cores}{The number of cores you want to use. You can find the number on your computer using
+parallel::detectCores()}
 
 \item{delimiter}{this will be a `,` for a csv.}
 

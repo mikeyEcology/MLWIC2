@@ -38,6 +38,8 @@
 #'  If you are using the trained model that comes with MLWIC, use resnet 18 (the default).
 #'  If you trained a model using a different architechture, you need to specify this same architechture and depth
 #'  that you used for training.
+#' @param num_cores The number of cores you want to use. You can find the number on your computer using
+#'  parallel::detectCores()
 #' @param depth the number of layers in the DNN. If you are using the built in model, do not adjust this parameter.
 #'  If you are using a model that you trained, use the same architecture and depth as that model.
 #' @param top_n the number of guesses you want the model to make (how many species do you want to
@@ -60,6 +62,7 @@ classify <- function(
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
   num_classes = 59, # number of classes in model
+  num_cores = 4, 
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
@@ -174,6 +177,7 @@ classify <- function(
                     " --architecture ", architecture,
                     " --depth ", depth,
                     " --log_dir ", log_dir,
+                    " --num_threads ", num_cores, 
                     " --snapshot_prefix ", log_dir,
                     " --path_prefix ", path_prefix,
                     " --batch_size ", batch_size, 

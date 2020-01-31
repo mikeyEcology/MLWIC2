@@ -47,6 +47,8 @@
 #' @param num_epochs the number of epochs you want to use for training. The default is 55 and this is
 #'  recommended for training a full model. But if you need to start and stop training, you may want to use
 #'  a smaller number at times.
+#' @param num_cores The number of cores you want to use. You can find the number on your computer using
+#'  parallel::detectCores()
 #' @param randomize If TRUE, this will randomize the order in which images are passed to training
 #' @param max_to_keep maximum number of snapshot files to keep. These are the snapshots that are taken of the
 #'  current version of the model at the end of each epoch.
@@ -70,6 +72,7 @@ train <- function(
   retrain = TRUE,
   retrain_from = "species_model",
   num_epochs = 55,
+  num_cores = 4, 
   randomize = TRUE, 
   max_to_keep = 5,
   print_cmd = FALSE,
@@ -146,6 +149,7 @@ train <- function(
                        " --train_info data_info_train.csv",
                        " --delimiter ", delimiter,
                        " --num_epochs ", num_epochs,
+                       " --num_threads ", num_cores, 
                        " --num_classes ", num_classes,
                        " --retrain_from ", retrain_from,
                        " --shuffle ", randomize,
@@ -162,6 +166,7 @@ train <- function(
                        " --train_info data_info_train.csv",
                        " --delimiter ", delimiter,
                        " --num_epochs ", num_epochs,
+                       " --num_threads ", num_cores, 
                        " --num_classes ", num_classes,
                        " --shuffle ", randomize,
                        " --max_to_keep ", max_to_keep,

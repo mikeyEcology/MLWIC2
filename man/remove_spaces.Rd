@@ -19,6 +19,7 @@ If FALSE, you are deleting your original files, but saving storage space on your
 }
 \description{
 \code{remove_spaces} removes paces from file names, which is required to 
-run MLWIC2 functions on these images. In the future, it is good practice to 
+run MLWIC2 functions on these images. Note: use this function with caution as you are essentially
+renaming files. In the future, it is good practice to 
 avoid putting spaces in any folder or file name.
 }
