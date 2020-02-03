@@ -2,6 +2,8 @@
 
 <b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. MLWIC2 contains two models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. (At this point Shiny apps are not running properly on Windows machines - The paths are getting corrupted.) In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
 
+You need to have Anaconda Navigator installed, along with Python 3.7 (Python 3.6 will also work just as well). 
+
 
 ## <b>Step 1: Install the `MLWIC2` package in R</b>
 ```
@@ -15,7 +17,8 @@ library(MLWIC2)
 You only need to run steps 2-4 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip steps 2 and 4
 
 ## <b>Step 2: Install TensorFlow (version 1.14) on your computer.</b>
-The function `tensorflow` will do this on Macintosh and Linux machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can try doing this independently by following the directions [here](https://www.tensorflow.org/install/).  You can install any version that is > 1.8, but < 2.0.
+Really any version of tensorflow between 1.8 and 2.0 will do. \
+The function `tensorflow` will do this on Macintosh and Linux machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can do this independently by following the directions [here](https://www.tensorflow.org/install/). 
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/18lq__3ZAjzY0bpkXN3c6TQv78WMkP--c/view?usp=sharing).</b> 
 Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `403c3b46ae17b6d1fa1fe687b0f1c4d3`. 
@@ -57,7 +60,7 @@ classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your 
          save_predictions = "model_predictions.txt", # how you want to name the raw output file
          make_output = TRUE, # if TRUE, this will produce a csv with a more friendly output
          output_name = "MLWIC2_output.csv", # if make_output==TRUE, this will be the name of your friendly output file
-         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores
+         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores()
          ) 
 ```
 
