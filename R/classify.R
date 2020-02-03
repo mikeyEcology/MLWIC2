@@ -62,12 +62,11 @@ classify <- function(
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
   num_classes = 59, # number of classes in model
-  num_cores = 4, 
+  num_cores = 2, 
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
   top_n = 5,
-  num_threads = 1,
   batch_size = 128,
   num_gpus = 2,
   make_output=TRUE,
@@ -173,11 +172,10 @@ classify <- function(
   
   # set up code
   eval_py <- paste0(python_loc,
-                    "python run.py eval --num_threads ", num_threads, 
+                    "python run.py eval --num_threads ", num_cores, 
                     " --architecture ", architecture,
                     " --depth ", depth,
                     " --log_dir ", log_dir,
-                    " --num_threads ", num_cores, 
                     " --snapshot_prefix ", log_dir,
                     " --path_prefix ", path_prefix,
                     " --batch_size ", batch_size, 

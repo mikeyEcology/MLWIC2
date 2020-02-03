@@ -1,6 +1,11 @@
 # shiny
 server <- function(input, output, session) {
   
+  # determine if Windows"
+  if(Sys.info()["sysname"] == "Windows"){
+    Windows <- TRUE
+  }
+  
   #- make file selection for some variables
   # base directory for fileChoose
   #volumes =  c(home = "") 
@@ -65,7 +70,7 @@ server <- function(input, output, session) {
   shiny::observeEvent(input$runClassify, {
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
-      path_prefix = normalizePath(dirname_path_prefix()), #%%% I think I need to put normalizePath() on these
+      path_prefix = normalizePath(dirname_path_prefix()), 
       #data_info = input$data_info,
       data_info = normalizePath(filename_data_info()),
       #model_dir = input$model_dir,
