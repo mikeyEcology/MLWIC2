@@ -22,7 +22,8 @@ server <- function(input, output, session) {
   })
   # data_info
   shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
-  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
+  #filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
+  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)})
   # observe({
   #   if(!is.null(filename_data_info)){
   #     print(filename_data_info())
@@ -51,20 +52,20 @@ server <- function(input, output, session) {
   })
   
   # print output for running function
-  output$path_prefix_print <- renderText({
-    paste0("classify(\n
-           path_prefix = '", normalizePath(dirname_path_prefix()), "',")
-  })
-  output$data_info_print <- renderText({
-    paste0("data_info = '", filename_data_info(), "',")
-  })
-  output$model_dir_print <- renderText({
-    paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
-  })
-  output$python_loc_print <- renderText({
-    paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n
-           )")
-  })
+  # output$path_prefix_print <- renderText({
+  #   paste0("classify(\n
+  #          path_prefix = '", normalizePath(dirname_path_prefix()), "',")
+  # })
+  # output$data_info_print <- renderText({
+  #   paste0("data_info = '", filename_data_info(), "',")
+  # })
+  # output$model_dir_print <- renderText({
+  #   paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
+  # })
+  # output$python_loc_print <- renderText({
+  #   paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n
+  #          )")
+  # })
   
   #- run classify
   shiny::observeEvent(input$runClassify, {
@@ -103,14 +104,14 @@ ui <- shiny::fluidPage(
     
     shiny::sidebarPanel(
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
-      shiny::textOutput('path_prefix'),
+      #shiny::textOutput('path_prefix'),
       shinyFiles::shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
-      shiny::textOutput("data_info"),
+      #shiny::textOutput("data_info"),
       shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="Find and select the MLWIC2_helper_files folder"),
-      shiny::textOutput('model_dir'),
+      #shiny::textOutput('model_dir'),
       #textInput("python_loc", "Location of Python on your computer"),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python on your computer. It should be under Anaconda"),
-      shiny::textOutput('python_loc'),
+      #shiny::textOutput('python_loc'),
       shiny::textInput("log_dir", "Directory name of trained model. Either `species_model`, `empty_animal`, or if using a model you trained, it's what you set as your `log_dir_train`", formals(classify)[["log_dir"]]),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(classify)[["num_classes"]]),
       shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
@@ -125,12 +126,12 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny. 
-                      This printout is designed to help you find your paths."),
-      shiny::textOutput("path_prefix_print"),
-      shiny::textOutput("data_info_print"),
-      shiny::textOutput("model_dir_print"),
-      shiny::textOutput("python_loc_print")
+      # shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny.
+      #                 This printout is designed to help you find your paths."),
+      # shiny::textOutput("path_prefix_print"),
+      # shiny::textOutput("data_info_print"),
+      # shiny::textOutput("model_dir_print"),
+      # shiny::textOutput("python_loc_print")
     )
   )
 )
