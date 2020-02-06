@@ -22,8 +22,8 @@ server <- function(input, output, session) {
   })
   # data_info
   shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
-  #filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
-  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)})
+  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
+  #filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)})
   # observe({
   #   if(!is.null(filename_data_info)){
   #     print(filename_data_info())
@@ -52,20 +52,20 @@ server <- function(input, output, session) {
   })
   
   # print output for running function
-  # output$path_prefix_print <- renderText({
-  #   paste0("classify(\n
-  #          path_prefix = '", normalizePath(dirname_path_prefix()), "',")
-  # })
-  # output$data_info_print <- renderText({
-  #   paste0("data_info = '", filename_data_info(), "',")
-  # })
-  # output$model_dir_print <- renderText({
-  #   paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
-  # })
-  # output$python_loc_print <- renderText({
-  #   paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n
-  #          )")
-  # })
+  output$path_prefix_print <- renderText({
+    paste0("classify(\n
+           path_prefix = '", normalizePath(dirname_path_prefix()), "',")
+  })
+  output$data_info_print <- renderText({
+    paste0("data_info = '", filename_data_info(), "',")
+  })
+  output$model_dir_print <- renderText({
+    paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
+  })
+  output$python_loc_print <- renderText({
+    paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n
+           )")
+  })
   
   #- run classify
   shiny::observeEvent(input$runClassify, {
@@ -88,7 +88,8 @@ server <- function(input, output, session) {
       shiny=TRUE,
       make_output=TRUE,
       output_name=input$output_name,
-      print_cmd=FALSE
+      #test_tensorflow = FALSE,
+      print_cmd=TRUE
     )
   })
   
@@ -126,12 +127,12 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      # shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny.
-      #                 This printout is designed to help you find your paths."),
-      # shiny::textOutput("path_prefix_print"),
-      # shiny::textOutput("data_info_print"),
-      # shiny::textOutput("model_dir_print"),
-      # shiny::textOutput("python_loc_print")
+      shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny.
+                      This printout is designed to help you find your paths."),
+      shiny::textOutput("path_prefix_print"),
+      shiny::textOutput("data_info_print"),
+      shiny::textOutput("model_dir_print"),
+      shiny::textOutput("python_loc_print")
     )
   )
 )

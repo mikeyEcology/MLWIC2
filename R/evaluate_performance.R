@@ -117,17 +117,32 @@ evaluate_performance <-
     if(is.null(label_tbl)){
       return(tbl_study2)
     }else{
-      # merge with speciesID names
-      colnames(lab) <- c("class_ID", "group_name")
-      tbl_study3 <- merge(tbl_study2, lab, by.x=c("class_ID"), by.y="class_ID")
-      tbl_study4 <- helper <- tbl_study3[,c(1,10,2:9)]
-      
-      # add a row with totals
-      adder <- nrow(tbl_study4) +1
-      tbl_study4[adder, ] <- c("", "Totals", An, ATP, ATPp, AFN, sum(helper$false_positives),
-                               Arecall, ATP/(ATP+sum(helper$false_positives)), AT5p)
-      
-      return(tbl_study4)
+      if(top5){
+        # merge with speciesID names
+        colnames(lab) <- c("class_ID", "group_name")
+        tbl_study3 <- merge(tbl_study2, lab, by.x=c("class_ID"), by.y="class_ID")
+        tbl_study4 <- helper <- tbl_study3[,c(1,10,2:9)]
+        
+        # add a row with totals
+        adder <- nrow(tbl_study4) +1
+        tbl_study4[adder, ] <- c("", "Totals", An, ATP, ATPp, AFN, sum(helper$false_positives),
+                                 Arecall, ATP/(ATP+sum(helper$false_positives)), AT5p)
+        
+        return(tbl_study4)
+      } else {
+        # merge with speciesID names
+        colnames(lab) <- c("class_ID", "group_name")
+        tbl_study3 <- merge(tbl_study2, lab, by.x=c("class_ID"), by.y="class_ID")
+        tbl_study4 <- helper <- tbl_study3[,c(1,10,2:9)]
+        
+        # add a row with totals
+        adder <- nrow(tbl_study4) +1
+        tbl_study4[adder, ] <- c("", "Totals", An, ATP, ATPp, AFN, sum(helper$false_positives),
+                                 Arecall, ATP/(ATP+sum(helper$false_positives)), NA)
+        
+        return(tbl_study4)
+      }
+ 
     }
     
     

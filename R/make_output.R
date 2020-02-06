@@ -11,7 +11,7 @@
 #' @param output_name Desired name of the output file. It must end in `.csv`
 #' @param saved_predictions This is the file name where you stored predictions when you ran
 #'  \code{classify}. If you used the default in that function, you can use the default here.
-#' @param model_dir Absolute path to the location where you stored the `MLWIC2_helper_files`
+#' @param model_dir Absolute path to the `MLWIC2_helper_files` folder
 #' @param return_df If TRUE, this will return the model output. This allows you to create a variable that 
 #'  is the model output. 
 #' @param top_n The number of guesses that you wanted classify to save. This needs to mach what you specified 

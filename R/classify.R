@@ -114,16 +114,20 @@ classify <- function(
       cat("import tensorflow as tf")
       cat("\n")
       cat("print('Tensorflow is installed')")
+      cat("\n")
+      cat("print(tf.__version__)")
       sink()
       test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
       test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
-      if(test_result == 'Tensorflow is installed'){
-        cat(paste0("Tensorflow and Python are properly installed.", "\n",
-                   "Now proceeding to run classify.", "\n"))
-      }else{
-        stop(cat(paste0("Tensorflow is not properly installed!", "\n", 
+      if(exists("test_result") & test_result[1] == 'Tensorflow is installed'){
+          cat(paste0("Tensorflow and Python are properly installed.", "\n",
+                     "You are running tensorflow version ", test_result[2], "\n",
+                     "Now proceeding to run classify.", "\n"))
+      } else{
+        stop(cat(paste0("Tensorflow is not properly installed.", "\n", 
                         "Please see https://www.tensorflow.org/install for help.", "\n")))
       }
+
     }
   }
 

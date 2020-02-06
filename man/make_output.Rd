@@ -18,7 +18,7 @@ make_output(
 \item{output_location}{Absolute path where you want the output csv stored. This path
 must exist on your computer.}
 
-\item{model_dir}{Absolute path to the location where you stored the `MLWIC2_helper_files`}
+\item{model_dir}{Absolute path to the `MLWIC2_helper_files` folder}
 
 \item{output_name}{Desired name of the output file. It must end in `.csv`}
 
