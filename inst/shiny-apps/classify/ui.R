@@ -8,14 +8,15 @@ ui <- shiny::fluidPage(
     
     shiny::sidebarPanel(
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
-      shiny::textOutput('path_prefix'),
-      shinyFiles::shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
-      shiny::textOutput("data_info"),
+      #shiny::textOutput('path_prefix'),
+      shinyFiles::shinyDirButton('data_prefix', "Location of image label file", title="Select directory containing file with file names of images and their classification. When you see this label file in the lower half of the window, select the folder in the top half of the window."),
+      #shiny::textOutput("data_info"),
+      shiny::textInput('data_info', "Name of image label file (in the directory you just selected)", value="image_labels.csv"),
       shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="Find and select the MLWIC2_helper_files folder"),
-      shiny::textOutput('model_dir'),
+      #shiny::textOutput('model_dir'),
       #textInput("python_loc", "Location of Python on your computer"),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python on your computer. It should be under Anaconda"),
-      shiny::textOutput('python_loc'),
+      #shiny::textOutput('python_loc'),
       shiny::textInput("log_dir", "Directory name of trained model. Either `species_model`, `empty_animal`, or if using a model you trained, it's what you set as your `log_dir_train`", formals(classify)[["log_dir"]]),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(classify)[["num_classes"]]),
       shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
@@ -39,4 +40,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-

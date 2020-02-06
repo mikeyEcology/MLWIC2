@@ -20,16 +20,21 @@ server <- function(input, output, session) {
       output$path_prefix <- shiny::renderText(dirname_path_prefix())
     }
   })
+  
   # data_info
-  shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
-  filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
-  #filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)})
-  # observe({
-  #   if(!is.null(filename_data_info)){
-  #     print(filename_data_info())
-  #     output$data_info <- shiny::renderText(filename_data_info())
-  #   }
-  # })
+  # shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
+  # filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
+  # data_info directory = data_prefix
+  shinyFiles::shinyDirChoose(input, 'data_prefix', roots=volumes, session=session)
+  dirname_data_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$data_prefix)})
+  # Observe data_prefix changes
+  shiny::observe({
+    if(!is.null(dirname_data_prefix)){
+      print(dirname_data_prefix())
+      output$data_prefix <- shiny::renderText(dirname_data_prefix())
+    }
+  })
+  
   # model_dir
   shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
   dirname_model_dir <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$model_dir)})
@@ -57,7 +62,7 @@ server <- function(input, output, session) {
            path_prefix = '", normalizePath(dirname_path_prefix()), "',")
   })
   output$data_info_print <- renderText({
-    paste0("data_info = '", filename_data_info(), "',")
+    paste0("data_info = '", normalizePath(dirname_data_prefix()), "/", input$data_info, "',")
   })
   output$model_dir_print <- renderText({
     paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
@@ -73,12 +78,13 @@ server <- function(input, output, session) {
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = normalizePath(dirname_path_prefix()), 
       #data_info = input$data_info,
-      data_info = normalizePath(filename_data_info()),
+      #data_info = normalizePath(filename_data_info()),
+      data_info = paste0(normalizePath(dirname_data_prefix()), "/", input$data_info),
       #model_dir = input$model_dir,
       model_dir = normalizePath(dirname_model_dir()),
       save_predictions = input$save_predictions,
       #python_loc = input$python_loc,
-      python_loc = normalizePath(dirname_python_loc()),
+      python_loc = paste0(normalizePath(dirname_python_loc()), "/"),
       num_classes = input$num_classes,
       architecture = input$architecture,
       depth = input$depth,
@@ -88,8 +94,8 @@ server <- function(input, output, session) {
       shiny=TRUE,
       make_output=TRUE,
       output_name=input$output_name,
-      #test_tensorflow = FALSE,
-      print_cmd=TRUE
+      test_tensorflow = FALSE,
+      print_cmd=FALSE
     )
   })
   
@@ -106,8 +112,9 @@ ui <- shiny::fluidPage(
     shiny::sidebarPanel(
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       #shiny::textOutput('path_prefix'),
-      shinyFiles::shinyFilesButton('data_info', "Image label file", title="Select file containing file names of images and their classification", multiple=FALSE),
+      shinyFiles::shinyDirButton('data_prefix', "Location of image label file", title="Select directory containing file with file names of images and their classification. When you see this label file in the lower half of the window, select the folder in the top half of the window."),
       #shiny::textOutput("data_info"),
+      shiny::textInput('data_info', "Name of image label file (in the directory you just selected)", value="image_labels.csv"),
       shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="Find and select the MLWIC2_helper_files folder"),
       #shiny::textOutput('model_dir'),
       #textInput("python_loc", "Location of Python on your computer"),
