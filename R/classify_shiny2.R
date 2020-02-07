@@ -68,7 +68,18 @@ server <- function(input, output, session) {
     paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
   })
   output$python_loc_print <- renderText({
-    paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n
+    paste0("python_loc = '", normalizePath(dirname_python_loc()), "',")
+  })
+  output$vars_print <- renderText({
+    paste0("log_dir = '", input$log_dir, "',\n",
+           "num_classes = ", input$num_classes, ",\n",
+           "save_predictions = '", input$save_predictions, "',\n",
+           "architecture = '", input$architecture, "',\n",
+           "depth = ", input$depth, ",\n",
+           "top_n = ", input$top_n, ",\n", 
+           "batch_size = ", input$batch_size, ",\n",
+           "output_name = '", input$output_name, 
+          "'\n
            )")
   })
   
@@ -134,12 +145,13 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny.
-                      This printout is designed to help you find your paths."),
+      shiny::helpText("After selecting inputs, you can use the values below in the classify() function instead of running Shiny.
+                      This printout is designed to allow you to avoid using Shiny in future runs."),
       shiny::textOutput("path_prefix_print"),
       shiny::textOutput("data_info_print"),
       shiny::textOutput("model_dir_print"),
-      shiny::textOutput("python_loc_print")
+      shiny::textOutput("python_loc_print"),
+      shiny::textOutput("vars_print", inline = TRUE)
     )
   )
 )
