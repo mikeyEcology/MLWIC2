@@ -20,8 +20,8 @@ You only need to run steps 2-4 the first time you use this package on a computer
 Really any version of tensorflow > 1.8 and < 2.0 will do. \
 The function `tensorflow` will do this on Macintosh and Linux machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can do this independently by following the directions [here](https://www.tensorflow.org/install/), except when the instructions say to run `pip install tensorflow`, you should instead run:  `pip install tensorflow==1.14`.
 
-## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/18lq__3ZAjzY0bpkXN3c6TQv78WMkP--c/view?usp=sharing).</b> 
-Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `403c3b46ae17b6d1fa1fe687b0f1c4d3`. 
+## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1EfM7vjzL7W2VqyWydIs9vSINaY83b3k_/view?usp=sharing).</b> 
+Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `02e0fc5fb3096109e5080d636b26eebd`. 
 
 ## <b>Step 4: Setup your environment for using `MLWIC` using the function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
