@@ -9,7 +9,7 @@ ui <- shiny::fluidPage(
     shiny::sidebarPanel(
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       #shiny::textOutput('path_prefix'),
-      shinyFiles::shinyDirButton('data_prefix', "Location of image label file", title="Select directory containing file with file names of images and their classification. When you see this label file in the lower half of the window, select the folder in the top half of the window."),
+      shinyFiles::shinyDirButton('data_prefix', "Location of image label file", title="Select directory containing image label file (file with file names of images and their classification). When you see this label file in the lower half of the window, select the folder in the top half of the window."),
       #shiny::textOutput("data_info"),
       shiny::textInput('data_info', "Name of image label file (in the directory you just selected)", value="image_labels.csv"),
       shinyFiles::shinyDirButton('model_dir', 'MLWIC2_helper_files directory', title="Find and select the MLWIC2_helper_files folder"),
@@ -31,12 +31,13 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      shiny::helpText("After selecting the first 4 inputs, you can use the values below in the classify() function instead of running Shiny.
-                      This printout is designed to help you find your paths."),
+      shiny::helpText("After selecting inputs, you can use the values below in the classify() function instead of running Shiny.
+                      This printout is designed to allow you to avoid using Shiny in future runs."),
       shiny::textOutput("path_prefix_print"),
       shiny::textOutput("data_info_print"),
       shiny::textOutput("model_dir_print"),
-      shiny::textOutput("python_loc_print")
+      shiny::textOutput("python_loc_print"),
+      shiny::textOutput("vars_print", inline = TRUE)
     )
   )
 )

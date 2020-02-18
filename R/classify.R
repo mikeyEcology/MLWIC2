@@ -199,7 +199,8 @@ classify <- function(
     if(shiny){
       system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
                     eval_py))
-    } else {
+    } 
+    if(shiny==FALSE) {
       system(eval_py)
     }
   }
