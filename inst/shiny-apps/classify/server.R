@@ -65,7 +65,7 @@ server <- function(input, output, session) {
              path_prefix = '", normalizePath(dirname_path_prefix()), "',")
     })
     output$data_info_print <- renderText({
-      paste0("data_info = '", normalizePath(dirname_data_prefix()), "/", input$data_info, "',")
+      paste0("data_info = '", normalizePath(dirname_data_prefix()), "\\", input$data_info, "',")
     })
     output$model_dir_print <- renderText({
       paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
@@ -93,7 +93,7 @@ server <- function(input, output, session) {
         path_prefix = normalizePath(dirname_path_prefix()),
         #data_info = input$data_info,
         #data_info = normalizePath(filename_data_info()),
-        data_info = paste0(normalizePath(dirname_data_prefix()), "\'", input$data_info),
+        data_info = paste0(normalizePath(dirname_data_prefix()), "\\", input$data_info),
         #model_dir = input$model_dir,
         model_dir = normalizePath(dirname_model_dir()),
         save_predictions = input$save_predictions,
