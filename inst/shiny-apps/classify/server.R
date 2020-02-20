@@ -10,6 +10,8 @@ server <- function(input, output, session) {
   #output$slash2 <- observeEvent({slash()})
   #output$slash2 <- renderText({slash()})
   
+  # maybe try for Windows modifying slashes as gsub("\\", "/", paths)
+  
   #- make file selection for some variables
   # base directory for fileChoose
   #volumes =  c(home = "")
@@ -75,17 +77,17 @@ server <- function(input, output, session) {
   
   # print output for running function
   output$path_prefix_print <- renderText({
-    paste0("classify(\n
-               path_prefix = '", normalizePath(dirname_path_prefix()), "',")
+    gsub("\\\\", "/", paste0("classify(\n
+               path_prefix = '", normalizePath(dirname_path_prefix()), "',"))
   })
   output$data_info_print <- renderText({
-    paste0("data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',")
+    gsub("\\\\", "/", paste0("data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',"))
   })
   output$model_dir_print <- renderText({
-    paste0("model_dir = '", normalizePath(dirname_model_dir()), "',")
+    gsub("\\\\", "/", paste0("model_dir = '", normalizePath(dirname_model_dir()), "',"))
   })
   output$python_loc_print <- renderText({
-    paste0("python_loc = '", normalizePath(dirname_python_loc()), "',")
+    gsub("\\\\", "/", paste0("python_loc = '", normalizePath(dirname_python_loc()), "',"))
   })
   output$vars_print <- renderText({
     paste0("log_dir = '", input$log_dir, "',\n",
@@ -104,15 +106,17 @@ server <- function(input, output, session) {
   shiny::observeEvent(input$runClassify, {
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
-      path_prefix = normalizePath(dirname_path_prefix()),
+      path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
       #data_info = input$data_info,
       #data_info = normalizePath(filename_data_info()),
-      data_info = paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info),
+      data_info =  gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
+      #data_info =  paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info),
       #model_dir = input$model_dir,
-      model_dir = normalizePath(dirname_model_dir()),
+      model_dir =  gsub("\\\\", "/", normalizePath(dirname_model_dir())),
       save_predictions = input$save_predictions,
       #python_loc = input$python_loc,
-      python_loc = paste0(normalizePath(dirname_python_loc()), "/"),
+      python_loc =  gsub("\\\\", "/", paste0(normalizePath(dirname_python_loc()), "/")),
+      #python_loc = paste0(normalizePath(dirname_python_loc())),
       num_classes = input$num_classes,
       architecture = input$architecture,
       depth = input$depth,
@@ -128,3 +132,4 @@ server <- function(input, output, session) {
   })
   
 }
+
