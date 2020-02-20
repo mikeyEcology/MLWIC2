@@ -182,26 +182,25 @@ ui <- shiny::fluidPage(
 # function that uses these
 shiny::shinyApp(ui, server)
 
-
 #--
 # test windows
-server <- function(input, output, session) {
-  
-  # determine if Windows"
-  Windows <- TRUE
-  if(Sys.info()["sysname"] == "Windows"){
-    Windows <- TRUE
-  } else {
-    Windows <- FALSE
-  }
-  
-  slash <- reactive({ifelse(Windows, "\\", "/")})
-  #output$slash2 <- observeEvent({slash()})
-  output$slash2 <- renderText({slash()})
-  
-}
-ui <- fluidPage(
-    shiny::textOutput("slash")
-  
-)
-shiny::shinyApp(ui, server)
+# server <- function(input, output, session) {
+#   
+#   # determine if Windows"
+#   Windows <- TRUE
+#   if(Sys.info()["sysname"] == "Windows"){
+#     Windows <- TRUE
+#   } else {
+#     Windows <- FALSE
+#   }
+#   
+#   slash <- reactive({ifelse(Windows, "\\", "/")})
+#   #output$slash2 <- observeEvent({slash()})
+#   output$slash2 <- renderText({slash()})
+#   
+# }
+# ui <- fluidPage(
+#     shiny::textOutput("slash")
+#   
+# )
+# shiny::shinyApp(ui, server)
