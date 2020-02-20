@@ -77,15 +77,15 @@ classify <- function(
   print_cmd = FALSE
   
 ){
-
+  
   wd1 <- getwd() # the starting working directory
   
   # set these parameters before changing directory
   path_prefix = path_prefix
   data_info = data_info
   model_dir = model_dir
-
-
+  
+  
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
   #   setwd(paste0(model_dir, "log_dir"))
@@ -106,7 +106,7 @@ classify <- function(
   
   # add a / to the end of python directory if applicable
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
-
+  
   # test if tensorflow is installed
   if(test_tensorflow){
     if(print_cmd == FALSE ){
@@ -120,18 +120,18 @@ classify <- function(
       test_tf <- paste0(python_loc, "python MLWIC2_test_tf.py")
       test_result <- system(test_tf, intern=TRUE, ignore.stderr = TRUE)
       if(exists("test_result") & test_result[1] == 'Tensorflow is installed'){
-          cat(paste0("Tensorflow and Python are properly installed.", "\n",
-                     "You are running tensorflow version ", test_result[2], "\n",
-                     "Now proceeding to run classify.", "\n"))
+        cat(paste0("Tensorflow and Python are properly installed.", "\n",
+                   "You are running tensorflow version ", test_result[2], "\n",
+                   "Now proceeding to run classify.", "\n"))
       } else{
         stop(cat(paste0("Tensorflow is not properly installed.", "\n", 
                         "Please see https://www.tensorflow.org/install for help.", "\n")))
       }
-
+      
     }
   }
-
-
+  
+  
   
   
   # load in data_info and store it in the model_dir
@@ -204,32 +204,42 @@ classify <- function(
       system(eval_py)
     }
   }
-
-
+  
+  
   tic <- Sys.time()
   runtime <- difftime(tic, toc, units="auto")
   
   # end function
   if(make_output==FALSE){
-    txt <- paste0("evaluation of images took ", runtime, " ", units(runtime), ". ", "\n",
-                  "The results are stored in ", model_dir, "/", save_predictions, ". ", "\n",
-                  "To view the results in a viewer-friendly format, please use the function make_output", "\n")
-    if(print_cmd == FALSE){
-      cat(txt)
+    if(file.exists(paste0(wd, "/", save_predictions))){
+      txt <- paste0("running the classify function took ", runtime, " ", units(runtime), ". ", "\n",
+                    "The results are stored in ", model_dir, "/", save_predictions, ". ", "\n",
+                    "To view the results in a viewer-friendly format, please use the function make_output", "\n")
+      if(print_cmd == FALSE){
+        cat(txt)
+      }
+    } else{
+      cat("The classify function did not run properly.\n")
     }
   }
-
+  
   # make output in this function too
   if(make_output){
-    out <- utils::read.csv(paste0(wd, "/", save_predictions), header=FALSE)
-    # set new column names
-    colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 
-                       paste0("confidence", 1:top_n))
-    utils::write.csv(out[,-1], paste0(output_location, "/", output_name))
+    if(file.exists(paste0(wd, "/", save_predictions))){
+      out <- utils::read.csv(paste0(wd, "/", save_predictions), header=FALSE)
+      # set new column names
+      colnames(out) <- c("rowNumber", "fileName", "answer", paste0("guess", 1:top_n), 
+                         paste0("confidence", 1:top_n))
+      utils::write.csv(out[,-1], paste0(output_location, "/", output_name))
+      
+      # put some info to user
+      txt <- paste0("A csv with model predictions can be found here: ", output_location, "/", output_name)
+      cat(txt)
+    }else{
+      cat("The classify function did not run properly.\n")
+    }
     
-    # put some info to user
-    txt <- paste0("A csv with model predictions can be found here: ", output_location, "/", output_name)
-    cat(txt)
+    
   }
   
   # return to previous working directory
