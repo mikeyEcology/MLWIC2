@@ -1,4 +1,3 @@
-
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -8,6 +7,11 @@ ui <- shiny::fluidPage(
   shiny::sidebarLayout(
     
     shiny::sidebarPanel(
+      # shiny::selectInput("os", "What operating system are you running?",
+      #                    choices = c(
+      #                      "Windows" = "windows",
+      #                      "Macintosh/linux" = "mac"
+      #                    ), multiple=FALSE),
       shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       #shiny::textOutput('path_prefix'),
       shinyFiles::shinyDirButton('data_prefix', "Location of image label file", title="Select directory containing image label file (file with file names of images and their classification). When you see this label file in the lower half of the window, select the folder in the top half of the window."),
@@ -42,4 +46,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-
