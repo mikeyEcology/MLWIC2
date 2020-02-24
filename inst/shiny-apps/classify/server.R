@@ -110,7 +110,7 @@ server <- function(input, output, session) {
         make_output=FALSE,
         output_name=input$output_name,
         test_tensorflow = FALSE,
-        print_cmd=TRUE
+        print_cmd=FALSE
       )
     })
     
