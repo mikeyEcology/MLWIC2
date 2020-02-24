@@ -1,4 +1,3 @@
-
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -48,4 +47,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-

@@ -142,28 +142,47 @@ classify <- function(
   }
   
   # set up code
-  eval_py <- paste0(python_loc,
-                    "python run.py eval --num_threads ", num_cores, 
-                    " --architecture ", architecture,
-                    " --depth ", depth,
-                    " --log_dir ", log_dir,
-                    " --snapshot_prefix ", log_dir,
-                    " --path_prefix ", path_prefix,
-                    " --batch_size ", batch_size, 
-                    " --val_info ", data_info,
-                    " --delimiter ", delimiter,
-                    " --save_predictions ", paste0(wd, "/", save_predictions),
-                    " --top_n ", top_n,
-                    " --num_gpus ", num_gpus,
-                    #" --num_classes ", num_classes, 
-                    "\n")
+  if(os == "Windows"){
+    eval_py <- paste0(python_loc,
+                      "python run.py eval --num_threads ", num_cores, 
+                      " --architecture ", architecture,
+                      " --depth ", depth,
+                      " --log_dir ", log_dir,
+                      " --snapshot_prefix ", log_dir,
+                      " --path_prefix ", path_prefix,
+                      " --batch_size ", batch_size, 
+                      " --val_info ", data_info,
+                      " --delimiter ", delimiter,
+                      " --save_predictions ", paste0(wd, "\\", save_predictions),
+                      " --top_n ", top_n,
+                      " --num_gpus ", num_gpus,
+                      #" --num_classes ", num_classes, 
+                      "\n")
+  } else{
+    eval_py <- paste0(python_loc,
+                      "python run.py eval --num_threads ", num_cores, 
+                      " --architecture ", architecture,
+                      " --depth ", depth,
+                      " --log_dir ", log_dir,
+                      " --snapshot_prefix ", log_dir,
+                      " --path_prefix ", path_prefix,
+                      " --batch_size ", batch_size, 
+                      " --val_info ", data_info,
+                      " --delimiter ", delimiter,
+                      " --save_predictions ", paste0(wd, "/", save_predictions),
+                      " --top_n ", top_n,
+                      " --num_gpus ", num_gpus,
+                      #" --num_classes ", num_classes, 
+                      "\n")
+  }
+
   
   # run code
   toc <- Sys.time()
   if(print_cmd){
     print(eval_py)
   }else{
-    if(shiny){
+    if(shiny & os=="Mac"){
       system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
                     "export PYTHONWARNINGS='ignore'\n", 
                     eval_py))
