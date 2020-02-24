@@ -13,7 +13,7 @@ classify(
   python_loc = "/anaconda3/bin/",
   os = "Mac",
   num_classes = 59,
-  num_cores = 2,
+  num_cores = 1,
   delimiter = ",",
   architecture = "resnet",
   depth = "18",

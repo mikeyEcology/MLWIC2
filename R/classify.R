@@ -62,7 +62,7 @@ classify <- function(
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
   num_classes = 59, # number of classes in model
-  num_cores = 2, 
+  num_cores = 1, 
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
   depth = "18",
@@ -185,7 +185,7 @@ classify <- function(
                     " --batch_size ", batch_size, 
                     " --val_info ", data_info,
                     " --delimiter ", delimiter,
-                    " --save_predictions ", save_predictions,
+                    " --save_predictions ", paste0(wd, "/", save_predictions),
                     " --top_n ", top_n,
                     " --num_gpus ", num_gpus,
                     #" --num_classes ", num_classes, 
@@ -198,10 +198,12 @@ classify <- function(
   }else{
     if(shiny){
       system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
+                    "export PYTHONWARNINGS='ignore'\n", 
                     eval_py))
     } 
     if(shiny==FALSE) {
-      system(eval_py)
+      system(paste0("export PYTHONWARNINGS='ignore'\n", 
+                    eval_py))
     }
   }
   
@@ -216,7 +218,7 @@ classify <- function(
                     "The results are stored in ", model_dir, "/", save_predictions, ". ", "\n",
                     "To view the results in a viewer-friendly format, please use the function make_output", "\n")
       if(print_cmd == FALSE){
-        cat(txt)
+        cat(txt) #*** comment this out when I update helper files
       }
     } else{
       cat("The classify function did not run properly.\n")
@@ -247,3 +249,8 @@ classify <- function(
   
 }
 
+# classify( path_prefix = '/Users/mikeytabak/MLWIC_examples/images',
+# data_info = '/Users/mikeytabak/MLWIC_examples/image_labels.csv',
+# model_dir = '/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files',
+# python_loc = '/anaconda3/bin',
+# log_dir = 'species_model', num_classes = 59, save_predictions = 'model_predictions.txt', architecture = 'resnet', depth = 18, num_cores = 1, top_n = 5, batch_size = 128, output_name = 'MLWIC2_output.csv' )

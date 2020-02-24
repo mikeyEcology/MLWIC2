@@ -28,6 +28,7 @@ ui <- shiny::fluidPage(
       shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
       shiny::textInput("architecture", "CNN Architecture", formals(classify)[["architecture"]]),
       shiny::textInput("depth", "CNN Depth", formals(classify)[["depth"]]),
+      shiny::textInput("num_cores", "Number of cores to use", formals(classify)[["num_cores"]]),
       shiny::textInput("top_n", "Number of guesses to save", formals(classify)[["top_n"]]),
       shiny::textInput("batch_size", "Batch size (must be a multiple of 64)", formals(classify)[["batch_size"]]),
       shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
