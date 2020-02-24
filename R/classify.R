@@ -95,7 +95,7 @@ classify <- function(
   
   # navigate to directory with trained model
   wd <- model_dir
-  if(shiny==FALSE){
+  if(shiny==FALSE | os == "Windows"){
     setwd(wd) # need to do this differently on not shiny because Windows uses cd command differently
   }
   
@@ -186,8 +186,7 @@ classify <- function(
       system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
                     "export PYTHONWARNINGS='ignore'\n", 
                     eval_py))
-    } 
-    if(shiny==FALSE) {
+    } else {
       system(paste0("export PYTHONWARNINGS='ignore'\n", 
                     eval_py))
     }
