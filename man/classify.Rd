@@ -23,7 +23,7 @@ classify(
   make_output = FALSE,
   output_location = getwd(),
   output_name = "MLWIC2_output.csv",
-  test_tensorflow = TRUE,
+  test_tensorflow = FALSE,
   shiny = FALSE,
   print_cmd = FALSE
 )

@@ -24,7 +24,7 @@ runShiny <- function(app="classify") {
   }
   
   cat(paste0("NOTE: When selecting directories and files, you can only navigate in the top half of the screen. \n
-      The bottom half of the screen only displays what is in each directory. It is not clickable."))
+      The bottom half of the screen only displays what is in each directory. It is not clickable.\n"))
   
   # find and launch the app
   appDir <- system.file("shiny-apps", app, package = "MLWIC2")

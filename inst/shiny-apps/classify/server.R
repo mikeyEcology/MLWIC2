@@ -99,7 +99,6 @@ server <- function(input, output, session) {
       ))
     })
     
-    # try just printing output on Windows
     #- run classify
     shiny::observeEvent(input$runClassify, {
       classify(#path_prefix = input$path_prefix,
@@ -110,7 +109,8 @@ server <- function(input, output, session) {
         data_info =  gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
         #data_info =  paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info),
         #model_dir = input$model_dir,
-        model_dir =  gsub("\\\\", "/", normalizePath(dirname_model_dir())),
+        #model_dir =  gsub("\\\\", "/", normalizePath(dirname_model_dir())),
+        model_dir =  normalizePath(dirname_model_dir()),
         save_predictions = input$save_predictions,
         #python_loc = input$python_loc,
         python_loc =  gsub("\\\\", "/", paste0(normalizePath(dirname_python_loc()), "/")),
@@ -126,35 +126,35 @@ server <- function(input, output, session) {
         make_output=FALSE,
         output_name=input$output_name,
         test_tensorflow = FALSE,
-        print_cmd=TRUE
+        print_cmd=FALSE
       )
     })
     
     
-    # pass output to another function
-    windows_input <- shiny::reactive({
-      gsub("\\\\", "/", paste0("classify(\n
-                               path_prefix = '", normalizePath(dirname_path_prefix()), "',",
-                               " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
-                               " model_dir = '", normalizePath(dirname_model_dir()), "',",
-                               " python_loc = '", normalizePath(dirname_python_loc()), "',",
-                               " log_dir = '", input$log_dir, "',\n",
-                               "num_classes = ", input$num_classes, ",\n",
-                               "save_predictions = '", input$save_predictions, "',\n",
-                               "architecture = '", input$architecture, "',\n",
-                               "depth = ", input$depth, ",\n",
-                               "num_cores = ", input$num_cores, ",\n",
-                               "top_n = ", input$top_n, ",\n",
-                               "batch_size = ", input$batch_size, ",\n",
-                               "output_name = '", input$output_name,
-                               "'\n
-      )"
-      ))
-    })
-    shiny::observeEvent(input$runClassify, {
-      windows_helper(renderPrint(windows_input(), quoted=TRUE))
-    })
-    
+    # # pass output to another function
+    # windows_input <<- shiny::reactive({
+    #   gsub("\\\\", "/", paste0("classify(\n
+    #                            path_prefix = '", normalizePath(dirname_path_prefix()), "',",
+    #                            " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
+    #                            " model_dir = '", normalizePath(dirname_model_dir()), "',",
+    #                            " python_loc = '", normalizePath(dirname_python_loc()), "',",
+    #                            " log_dir = '", input$log_dir, "',\n",
+    #                            "num_classes = ", input$num_classes, ",\n",
+    #                            "save_predictions = '", input$save_predictions, "',\n",
+    #                            "architecture = '", input$architecture, "',\n",
+    #                            "depth = ", input$depth, ",\n",
+    #                            "num_cores = ", input$num_cores, ",\n",
+    #                            "top_n = ", input$top_n, ",\n",
+    #                            "batch_size = ", input$batch_size, ",\n",
+    #                            "output_name = '", input$output_name,
+    #                            "'\n
+    #   )"
+    #   ))
+    # })
+    # shiny::observeEvent(input$runClassify, {
+    #   windows_helper(renderPrint(windows_input(), quoted=TRUE))
+    # })
+    #
   } else{
     output$path_prefix_print <- renderText({
       paste0("classify(\n

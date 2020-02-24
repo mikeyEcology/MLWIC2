@@ -72,7 +72,7 @@ classify <- function(
   make_output=FALSE,
   output_location=getwd(),
   output_name = "MLWIC2_output.csv",
-  test_tensorflow = TRUE,
+  test_tensorflow = FALSE,
   shiny=FALSE,
   print_cmd = FALSE
   
@@ -85,7 +85,6 @@ classify <- function(
   data_info = data_info
   model_dir = model_dir
   
-  
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
   #   setwd(paste0(model_dir, "log_dir"))
@@ -95,13 +94,9 @@ classify <- function(
   # wd <- getwd()
   
   # navigate to directory with trained model
-  if(endsWith(model_dir, "/")){
-    wd <- model_dir #(paste0(model_dir, log_dir))
-  } else {
-    wd <- model_dir #(paste0(model_dir, "/", log_dir))
-  }
+  wd <- model_dir
   if(shiny==FALSE){
-    setwd(wd)
+    setwd(wd) # need to do this differently on not shiny because Windows uses cd command differently
   }
   
   # add a / to the end of python directory if applicable
@@ -131,34 +126,6 @@ classify <- function(
     }
   }
   
-  
-  
-  
-  # load in data_info and store it in the model_dir
-  # lbls <- utils::read.csv(data_info, header=FALSE)
-  # lbls[,1] <- as.character(lbls[,1])
-  # utils::write.table(lbls, "data_info.csv", sep=",",
-  #                    row.names=FALSE, col.names=FALSE)
-  #file.copy(from=data_info, to=paste0(wd, "/data_info.csv"), header=FALSE)
-  
-  if(os=="Windows"){
-    # deal with windows file format issues
-    # data_file <- read.table(data_info, header=FALSE, sep=",")
-    # output.file <- file("data_info.csv", "wb")
-    # write.table(data_file,
-    #             file = output.file,
-    #             append = TRUE,
-    #             quote = FALSE,
-    #             row.names = FALSE,
-    #             col.names = FALSE,
-    #             sep = ",")
-    # close(output.file)
-    # rm(output.file)
-  } else {
-    
-    cpfile <- paste0("cp ", data_info, " ", wd, "/data_info.csv")
-    system(cpfile)
-  }
   
   # set depth
   if(architecture == "alexnet"){
@@ -253,4 +220,5 @@ classify <- function(
 # data_info = '/Users/mikeytabak/MLWIC_examples/image_labels.csv',
 # model_dir = '/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files',
 # python_loc = '/anaconda3/bin',
-# log_dir = 'species_model', num_classes = 59, save_predictions = 'model_predictions.txt', architecture = 'resnet', depth = 18, num_cores = 1, top_n = 5, batch_size = 128, output_name = 'MLWIC2_output.csv' )
+# log_dir = 'species_model', num_classes = 59, save_predictions = 'model_predictions.txt', architecture = 'resnet', depth = 18, num_cores = 1, top_n = 5, batch_size = 128, output_name = 'MLWIC2_output.csv' ,
+# print_cmd = TRUE)
