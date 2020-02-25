@@ -95,9 +95,9 @@ classify <- function(
   
   # navigate to directory with trained model
   wd <- model_dir
-  if(shiny==FALSE | os == "Windows"){
+  #if(shiny==FALSE | os == "Windows"){
     setwd(wd) # need to do this differently on not shiny because Windows uses cd command differently
-  }
+  #}
   
   # add a / to the end of python directory if applicable
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
@@ -182,14 +182,14 @@ classify <- function(
   if(print_cmd){
     print(eval_py)
   }else{
-    if(shiny & os=="Mac"){
-      system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
-                    "export PYTHONWARNINGS='ignore'\n", 
-                    eval_py))
-    } else {
+    # if(shiny & os=="Mac"){
+    #   system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
+    #                 "export PYTHONWARNINGS='ignore'\n", 
+    #                 eval_py))
+    # } else {
       system(paste0("export PYTHONWARNINGS='ignore'\n", 
                     eval_py))
-    }
+    # }
   }
   
   
