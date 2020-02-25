@@ -114,23 +114,34 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=FALSE
+      print_cmd=TRUE
     )
   })
   
   
   # pass output to another function
   observe({
-    windows_input <<- gsub("\\\\", "/", paste0("classify(path_prefix = '", normalizePath(dirname_path_prefix()), "',", " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',", " model_dir = '", normalizePath(dirname_model_dir()), "',", " python_loc = '", normalizePath(dirname_python_loc()), "',"," log_dir = '", input$log_dir, "',"," num_classes = ", input$num_classes, ","," save_predictions = '", input$save_predictions, "',", " architecture = '", input$architecture,"',", " depth = ", input$depth, ",", " num_cores = ", input$num_cores, ",","top_n = ", input$top_n, ",","batch_size = ", input$batch_size,",","output_name = '", input$output_name,"')"
-    ))
+    #windows_input <<- gsub("\\\\", "/", paste0("classify(path_prefix = '", normalizePath(dirname_path_prefix()), "',", " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',", " model_dir = '", normalizePath(dirname_model_dir()), "',", " python_loc = '", normalizePath(dirname_python_loc()), "',"," log_dir = '", input$log_dir, "',"," num_classes = ", input$num_classes, ","," save_predictions = '", input$save_predictions, "',", " architecture = '", input$architecture,"',", " depth = ", input$depth, ",", " num_cores = ", input$num_cores, ",","top_n = ", input$top_n, ",","batch_size = ", input$batch_size,",","output_name = '", input$output_name,"')"
+    #                                           ))
+    windows_input <<- list(path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())), 
+                           data_info = gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)), 
+                           model_dir = gsub("\\\\", "/", normalizePath(dirname_model_dir())),
+                           python_loc = gsub("\\\\", "/", normalizePath(dirname_python_loc())), 
+                           log_dir = input$log_dir, 
+                           num_classes = input$num_classes,
+                           save_predictions = input$save_predictions,
+                           architecture = input$architecture,
+                           depth = input$depth, 
+                           num_cores = input$num_cores,
+                           top_n = input$top_n,
+                           batch_size = input$batch_size,
+                           output_name = input$output_name
+    )
   })
   
-  # I haven't tested this yet:
-  # if(Windows){
-  #   shiny::observeEvent(input$runClassify, {
-  #     windows_helper(windows_input)
-  #   })
-  # }
+  shiny::observeEvent(input$runClassify, {
+    do.call(classify, windows_input)
+  })
 
   
 }
@@ -176,11 +187,7 @@ ui <- shiny::fluidPage(
     shiny::mainPanel(
       shiny::helpText("After selecting inputs, you can use the values below in the classify() function instead of running Shiny.
                       This printout is designed to allow you to avoid using Shiny in future runs."),
-      shiny::textOutput("path_prefix_print"),
-      shiny::textOutput("data_info_print"),
-      shiny::textOutput("model_dir_print"),
-      shiny::textOutput("python_loc_print"),
-      shiny::textOutput("vars_print", inline = TRUE)
+      shiny::textOutput("path_prefix_print")
     )
   )
 )

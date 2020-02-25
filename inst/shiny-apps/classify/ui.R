@@ -1,3 +1,4 @@
+
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -39,11 +40,7 @@ ui <- shiny::fluidPage(
     shiny::mainPanel(
       shiny::helpText("After selecting inputs, you can use the values below in the classify() function instead of running Shiny.
                       This printout is designed to allow you to avoid using Shiny in future runs."),
-      shiny::textOutput("path_prefix_print"),
-      shiny::textOutput("data_info_print"),
-      shiny::textOutput("model_dir_print"),
-      shiny::textOutput("python_loc_print"),
-      shiny::textOutput("vars_print", inline = TRUE)
+      shiny::textOutput("path_prefix_print")
     )
   )
 )

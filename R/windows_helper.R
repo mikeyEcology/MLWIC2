@@ -7,7 +7,12 @@
 #' @param FUN # function to run
 #' @export
 windows_helper <- function(
-  input
+  FUN, input
 ){
-  return(input)
+do.call(FUN, input)
+  #return(input)
 }
+
+FUN <- eval(noquote("plot(density(rnorm(100,0,1)))"))
+do.call(rnorm, args=list(mean=0, n=10, 1))
+windows_helper(classify, windows_input)
