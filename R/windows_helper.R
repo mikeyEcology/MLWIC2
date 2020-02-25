@@ -13,6 +13,6 @@ do.call(FUN, input)
   #return(input)
 }
 
-FUN <- eval(noquote("plot(density(rnorm(100,0,1)))"))
-do.call(rnorm, args=list(mean=0, n=10, 1))
-windows_helper(classify, windows_input)
+# FUN <- eval(noquote("plot(density(rnorm(100,0,1)))"))
+# do.call(rnorm, args=list(mean=0, n=10, 1))
+# windows_helper(classify, windows_input)
