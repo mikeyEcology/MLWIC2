@@ -94,7 +94,7 @@ classify <- function(
   if(!dir.exists(path_prefix)){
     stop("Your `path_prefix` (location of image files) does not exist.")
   } else {
-    cat(paste0("Your `path_prefix`` exists: ", path_prefix, ".\n"))
+    cat(paste0("Your `path_prefix` exists: ", path_prefix, ".\n"))
   }
   if(os=="Windows"){
     cat("You are running on a Windows computer.\n")
@@ -199,14 +199,10 @@ classify <- function(
   if(print_cmd){
     print(eval_py)
   }else{
-    #if(shiny){
-    #   system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
-    #                 "export PYTHONWARNINGS='ignore'\n",
-    #                 eval_py))
-    # } else {
-      system(paste0("export PYTHONWARNINGS='ignore'\n",
-                    eval_py))
-    #}
+      system(eval_py)
+      #system(paste0("export PYTHONWARNINGS='ignore'\n",
+      #              eval_py))
+
   }
   
   
