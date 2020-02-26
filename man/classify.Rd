@@ -32,7 +32,7 @@ classify(
 \item{path_prefix}{Absolute path to location of the images on your computer (or computing cluster).
 All images must be stored in one folder.}
 
-\item{data_info}{Name of a csv containing the file names of each image (including absolute path).
+\item{data_info}{Name of a csv containing the file names of each image (including relative path from the \code{path_prefix}).
 It is recommended that you use the \code{make_input} function to make this \code{data_info} file
 in the proper format. See \code{speciesID} for the numbers (if using the built in model) of each
 species. If you do not know the species in the image, put a zero in each row of column 2.

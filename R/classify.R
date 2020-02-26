@@ -12,7 +12,7 @@
 #'
 #' @param path_prefix Absolute path to location of the images on your computer (or computing cluster).
 #'  All images must be stored in one folder.
-#' @param data_info Name of a csv containing the file names of each image (including absolute path).
+#' @param data_info Name of a csv containing the file names of each image (including relative path from the \code{path_prefix}).
 #'  It is recommended that you use the \code{make_input} function to make this \code{data_info} file
 #'  in the proper format. See \code{speciesID} for the numbers (if using the built in model) of each
 #'  species. If you do not know the species in the image, put a zero in each row of column 2.
@@ -85,6 +85,23 @@ classify <- function(
   data_info = data_info
   model_dir = model_dir
   
+  # check if data_info file exists and if path_prefix exists
+  if(!file.exists(data_info)){
+    stop("Your `data_info` file (containing file names and classifications) does not exist.")
+  } else{
+    cat(paste0("Your `data_info` file exists: ", data_info, ".\n"))
+  }
+  if(!dir.exists(path_prefix)){
+    stop("Your `path_prefix` (location of image files) does not exist.")
+  } else {
+    cat(paste0("Your `path_prefix`` exists: ", path_prefix, ".\n"))
+  }
+  if(os=="Windows"){
+    cat("You are running on a Windows computer.\n")
+  } else{
+    cat("You are not using a Windows computer.\n")
+  }
+
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
   #   setwd(paste0(model_dir, "log_dir"))
@@ -234,7 +251,7 @@ classify <- function(
   
 }
 
-# classify( path_prefix = '/Users/mikeytabak/MLWIC_examples/images',
+# classify( path_prefix = '/Users/mikeytabak/MLWIC_examples/images/',
 # data_info = '/Users/mikeytabak/MLWIC_examples/image_labels.csv',
 # model_dir = '/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files',
 # python_loc = '/anaconda3/bin',
