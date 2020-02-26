@@ -135,7 +135,8 @@ server <- function(input, output, session) {
                            num_cores = input$num_cores,
                            top_n = input$top_n,
                            batch_size = input$batch_size,
-                           output_name = input$output_name
+                           output_name = input$output_name,
+                           os=input$os
     )
   })
   
@@ -145,3 +146,4 @@ server <- function(input, output, session) {
 
   
 }
+

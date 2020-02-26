@@ -170,7 +170,8 @@ classify <- function(
                       " --batch_size ", batch_size, 
                       " --val_info ", data_info,
                       " --delimiter ", delimiter,
-                      " --save_predictions ", paste0(wd, "\\", save_predictions),
+                      #" --save_predictions ", paste0(wd, "\\", save_predictions),
+                      " --save_predictions ", paste0(wd, "/", save_predictions),
                       " --top_n ", top_n,
                       " --num_gpus ", num_gpus,
                       #" --num_classes ", num_classes, 
@@ -236,7 +237,9 @@ classify <- function(
       txt <- paste0("A csv with model predictions can be found here: ", output_location, "/", output_name)
       cat(txt)
     }else{
-      cat("The classify function did not run properly.\n")
+      if(!print_cmd){
+        cat("The classify function did not run properly.\n")
+      }
     }
     
     
