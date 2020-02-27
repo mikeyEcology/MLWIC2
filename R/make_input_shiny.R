@@ -26,7 +26,7 @@ server <- function(input, output, session) {
     make_input(
       input_file = normalizePath(filename_input_file()),
       find_file_names = input$find_file_names,
-      path_prefix = input$path_prefix,
+      path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
       usingBuiltIn = input$usingBuiltIn, 
@@ -73,8 +73,8 @@ ui <- shiny::fluidPage(
         "Empty/Animal model" = "empty_animal"
       )),
       shiny::selectInput("images_classified", "Have your images already been classified? (you know what species is in the images)", c(
-        "Yes" = "TRUE", 
-        "No" = "FALSE"
+        "No" = "FALSE",
+        "Yes" = "TRUE"
       )),
       shiny::selectInput("find_class_IDs", "Do you want MLWIC2 to find the class_IDs for each image? 
                          Selecting No means that (if your images are classified) you're providing an input file with class_IDs that match

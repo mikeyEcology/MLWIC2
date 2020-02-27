@@ -1,8 +1,9 @@
+# shiny
 server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  #volumes =  c(home = "") 
+  #volumes =  c(home = "")
   volumes = shinyFiles::getVolumes()
   # input_file
   shinyFiles::shinyFileChoose(input, "input_file", roots=volumes, session=session, filetypes=c('txt', 'csv'))
@@ -25,14 +26,14 @@ server <- function(input, output, session) {
     make_input(
       input_file = normalizePath(filename_input_file()),
       find_file_names = input$find_file_names,
-      path_prefix = input$path_prefix,
+      path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
-      usingBuiltIn = input$usingBuiltIn, 
+      usingBuiltIn = input$usingBuiltIn,
       model_type = input$model_type,
       images_classified = input$images_classified,
       find_class_IDs = input$find_class_IDs,
-      trainTest = input$train_test, 
+      trainTest = input$train_test,
       file_prefix = "",
       propTrain = input$propTrain
     )

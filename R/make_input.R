@@ -100,8 +100,7 @@ make_input <- function(
                 sep = ",")
     close(output.file)
     rm(output.file) 
-    print(paste0("Your file is located at ", path_prefix, "/", "image_labels.csv. \n
-                 This is the same location where your images are stored."))
+   cat(paste0("Your file is located at '", path_prefix, "/", "image_labels.csv'. This is the same location where your images are stored."))
   } else {
     # load in file
     inFile <- utils::read.csv(input_file)
