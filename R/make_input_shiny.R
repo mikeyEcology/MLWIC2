@@ -119,124 +119,124 @@ ui <- shiny::fluidPage(
 shiny::shinyApp(ui, server)
 
 
-# example 
-fun1 <- function(x){
-  y <- read.csv(x, header=F)
-  return(head(y))
-  
-  colnames(y) <- c("filename", "class_ID")
-  wd <- "/Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2"
-  output.file <- file(paste0(wd, "/", "out_file.csv"))
-  write.table(y, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE,sep = ",")
-  close(output.file)
-  rm(output.file) 
-}
+# # example 
+# fun1 <- function(x){
+#   y <- read.csv(x, header=F)
+#   return(head(y))
+#   
+#   colnames(y) <- c("filename", "class_ID")
+#   wd <- "/Users/mikeytabak/Desktop/APHIS/teton_projects/trained_model_20190610/R_package/MLWIC2"
+#   output.file <- file(paste0(wd, "/", "out_file.csv"))
+#   write.table(y, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE,sep = ",")
+#   close(output.file)
+#   rm(output.file) 
+# }
+# 
+# # just write a csv
+# fun1 <- function(x){
+#   wd <- getwd()
+#   y <- mtcars
+#   output.file <- file(paste0(wd, "/", "out_file.csv"))
+#   write.table(y, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE,sep = ",")
+#   close(output.file)
+#   rm(output.file) 
+#   
+# }
 
-# just write a csv
-fun1 <- function(x){
-  wd <- getwd()
-  y <- mtcars
-  output.file <- file(paste0(wd, "/", "out_file.csv"))
-  write.table(y, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE,sep = ",")
-  close(output.file)
-  rm(output.file) 
-  
-}
-
-# simple shiny code to read find a file and read it in. 
-server <- function(input, output, session) {
-  
-  # base directory for fileChoose
-  volumes = shinyFiles::getVolumes()
-  # input_file
-  shinyFiles::shinyFileChoose(input, "input_file", roots=volumes, session=session, filetypes=c('csv'))
-  #filename_input_file <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$input_file)[length(shinyFiles::parseFilePaths(volumes, input$input_file))]})
-  filename_input_file <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$input_file)})
-  
-  # observe filename changes
-  # shiny::observe({
-  #   if(!is.integer(filename_input_file)){
-  #     print(filename_input_file())
-  #     output$input_file <- shiny::renderText(filename_input_file())
-  #   }
-  # })
-  
-  # input_file <<- renderPrint({
-  #   if (is.integer(input$input_file)) {
-  #     cat("No files have been selected (shinyFileChoose)")
-  #   } else {
-  #     parseFilePaths(volumes, input$input_file)
-  #   }
-  # })
-  
-  # run the function
-  # shiny::observeEvent(input$runFUN, {
-  #   #fun1(normalizePath(filename_input_file()))
-  #   #fun1(parseFilePaths(volumes, input$input_file))
-  #   fun1(input$input_file)
-  # })
-  
-  # shiny::observeEvent(input$runFUN, {
-  #   if (is.integer(filename_input_file)) {
-  #     cat("No files have been selected (shinyFileChoose)")
-  #   } else {
-  #     #fun1(parseFilePaths(volumes, input$input_file))
-  #     fun1(filename_input_file)
-  #   }
-  # })
-  
-  # shiny::observeEvent(input$runFUN, {
-  #   inFile <<- input$input_file
-  #   if (is.integer(input$input_file)) {
-  #     cat("No files have been selected (shinyFileChoose)")
-  #   } else {
-  #     #fun1(parseFilePaths(volumes, input$input_file))
-  #     #fun1(input$input_file$datapath)
-  #     fun1(inFile$datapath)
-  #   }
-  # })
-  
-  # upload <- reactive({
-  #   inFile <- input$input_file
-  #   if(is.null(inFile)){
-  #     return(NULL)
-  #   } else{
-  #     inPath <<- paste0(inFile$files$`0`, collapse="/")
-  #   }
-  # })
-
-  
-  #*** this works kinda ***
-  shiny::observeEvent(input$runFUN, {
-    inFile <- input$input_file
-    if(is.integer(inFile)){
-      return(NULL)
-    } else{
-      inPath <- paste0(inFile$files$`0`, collapse="/")
-    }
-    fun1(inPath)
-  })
-  
-
-}
-ui <- shiny::fluidPage(
-  
-  # App title ----
-  shiny::titlePanel("test"),
-  
-  # Sidebar layout with input and output definitions ----
-  shiny::sidebarLayout(
-    shiny::sidebarPanel(
-      shinyFiles::shinyFilesButton('input_file', "file", title="Select a csv", multiple=FALSE),
-      shiny::actionButton("runFUN", "run function")
-    ), # this works with option 2
-    
-    
-    # Main panel for displaying outputs ----
-    shiny::mainPanel(
-      
-    )
-  )
-)
-
-shiny::shinyApp(ui, server)
+# # simple shiny code to read find a file and read it in. 
+# server <- function(input, output, session) {
+#   
+#   # base directory for fileChoose
+#   volumes = shinyFiles::getVolumes()
+#   # input_file
+#   shinyFiles::shinyFileChoose(input, "input_file", roots=volumes, session=session, filetypes=c('csv'))
+#   #filename_input_file <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$input_file)[length(shinyFiles::parseFilePaths(volumes, input$input_file))]})
+#   filename_input_file <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$input_file)})
+#   
+#   # observe filename changes
+#   # shiny::observe({
+#   #   if(!is.integer(filename_input_file)){
+#   #     print(filename_input_file())
+#   #     output$input_file <- shiny::renderText(filename_input_file())
+#   #   }
+#   # })
+#   
+#   # input_file <<- renderPrint({
+#   #   if (is.integer(input$input_file)) {
+#   #     cat("No files have been selected (shinyFileChoose)")
+#   #   } else {
+#   #     parseFilePaths(volumes, input$input_file)
+#   #   }
+#   # })
+#   
+#   # run the function
+#   # shiny::observeEvent(input$runFUN, {
+#   #   #fun1(normalizePath(filename_input_file()))
+#   #   #fun1(parseFilePaths(volumes, input$input_file))
+#   #   fun1(input$input_file)
+#   # })
+#   
+#   # shiny::observeEvent(input$runFUN, {
+#   #   if (is.integer(filename_input_file)) {
+#   #     cat("No files have been selected (shinyFileChoose)")
+#   #   } else {
+#   #     #fun1(parseFilePaths(volumes, input$input_file))
+#   #     fun1(filename_input_file)
+#   #   }
+#   # })
+#   
+#   # shiny::observeEvent(input$runFUN, {
+#   #   inFile <<- input$input_file
+#   #   if (is.integer(input$input_file)) {
+#   #     cat("No files have been selected (shinyFileChoose)")
+#   #   } else {
+#   #     #fun1(parseFilePaths(volumes, input$input_file))
+#   #     #fun1(input$input_file$datapath)
+#   #     fun1(inFile$datapath)
+#   #   }
+#   # })
+#   
+#   # upload <- reactive({
+#   #   inFile <- input$input_file
+#   #   if(is.null(inFile)){
+#   #     return(NULL)
+#   #   } else{
+#   #     inPath <<- paste0(inFile$files$`0`, collapse="/")
+#   #   }
+#   # })
+# 
+#   
+#   #*** this works kinda ***
+#   shiny::observeEvent(input$runFUN, {
+#     inFile <- input$input_file
+#     if(is.integer(inFile)){
+#       return(NULL)
+#     } else{
+#       inPath <- paste0(inFile$files$`0`, collapse="/")
+#     }
+#     fun1(inPath)
+#   })
+#   
+# 
+# }
+# ui <- shiny::fluidPage(
+#   
+#   # App title ----
+#   shiny::titlePanel("test"),
+#   
+#   # Sidebar layout with input and output definitions ----
+#   shiny::sidebarLayout(
+#     shiny::sidebarPanel(
+#       shinyFiles::shinyFilesButton('input_file', "file", title="Select a csv", multiple=FALSE),
+#       shiny::actionButton("runFUN", "run function")
+#     ), # this works with option 2
+#     
+#     
+#     # Main panel for displaying outputs ----
+#     shiny::mainPanel(
+#       
+#     )
+#   )
+# )
+# 
+# shiny::shinyApp(ui, server)
