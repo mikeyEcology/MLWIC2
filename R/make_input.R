@@ -53,7 +53,7 @@ make_input <- function(
   images_classified = FALSE,
   find_class_IDs = FALSE,
   trainTest = FALSE, 
-  file_prefix = "",
+  file_prefix = "pre_",
   propTrain = 0.9
 ){
   
@@ -109,11 +109,11 @@ make_input <- function(
       if(images_classified){
         if(find_class_IDs){
           cnames <- colnames(inFile)
-          cnames_shouldBe <- c("class", "filename")
+          cnames_shouldBe <- c("class_ID", "filename")
           cnames_bool <- cnames_shouldBe %in% cnames
           if(any(!cnames_bool)){
             stop("You have specified that you want MLWIC2 to find_class_IDs. In order to do this,\n
-                 your inFile must contain a column called `class` and a column called `filename`")
+                 your inFile must contain a column called `class_ID` and a column called `filename`")
           }
           
           # setup a lower case
@@ -134,7 +134,7 @@ make_input <- function(
             class_ID <- speciesID[rowOfClass,1]
             return(class_ID)
           }
-          inFile$class_ID <- sapply(inFile$class, findClassID)
+          inFile$class_ID <- sapply(inFile$class_ID, findClassID)
           
           if(model_type == "empty_animal"){
             # if we're using the empty animal model, change to either 0 or one. 
@@ -155,11 +155,11 @@ make_input <- function(
           old_new4 <- rbind(old_new3, nas_df)
           
           # return a talbe showing how their labels were changed
-          cat("This function will return a table of how your class names were changed
-              to make class_ID's to match the function. If you are not happy with these, 
-              it is best for you to find class_IDs for your species using the table here:
-              https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv and specifying
-              find_class_IDs=FALSE the next time you run `make_input`")
+          # cat("This function will return a table of how your class names were changed
+          #     to make class_ID's to match the function. If you are not happy with these, 
+          #     it is best for you to find class_IDs for your species using the table here:
+          #     https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv and specifying
+          #     find_class_IDs=FALSE the next time you run `make_input`")
           return(old_new4)
           
           # remove rows from input file where there is no matching classID
@@ -188,8 +188,6 @@ make_input <- function(
             stop("You have specified that you want MLWIC2 to make an input file using your class_IDs and \n
                  filenames. Your input file must contain a column called `class_ID` and a column called `filename`")
           }
-        }
-        
         # here we are just essentially reading and writing the file
         
         # write output
@@ -206,7 +204,7 @@ make_input <- function(
         rm(output.file) 
         print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
         
-
+        } # end not finding file names; user is supplying class_ID. 
         
         
       } else { # images not classified, but using builtin
@@ -216,7 +214,7 @@ make_input <- function(
           stop("Your input_file does not contain a column called 'filename'")
         } 
         df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
-      }
+ 
       
       
       # write output
@@ -231,6 +229,8 @@ make_input <- function(
       close(output.file)
       rm(output.file) 
       print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
+      
+      } # end images not classified, but using builtin
       
     } else { # (not using builtin)
       cnames <- colnames(inFile)
@@ -317,3 +317,6 @@ make_input <- function(
     
   } # end else for not using find_file_names
 }
+
+# make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
+#            images_classified = TRUE, find_class_IDs=FALSE)

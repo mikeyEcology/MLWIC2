@@ -26,18 +26,18 @@ server <- function(input, output, session) {
   })
   
   # data_info
-  # shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
-  # filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
+   shinyFiles::shinyFileChoose(input, "data_info", roots=volumes, session=session, filetypes=c('txt', 'csv'))
+   filename_data_info <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$data_info)[length(shinyFiles::parseFilePaths(volumes, input$data_info))]})
   # data_info directory = data_prefix
-  shinyFiles::shinyDirChoose(input, 'data_prefix', roots=volumes, session=session)
-  dirname_data_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$data_prefix)})
-  # Observe data_prefix changes
-  shiny::observe({
-    if(!is.null(dirname_data_prefix)){
-      print(dirname_data_prefix())
-      output$data_prefix <- shiny::renderText(dirname_data_prefix())
-    }
-  })
+  # shinyFiles::shinyDirChoose(input, 'data_prefix', roots=volumes, session=session)
+  # dirname_data_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$data_prefix)})
+  # # Observe data_prefix changes
+  # shiny::observe({
+  #   if(!is.null(dirname_data_prefix)){
+  #     print(dirname_data_prefix())
+  #     output$data_prefix <- shiny::renderText(dirname_data_prefix())
+  #   }
+  # })
   
   # model_dir
   shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
@@ -65,9 +65,16 @@ server <- function(input, output, session) {
   #  if(Windows){
   # print output for running function as one element
   output$path_prefix_print <- renderText({
+    inFile <- input$data_info
+    if(is.integer(inFile)){
+      return(NULL)
+    } else{
+      data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+    }
     gsub("\\\\", "/", paste0("classify(\n
                                path_prefix = '", normalizePath(dirname_path_prefix()), "',",
-                             " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
+                             " data_info = '", data_info_collapse, "',",
+                             #" data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
                              " log_dir = '", input$log_dir, "',\n",
@@ -88,12 +95,19 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runClassify, {
+    inFile <- input$data_info
+    if(is.integer(inFile)){
+      return(NULL)
+    } else{
+      data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+    }
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
+      data_info = data_info_collapse,
       #data_info = input$data_info,
       #data_info = normalizePath(filename_data_info()),
-      data_info =  gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
+      #data_info =  gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
       #data_info =  paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info),
       #model_dir = input$model_dir,
       #model_dir =  gsub("\\\\", "/", normalizePath(dirname_model_dir())),
@@ -114,36 +128,35 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=TRUE
+      print_cmd=FALSE
     )
   })
   
   
   # pass output to another function
-  observe({
-    #windows_input <<- gsub("\\\\", "/", paste0("classify(path_prefix = '", normalizePath(dirname_path_prefix()), "',", " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',", " model_dir = '", normalizePath(dirname_model_dir()), "',", " python_loc = '", normalizePath(dirname_python_loc()), "',"," log_dir = '", input$log_dir, "',"," num_classes = ", input$num_classes, ","," save_predictions = '", input$save_predictions, "',", " architecture = '", input$architecture,"',", " depth = ", input$depth, ",", " num_cores = ", input$num_cores, ",","top_n = ", input$top_n, ",","batch_size = ", input$batch_size,",","output_name = '", input$output_name,"')"
-    #                                           ))
-    windows_input <<- list(path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
-                           data_info = gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
-                           model_dir = gsub("\\\\", "/", normalizePath(dirname_model_dir())),
-                           python_loc = gsub("\\\\", "/", normalizePath(dirname_python_loc())),
-                           log_dir = input$log_dir,
-                           num_classes = input$num_classes,
-                           save_predictions = input$save_predictions,
-                           architecture = input$architecture,
-                           depth = input$depth,
-                           num_cores = input$num_cores,
-                           top_n = input$top_n,
-                           batch_size = input$batch_size,
-                           output_name = input$output_name,
-                           os=input$os
-    )
-  })
+  # observe({
+  #   #windows_input <<- gsub("\\\\", "/", paste0("classify(path_prefix = '", normalizePath(dirname_path_prefix()), "',", " data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',", " model_dir = '", normalizePath(dirname_model_dir()), "',", " python_loc = '", normalizePath(dirname_python_loc()), "',"," log_dir = '", input$log_dir, "',"," num_classes = ", input$num_classes, ","," save_predictions = '", input$save_predictions, "',", " architecture = '", input$architecture,"',", " depth = ", input$depth, ",", " num_cores = ", input$num_cores, ",","top_n = ", input$top_n, ",","batch_size = ", input$batch_size,",","output_name = '", input$output_name,"')"
+  #   #                                           ))
+  #   windows_input <<- list(path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
+  #                          #data_info = gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
+  #                          model_dir = gsub("\\\\", "/", normalizePath(dirname_model_dir())),
+  #                          python_loc = gsub("\\\\", "/", normalizePath(dirname_python_loc())),
+  #                          log_dir = input$log_dir,
+  #                          num_classes = input$num_classes,
+  #                          save_predictions = input$save_predictions,
+  #                          architecture = input$architecture,
+  #                          depth = input$depth,
+  #                          num_cores = input$num_cores,
+  #                          top_n = input$top_n,
+  #                          batch_size = input$batch_size,
+  #                          output_name = input$output_name,
+  #                          os=input$os
+  #   )
+  # })
   
-  shiny::observeEvent(input$runClassify, {
-    do.call(classify, windows_input)
-  })
+  # shiny::observeEvent(input$runClassify, {
+  #   do.call(classify, windows_input)
+  # })
 
   
 }
-

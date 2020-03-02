@@ -15,7 +15,7 @@ make_input(
   images_classified = FALSE,
   find_class_IDs = FALSE,
   trainTest = FALSE,
-  file_prefix = "",
+  file_prefix = "pre_",
   propTrain = 0.9
 )
 }
