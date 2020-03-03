@@ -1,4 +1,3 @@
-# shiny
 server <- function(input, output, session) {
   
   # determine if Windows and create appropriate slashes
@@ -69,7 +68,15 @@ server <- function(input, output, session) {
     if(is.integer(inFile)){
       return(NULL)
     } else{
-      data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+      # on Windows deal with  issuefinding the right drive
+      if(os == "Windows"){
+        root <- inFile$root
+        root1 <- gsub("\\(", "", root)
+        root2 <- gsub("\\)", "", root1) # this gives [Drive]:
+        data_info_collapse <- paste0(root2, paste0(inFile$files$`0`, collapse="/"))
+      } else { # on not windows, we don't have to deal with this
+        data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+      }
     }
     gsub("\\\\", "/", paste0("classify(\n
                                path_prefix = '", normalizePath(dirname_path_prefix()), "',",
@@ -95,11 +102,19 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runClassify, {
-    inFile <- input$data_info
+    inFile <<- input$data_info
     if(is.integer(inFile)){
       return(NULL)
     } else{
-      data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+      # on Windows deal with  issuefinding the right drive
+      if(os == "Windows"){
+        root <- inFile$root
+        root1 <- gsub("\\(", "", root)
+        root2 <- gsub("\\)", "", root1) # this gives [Drive]:
+        data_info_collapse <- paste0(root2, paste0(inFile$files$`0`, collapse="/"))
+      } else { # on not windows, we don't have to deal with this
+        data_info_collapse <- paste0(inFile$files$`0`, collapse="/")
+      }
     }
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
@@ -160,3 +175,4 @@ server <- function(input, output, session) {
 
   
 }
+

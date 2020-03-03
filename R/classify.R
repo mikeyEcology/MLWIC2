@@ -94,7 +94,7 @@ classify <- function(
   if(!dir.exists(path_prefix)){
     stop("Your `path_prefix` (location of image files) does not exist.")
   } else {
-    cat(paste0("Your `path_prefix` exists: ", path_prefix, ".\n"))
+    cat(paste0("Your `path_prefix exists: ", path_prefix, ".\n"))
   }
   if(os=="Windows"){
     cat("You are running on a Windows computer.\n")

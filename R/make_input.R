@@ -160,7 +160,7 @@ make_input <- function(
           #     it is best for you to find class_IDs for your species using the table here:
           #     https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv and specifying
           #     find_class_IDs=FALSE the next time you run `make_input`")
-          return(old_new4)
+          #return(old_new4)
           
           # remove rows from input file where there is no matching classID
           inFile2 <- inFile[!is.na(inFile$class_ID),]
@@ -201,7 +201,7 @@ make_input <- function(
                     append = TRUE,
                     sep = ",")
         close(output.file)
-        rm(output.file) 
+        rm(output.file)
         print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
         
         } # end not finding file names; user is supplying class_ID. 
@@ -318,5 +318,5 @@ make_input <- function(
   } # end else for not using find_file_names
 }
 
-# make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
-#            images_classified = TRUE, find_class_IDs=FALSE)
+ # make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
+ #            images_classified = TRUE, find_class_IDs=FALSE)
