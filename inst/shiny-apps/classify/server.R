@@ -1,3 +1,4 @@
+# shiny
 server <- function(input, output, session) {
   
   # determine if Windows and create appropriate slashes
@@ -66,7 +67,7 @@ server <- function(input, output, session) {
   output$path_prefix_print <- renderText({
     inFile <- input$data_info
     if(is.integer(inFile)){
-      return(NULL)
+      return("This output will appear once you select your input file.")
     } else{
       # on Windows deal with  issuefinding the right drive
       if(os == "Windows"){
@@ -102,6 +103,7 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runClassify, {
+    showModal(modalDialog("Running classify function. Some output will appear in your R console during this process."))
     inFile <<- input$data_info
     if(is.integer(inFile)){
       return(NULL)
@@ -139,12 +141,13 @@ server <- function(input, output, session) {
       batch_size = input$batch_size,
       log_dir= input$log_dir,
       shiny=TRUE,
-      make_output=FALSE,
+      make_output=TRUE,
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
       print_cmd=FALSE
     )
+    showModal(modalDialog("Classify function complete. Check you R console for information. You may press dismiss and close the Shiny window now."))
   })
   
   

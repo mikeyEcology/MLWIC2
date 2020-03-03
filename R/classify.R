@@ -215,9 +215,10 @@ classify <- function(
     if(file.exists(paste0(wd, "/", save_predictions))){
       txt <- paste0("running the classify function took ", runtime, " ", units(runtime), ". ", "\n",
                     "The results are stored in ", model_dir, "/", save_predictions, ". ", "\n",
-                    "To view the results in a viewer-friendly format, please use the function make_output", "\n")
+                    "To view the results in a viewer-friendly format, please use the function make_output", "\n"
+                    )
       if(print_cmd == FALSE){
-        cat(txt) #*** comment this out when I update helper files
+        #cat(txt) #*** comment this out when I update helper files
       }
     } else{
       cat("The classify function did not run properly.\n")
