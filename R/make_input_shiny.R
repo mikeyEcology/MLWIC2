@@ -42,6 +42,7 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runMake_input, {
+    showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information. A warning message about invalid argument type is expected."))
     # dealing with null path prefix
     # if(is.null(dirname_path_prefix)){
     #   path_prefix <- getwd()
@@ -66,7 +67,6 @@ server <- function(input, output, session) {
       }
     }
     make_input(
-      showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information. A warning message about invalid argument type is expected.")),
       #input_file = normalizePath(filename_input_file()),
       input_file = inFile_collapse,
       find_file_names = input$find_file_names,

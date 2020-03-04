@@ -9,3 +9,5 @@ MLWIC2_test_tensorflow.py
 mikeyEcology-MLWIC2-fb3b207
 R/speciesID_contains
 MLWIC2_output.csv
+MLWIC2_inputFile_dir/image_labels.csv
+MLWIC2_inputFile_dir
