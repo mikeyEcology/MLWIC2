@@ -37,8 +37,8 @@ ui <- shiny::fluidPage(
       shiny::selectInput("find_class_IDs", "Do you want MLWIC2 to find the class_IDs for each image?
                          Selecting No means that (if your images are classified) you're providing an input file with class_IDs that match
                          the values found in this table (https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv)", c(
-        "Yes" = "TRUE",
-        "No" = "FALSE"
+                           "No" = "FALSE",
+                           "Yes" = "TRUE"
       )),
       shiny::selectInput("train_test", "Do you want MLWIC2 to make separate training and testing input files?
                          Select no unless you are trainig a model.", c(
@@ -56,4 +56,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-

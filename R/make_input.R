@@ -54,6 +54,7 @@ make_input <- function(
   find_class_IDs = FALSE,
   trainTest = FALSE, 
   file_prefix = "pre_",
+  shiny=FALSE, 
   propTrain = 0.9
 ){
   
@@ -80,6 +81,13 @@ make_input <- function(
          directory where your image files are located on your computer.")
   }
   
+  # if using shiny, I need to create a new directory to put the file
+  # if(shiny){
+  #   shinyDir <- "MLWIC2_inputFile_dir"
+  #   setwd(getwd())
+  #   dir.create(shinyDir)
+  # }
+  
   # make input file using only the path
   if(find_file_names){
     # make a pattern argument for list_files because it cannot take a vector
@@ -90,17 +98,15 @@ make_input <- function(
                              pattern=pattern,
                              full.names=FALSE, recursive=recursive)
     df <- data.frame(file_names, rep(0, length(file_names)))
-    output.file <- file(paste0(path_prefix, "/","image_labels.csv"), "wb")
-    write.table(df,
-                row.names = FALSE,
-                col.names = FALSE,
-                file = output.file,
-                quote = FALSE,
-                append = TRUE,
-                sep = ",")
+    if(shiny){
+      output.file <- file(paste0(path_prefix, "/", shinyDir, "/","image_labels.csv"), "wb")
+    } else {
+      output.file <- file(paste0(path_prefix, "/","image_labels.csv"), "wb")
+    }
+    write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
     close(output.file)
     rm(output.file) 
-   cat(paste0("Your file is located at '", path_prefix, "/", "image_labels.csv'. This is the same location where your images are stored."))
+    cat(paste0("Your file is located at '", path_prefix, "/", "image_labels.csv'. This is the same location where your images are stored."))
   } else {
     # load in file
     inFile <- utils::read.csv(input_file)
@@ -167,19 +173,17 @@ make_input <- function(
           
           # write output
           df <- data.frame(inFile2$filename, inFile2$class_ID)
-          output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
-          write.table(df,
-                      row.names = FALSE,
-                      col.names = FALSE,
-                      file = output.file,
-                      quote = FALSE,
-                      append = TRUE,
-                      sep = ",")
+          if(shiny){
+            output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix, "image_labels.csv"), "wb")
+          } else {
+            output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
+          }
+          write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
           close(output.file)
           rm(output.file) 
           print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
           
-           
+          
         } else { # not finding file names; user is supplying class_ID. 
           cnames <- colnames(inFile)
           cnames_shouldBe <- c("class_ID", "filename")
@@ -188,22 +192,28 @@ make_input <- function(
             stop("You have specified that you want MLWIC2 to make an input file using your class_IDs and \n
                  filenames. Your input file must contain a column called `class_ID` and a column called `filename`")
           }
-        # here we are just essentially reading and writing the file
-        
-        # write output
-        df <- data.frame(inFile$filename, inFile$class_ID)
-        output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
-        write.table(df,
-                    row.names = FALSE,
-                    col.names = FALSE,
-                    file = output.file,
-                    quote = FALSE,
-                    append = TRUE,
-                    sep = ",")
-        close(output.file)
-        rm(output.file)
-        print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
-        
+          # here we are just essentially reading and writing the file
+          
+          # write output
+          df <- data.frame(inFile$filename, inFile$class_ID)
+          if(shiny){
+            #output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix, "image_labels.csv"), "wb")
+            shinyDir <- "MLWIC2_inputFile_dir"
+            if(dir.exists(shinyDir)){
+            } else{
+              dir.create(shinyDir)
+            }
+            output.file <- file(paste0(shinyDir, "/", file_prefix, "image_labels.csv"), "wb")
+            
+          } else {
+            output.file <- file(paste0(path_prefix, "/", file_prefix,"image_labels.csv"), "wb")
+          }
+          write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
+          close(output.file)
+          rm(output.file)
+          #print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
+          print(paste0("Your file is located at ",getwd(), "/", shinyDir, "/", file_prefix, "image_labels.csv."))
+          
         } # end not finding file names; user is supplying class_ID. 
         
         
@@ -214,22 +224,20 @@ make_input <- function(
           stop("Your input_file does not contain a column called 'filename'")
         } 
         df <- data.frame(inFile$filename, rep(0, nrow(inFile)))
- 
-      
-      
-      # write output
-      output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
-      write.table(df,
-                  row.names = FALSE,
-                  col.names = FALSE,
-                  file = output.file,
-                  quote = FALSE,
-                  append = TRUE,
-                  sep = ",")
-      close(output.file)
-      rm(output.file) 
-      print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
-      
+        
+        
+        
+        # write output
+        if(shiny){
+          output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix, "image_labels.csv"), "wb")
+        } else {
+          output.file <- file(paste0(path_prefix, "/", file_prefix, "image_labels.csv"), "wb")
+        }
+        write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
+        close(output.file)
+        rm(output.file) 
+        print(paste0("Your file is located at ", path_prefix, "/", file_prefix, "image_labels.csv."))
+        
       } # end images not classified, but using builtin
       
     } else { # (not using builtin)
@@ -261,14 +269,12 @@ make_input <- function(
       
       # write out data frame
       if(trainTest==FALSE){ 
-        output.file <- file(paste0(file_prefix, "image_labels.csv"), "wb")
-        write.table(df2,
-                    row.names = FALSE,
-                    col.names = FALSE,
-                    file = output.file,
-                    quote = FALSE,
-                    append = TRUE,
-                    sep = ",")
+        if(shiny){
+          output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix,"image_labels.csv"), "wb")
+        } else {
+          output.file <- file(paste0(path_prefix, "/", file_prefix,"image_labels.csv"), "wb")
+        }
+        write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
         close(output.file)
         rm(output.file) 
         print(paste0("Your file is located at ", wd, file_prefix, "image_labels.csv."))
@@ -280,25 +286,22 @@ make_input <- function(
         df.train <- df2[train_rows,]
         df.test <- df2[-train_rows,]
         # write it out
-        output.file <- file(paste0(file_prefix, "_train.csv"), "wb")
-        write.table(df.train,
-                    row.names = FALSE,
-                    col.names = FALSE,
-                    file = output.file,
-                    quote = FALSE,
-                    append = TRUE,
-                    sep = ",")
+        if(shiny){
+          output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix, "_train.csv"), "wb")
+        } else {
+          output.file <- file(paste0(path_prefix, "/", file_prefix, "_train.csv"), "wb")
+        }
+        write.table(df.train, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
         close(output.file)
         rm(output.file) 
         
-        output.file <- file(paste0(file_prefix, "_test.csv"), "wb")
-        write.table(df.train,
-                    row.names = FALSE,
-                    col.names = FALSE,
-                    file = output.file,
-                    quote = FALSE,
-                    append = TRUE,
-                    sep = ",")
+        if(shiny){
+          output.file <- file(paste0(path_prefix, "/", shinyDir, "/", file_prefix, "_test.csv"), "wb")
+        } else {
+          output.file <- file(paste0(path_prefix, "/", file_prefix, "_test.csv"), "wb")
+        }
+        write.table(df.test, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
+        
         close(output.file)
         rm(output.file) 
         
@@ -310,13 +313,13 @@ make_input <- function(
       
     } # end if not using builtin
     
-     if(images_classified & !(usingBuiltIn)){
-       # return the lookup table
-       return(tblLU)
-     }
+    if(images_classified & !(usingBuiltIn)){
+      # return the lookup table
+      return(tblLU)
+    }
     
   } # end else for not using find_file_names
 }
 
- # make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
- #            images_classified = TRUE, find_class_IDs=FALSE)
+make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
+           images_classified = TRUE, find_class_IDs=FALSE, shiny=TRUE)

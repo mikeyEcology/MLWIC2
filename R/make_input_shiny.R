@@ -1,6 +1,15 @@
 # shiny
 server <- function(input, output, session) {
   
+  # determine if Windows and create appropriate slashes
+  if(Sys.info()["sysname"] == "Windows"){
+    Windows <- TRUE
+  } else {
+    Windows <- FALSE
+  }
+  slash <- shiny::reactive({ifelse(Windows, "\\", "/")})
+  os = ifelse(Windows, "Windows", "Mac")
+  
   #- make file selection for some variables
   # base directory for fileChoose
   #volumes =  c(home = "") 
@@ -17,6 +26,8 @@ server <- function(input, output, session) {
     if(!is.null(dirname_path_prefix)){
       print(dirname_path_prefix())
       output$path_prefix <- shiny::renderText(dirname_path_prefix())
+    } else{
+      output$path_prefix <- getwd()
     }
   })
   # observe filename changes
@@ -31,18 +42,36 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runMake_input, {
-    # do this silly bit for gettin inpath to work
-    inFile <- input$input_file
+    # dealing with null path prefix
+    # if(is.null(dirname_path_prefix)){
+    #   path_prefix <- getwd()
+    # } else{
+    #   print(dirname_path_prefix())
+    #   #path_prefix1 <- shiny::renderText(dirname_path_prefix())
+    #   path_prefix <- gsub("\\\\", "/", normalizePath(dirname_path_prefix()))
+    # }
+    # do this to read file in shiny
+    inFile <<- input$input_file
     if(is.integer(inFile)){
       return(NULL)
     } else{
-      inPath <<- paste0(inFile$files$`0`, collapse="/")
+      # on Windows deal with  issuefinding the right drive
+      if(os == "Windows"){
+        root <- inFile$root
+        root1 <- gsub("\\(", "", root)
+        root2 <- gsub("\\)", "", root1) # this gives [Drive]:
+        inFile_collapse <- paste0(root2, paste0(inFile$files$`0`, collapse="/"))
+      } else { # on not windows, we don't have to deal with this
+        inFile_collapse <- paste0(inFile$files$`0`, collapse="/")
+      }
     }
     make_input(
+      showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information. A warning message about invalid argument type is expected.")),
       #input_file = normalizePath(filename_input_file()),
-      input_file = inPath,
+      input_file = inFile_collapse,
       find_file_names = input$find_file_names,
       path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
+      #path_prefix = path_prefix,
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
       usingBuiltIn = input$usingBuiltIn, 
@@ -51,6 +80,7 @@ server <- function(input, output, session) {
       find_class_IDs = input$find_class_IDs,
       trainTest = input$train_test, 
       file_prefix = "",
+      shiny=TRUE,
       propTrain = input$propTrain
     )
   })
