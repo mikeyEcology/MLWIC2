@@ -16,6 +16,7 @@ make_input(
   find_class_IDs = FALSE,
   trainTest = FALSE,
   file_prefix = "pre_",
+  shiny = FALSE,
   propTrain = 0.9
 )
 }

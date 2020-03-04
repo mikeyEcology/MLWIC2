@@ -321,5 +321,5 @@ make_input <- function(
   } # end else for not using find_file_names
 }
 
-make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
-           images_classified = TRUE, find_class_IDs=FALSE, shiny=TRUE)
+#make_input(input_file="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv",
+#           images_classified = TRUE, find_class_IDs=FALSE, shiny=TRUE)
