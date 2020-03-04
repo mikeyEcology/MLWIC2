@@ -30,14 +30,18 @@ server <- function(input, output, session) {
       output$path_prefix <- getwd()
     }
   })
-  # observe filename changes
-  # shiny::observe({
-  #   if(!is.null(filename_input_file)){
-  #     print(filename_input_file())
-  #     output$input_file <- shiny::renderText(filename_input_file())
-  #   }
-  # })
-  
+  # output_dir
+  shinyFiles::shinyDirChoose(input, 'output_dir', roots=volumes, session=session)
+  dirname_output_dir <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$output_dir)})
+  # Observe output_dir changes
+  shiny::observe({
+    if(!is.null(dirname_output_dir)){
+      print(dirname_output_dir())
+      output$output_dir <- shiny::renderText(dirname_output_dir())
+    } else{
+      output$output_dir <- getwd()
+    }
+  })
   
   
   #- run classify
@@ -72,6 +76,8 @@ server <- function(input, output, session) {
       find_file_names = input$find_file_names,
       path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
       #path_prefix = path_prefix,
+      output_dir = gsub("\\\\", "/", normalizePath(dirname_output_dir())),
+      option = input$option,
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
       usingBuiltIn = input$usingBuiltIn,
