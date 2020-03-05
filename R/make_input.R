@@ -40,12 +40,13 @@
 #'  that will be used for testing the model. 
 #'  
 #' @details
-#' Use option=1 if you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class.
-#' option=2: This is the same as Option 1, except instead of having a number for each class, you have a column called `class` containing your classifications as words (e.g., 'dog' or 'cattle', 'empty'), the function will find the appropriate `class_ID` associated with these words.
-#' Use option=3 if you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv with a column called 'filename' and whatever other columns you would like.
-#' option=4: MLWIC2 will find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images.
-#' option=5: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also.
-#' 
+#' \itemize{
+#'  \item Use \code{option=1} if you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class.
+#'  \item \code{option=2}: This is the same as Option 1, except instead of having a number for each class, you have a column called `class` containing your classifications as words (e.g., 'dog' or 'cattle', 'empty'), the function will find the appropriate `class_ID` associated with these words.
+#'  \item Use \code{option=3} if you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv with a column called 'filename' and whatever other columns you would like.
+#'  \item \code{option=4}: MLWIC2 will find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images.
+#'  \item \code{option=5}: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also.
+#' }
 #' @export
 
 make_input <- function(

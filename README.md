@@ -2,7 +2,7 @@
 
 <b>This package is in the development stage.</b> It is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package. MLWIC2 contains two models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. (At this point Shiny apps are not running properly on Windows machines - The paths are getting corrupted.) In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
 
-You need to have Anaconda Navigator installed, along with Python 3.7 (Python 3.6 will also work just as well). 
+You need to have Anaconda Navigator installed, along with Python 3.7 (Python 3.6 or 3.5 will also work just as well). 
 
 
 ## <b>Step 1: Install the `MLWIC2` package in R</b>
@@ -10,7 +10,7 @@ You need to have Anaconda Navigator installed, along with Python 3.7 (Python 3.6
 # install devtools if you don't have it
 if (!require('devtools')) install.packages('devtools')
 # install MLWIC2 from github
-devtools::install_github("mikeyEcology/MLWIC2")
+devtools::install_github("mikeyEcology/MLWIC2") # This line might prompt you to update some packages. It would be wise to make these updates. 
 library(MLWIC2)
 ```
 
@@ -42,15 +42,16 @@ Unzip the folder and then store this folder in a location that makes sense on yo
  
 ## Step 6: Classify images using `classify`
 ###### <i> Shiny option: `MLWIC2::runShiny('classify')` </i>
- - `path_prefix` is the absolute path where your images are stored. 
- - `data_info` is the absolute path to where your input file is stored. Check your output from `make_input`. 
- - `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
- - `log_dir` is the absolute path to the model you want to use. If you are using the built in models, it is either "species_model" or "empty_animal". If you trained a model with MLWIC2, this would be what you specified as your `log_dir_train`.  
- - `os` is your operating system type. If you are using MS Windows, set `os="Windows"`, otherwise, you can ignore this argument. 
- - `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=59`; if you're using the empty_animal model`num_classes=2`. If you trained your own model, this is the number that you specified.
- - `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).
- - See `?classify` for more options. 
- ###### If you are having trouble finding your absolute paths, you can use the shiny option `MLWIC2::runShiny('classify')` and select your files/directories from a drop down menu. Your paths will be printed on the screen so that next time you can run directly in the R console if you prefer. 
+- `path_prefix` is the absolute path where your images are stored. 
+  - You can have image files in subdirectories within your `path_prefix`, but this must be relfected in your `data_info` file. For example, if you have a file located at `.../images/subdirectory1/imagefile.jpg`, and your `path_prefix=.../images/`, your filename for this image in your `data_info` file would be `subdirectory/imagefile.jpg`. 
+- `data_info` is the absolute path to where your input file is stored. Check your output from `make_input`. 
+- `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
+- `log_dir` is the absolute path to the model you want to use. If you are using the built in models, it is either "species_model" or "empty_animal". If you trained a model with MLWIC2, this would be what you specified as your `log_dir_train`.  
+- `os` is your operating system type. If you are using MS Windows, set `os="Windows"`, otherwise, you can ignore this argument. 
+- `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=59`; if you're using the empty_animal model`num_classes=2`. If you trained your own model, this is the number that you specified.
+- `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).
+- See `?classify` for more options. 
+ ###### If you are having trouble finding your absolute paths, you can use the shiny option `MLWIC2::runShiny('classify')` and select your files/directories from a drop down menu. Your paths will be printed on the screen so that next time you can run directly in the R console if you prefer (this is a good way to begin learning how to code). 
  - If you are using the [example images](https://github.com/mikeyEcology/MLWIC_examples/tree/master), the command would look something like this (modified based on your computer-specific paths). 
 ```
 classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your images are stored
@@ -60,7 +61,7 @@ classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your 
          save_predictions = "model_predictions.txt", # how you want to name the raw output file
          make_output = TRUE, # if TRUE, this will produce a csv with a more friendly output
          output_name = "MLWIC2_output.csv", # if make_output==TRUE, this will be the name of your friendly output file
-         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores()
+         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. 
          ) 
 ```
 
