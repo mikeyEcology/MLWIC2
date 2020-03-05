@@ -67,7 +67,7 @@ server <- function(input, output, session) {
   output$path_prefix_print <- renderText({
     inFile <- input$data_info
     if(is.integer(inFile)){
-      return("This output will appear once you select your input file.")
+      return("This printout will appear once you select your input file.")
     } else{
       # on Windows deal with  issuefinding the right drive
       if(os == "Windows"){
@@ -107,6 +107,7 @@ server <- function(input, output, session) {
     inFile <<- input$data_info
     if(is.integer(inFile)){
       return(NULL)
+      #data_info_collapse <- ""
     } else{
       # on Windows deal with  issuefinding the right drive
       if(os == "Windows"){

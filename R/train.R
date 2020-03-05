@@ -72,7 +72,7 @@ train <- function(
   retrain = TRUE,
   retrain_from = "species_model",
   num_epochs = 55,
-  num_cores = 4, 
+  num_cores = 1, 
   randomize = TRUE, 
   max_to_keep = 5,
   print_cmd = FALSE,
@@ -140,7 +140,7 @@ train <- function(
   # run function
   if(retrain){
     train_py <- paste0(python_loc,
-                       " python run.py train", 
+                       "python run.py train", 
                        " --path_prefix ", path_prefix,
                        " --architecture ", architecture,
                        " --depth ", depth,
@@ -154,10 +154,10 @@ train <- function(
                        " --retrain_from ", retrain_from,
                        " --shuffle ", randomize,
                        " --max_to_keep ", max_to_keep,
-                       " --log_dir ", log_dir_train)
+                       " --log_dir ", log_dir_train, "\n")
   }else {
     train_py <- paste0(python_loc,
-                       " python run.py train", 
+                       "python run.py train", 
                        " --path_prefix ", path_prefix,
                        " --architecture ", architecture,
                        " --depth ", depth,
@@ -170,7 +170,7 @@ train <- function(
                        " --num_classes ", num_classes,
                        " --shuffle ", randomize,
                        " --max_to_keep ", max_to_keep,
-                       " --log_dir ", log_dir_train)
+                       " --log_dir ", log_dir_train, "\n")
   }
   
   
@@ -191,9 +191,14 @@ train <- function(
     runtime <- difftime(tic, toc, units="auto")
     
     # end function
-    txt <- paste0("training of model took ", runtime, " ", units(runtime),  ". ",
-                  "The trained model is in ", log_dir_train, ". ",
-                  "Specify this directory as the log_dir when you use classify(). ")
+    if(dir.exists(paste0(model_dir, "/", log_dir_train))){
+      txt <- paste0("the train function ran for ", runtime, " ", units(runtime),  ". ",
+                    "The trained model is in ", log_dir_train, ". ",
+                    "Specify this directory as the log_dir when you use classify(). ")
+    } else {
+      txt <- paste0("the train function did not run properly.")
+    }
+ 
     cat(txt)
   }
   

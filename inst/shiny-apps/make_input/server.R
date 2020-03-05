@@ -46,7 +46,7 @@ server <- function(input, output, session) {
   
   #- run classify
   shiny::observeEvent(input$runMake_input, {
-    showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information. A warning message about invalid argument type is expected."))
+    showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information."))
     # dealing with null path prefix
     # if(is.null(dirname_path_prefix)){
     #   path_prefix <- getwd()
@@ -56,9 +56,10 @@ server <- function(input, output, session) {
     #   path_prefix <- gsub("\\\\", "/", normalizePath(dirname_path_prefix()))
     # }
     # do this to read file in shiny
-    inFile <<- input$input_file
+    inFile <- input$input_file
     if(is.integer(inFile)){
-      return(NULL)
+      #return(NULL)
+      inFile_collapse <- NULL
     } else{
       # on Windows deal with  issuefinding the right drive
       if(os == "Windows"){
@@ -73,11 +74,11 @@ server <- function(input, output, session) {
     make_input(
       #input_file = normalizePath(filename_input_file()),
       input_file = inFile_collapse,
+      option = input$option,
       find_file_names = input$find_file_names,
       path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
       #path_prefix = path_prefix,
       output_dir = gsub("\\\\", "/", normalizePath(dirname_output_dir())),
-      option = input$option,
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
       usingBuiltIn = input$usingBuiltIn,
