@@ -6,6 +6,8 @@
 \usage{
 make_input(
   input_file = NULL,
+  output_dir = getwd(),
+  option = NULL,
   find_file_names = FALSE,
   path_prefix = getwd(),
   image_file_suffixes = c(".jpg", ".JPG"),
@@ -15,7 +17,7 @@ make_input(
   images_classified = FALSE,
   find_class_IDs = FALSE,
   trainTest = FALSE,
-  file_prefix = "pre_",
+  file_prefix = "",
   shiny = FALSE,
   propTrain = 0.9
 )
@@ -23,6 +25,13 @@ make_input(
 \arguments{
 \item{input_file}{The absolute path to your input csv. It must contain a column called "filename"
 and unless you are using the built in model, a column called "class" (which would be your species or group of species).}
+
+\item{output_dir}{The absolute path where you would like to store your new csv. It can be anywhere on your computer,
+but you'll want to be able to find it in the next step, so you might want to store it in your MLWIC2_helper_files folder.}
+
+\item{option}{A value of 1-5 descrbing how you want to supply data and how you want the function to 
+create an input file. See `details` below for what each option means. Setting an option value overrides 
+inputs for `find_file_names`, `usingBuiltIn`, `images_classified`, `find_class_IDs`, and `trainTest`.}
 
 \item{find_file_names}{logical. If TRUE, this function will find all image files within a 
 specified directory. You must specify the directory (`path_prefix`) for this to work.
@@ -65,12 +74,12 @@ that will be used for testing the model.}
 }
 \description{
 \code{make_input} will make a csv with the specifications necessary to either classify 
-images or to train a new model. If you are using the `find_file_names` option, you
-only need to specify the `path_prefix` where all of your images are located and this
-function will generate a file to use with `classify`. Otherwise, you must provide an 
-`input_file` which contains columns called "filename". If you are using images that have 
-been classified and you want to evaluate how the model works on these images, set 
-`images_classified=TRUE` and your `input_file`` must also contain a column called either "class", 
-which contains each image's text classification or "class_ID" which contains a number matching
-the \code{speciesID} table.
+images or to train a new model. See `details` below for using the different options
+}
+\details{
+Use option=1 if you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class.
+option=2: This is the same as Option 1, except instead of having a number for each class, you have a column called `class` containing your classifications as words (e.g., 'dog' or 'cattle', 'empty'), the function will find the appropriate `class_ID` associated with these words.
+Use option=3 if you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv with a column called 'filename' and whatever other columns you would like.
+option=4: MLWIC2 will find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images.
+option=5: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also.
 }

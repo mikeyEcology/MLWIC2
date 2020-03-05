@@ -1,17 +1,13 @@
 #' Create an input file to run \code{classify} or \code{train} in \code{MLWIC}
 #'
 #' \code{make_input} will make a csv with the specifications necessary to either classify 
-#' images or to train a new model. If you are using the `find_file_names` option, you
-#' only need to specify the `path_prefix` where all of your images are located and this
-#' function will generate a file to use with `classify`. Otherwise, you must provide an 
-#' `input_file` which contains columns called "filename". If you are using images that have 
-#' been classified and you want to evaluate how the model works on these images, set 
-#' `images_classified=TRUE` and your `input_file`` must also contain a column called either "class", 
-#' which contains each image's text classification or "class_ID" which contains a number matching
-#' the \code{speciesID} table.
+#' images or to train a new model. See `details` below for using the different options
 #' 
 #' @param input_file The absolute path to your input csv. It must contain a column called "filename"
 #'  and unless you are using the built in model, a column called "class" (which would be your species or group of species).
+#' @param option A value of 1-5 descrbing how you want to supply data and how you want the function to 
+#'  create an input file. See `details` below for what each option means. Setting an option value overrides 
+#'  inputs for `find_file_names`, `usingBuiltIn`, `images_classified`, `find_class_IDs`, and `trainTest`.
 #' @param output_dir The absolute path where you would like to store your new csv. It can be anywhere on your computer,
 #'  but you'll want to be able to find it in the next step, so you might want to store it in your MLWIC2_helper_files folder. 
 #' @param find_file_names logical. If TRUE, this function will find all image files within a 
@@ -42,6 +38,14 @@
 #'  "_train.csv" and "_test.csv"
 #' @param propTrain proportion of images you want for training. `1-propTrain` is the proportion
 #'  that will be used for testing the model. 
+#'  
+#' @details
+#' Use option=1 if you have labels for your images and you want to test the model on your images, you need to have an `input_file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class.
+#' option=2: This is the same as Option 1, except instead of having a number for each class, you have a column called `class` containing your classifications as words (e.g., 'dog' or 'cattle', 'empty'), the function will find the appropriate `class_ID` associated with these words.
+#' Use option=3 if you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv with a column called 'filename' and whatever other columns you would like.
+#' option=4: MLWIC2 will find the filenames of all of your images and create your input file. For this option, you need to specify your `path_prefix` which is the parent directory of your images.
+#' option=5: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also.
+#' 
 #' @export
 
 make_input <- function(
@@ -70,6 +74,7 @@ make_input <- function(
       find_file_names <- FALSE
       usingBuiltIn <- TRUE
       find_class_IDs <- FALSE
+      trainTest <- FALSE
     }
     if(option=="2"){
       # images labeled, using this function to create a file and find the class IDs
@@ -77,15 +82,22 @@ make_input <- function(
       find_file_names <- FALSE
       usingBuiltIn <- TRUE
       find_class_IDs <- TRUE
+      trainTest <- FALSE
     }
     if(option=="3"){
       # finding file names based on path_prefix
       images_classified <- FALSE
       find_file_names <- FALSE
+      usingBuiltIn <- TRUE
+      find_class_IDs <- FALSE
+      trainTest <- FALSE
     }
     if(option=="4"){
       images_classified <- FALSE
       find_file_names <- TRUE
+      usingBuiltIn <- TRUE
+      find_class_IDs <- FALSE
+      trainTest <- FALSE
     }
     if(option=="5"){
       images_classified <- TRUE
@@ -94,75 +106,74 @@ make_input <- function(
       find_class_IDs <- FALSE
       trainTest <- TRUE
     }
-  #}
+ # }
   
   # make sure there is not overlapping logic
-  # if(usingBuiltIn == TRUE & trainTest == TRUE){
-  #   stop("You have specified trainTest == TRUE and usingBuiltIn == TRUE. \n
-  #        This does not make sense because you do not want to make separate train and \n
-  #        test files if you are using the built in model. trainTest is only used if \n
-  #        you are building a model. ")
-  # }
-  # if(trainTest==TRUE & images_classified == FALSE){
-  #   stop("You have specified trainTest == TRUE and images_classified == FALSE. \n
-  #        This does not make sense because you cannot train a model if you do not \n
-  #        have classified images.")
-  # }
-  # if(find_file_names == TRUE & images_classified == TRUE){
-  #   stop("You have specified find_file_names==TRUE and images_classified==TRUE. \n
-  #        When MLWIC2 executes the find_file_names option it cannot accept image \n
-  #        classifications associated with each image. If you want to supply \n
-  #        image classifications, you need to supply an input_file. ")
-  # }
-  # if(find_file_names == TRUE & is.null(path_prefix)){
-  #   stop("You have specified find_file_names==TRUE and but you have not specified the \n
-  #        directory where your image files are located on your computer.")
-  # }
-  # 
-  # if using shiny, I need to create a new directory to put the file
-  # if(shiny){
-  #   shinyDir <- "MLWIC2_inputFile_dir"
-  #   setwd(getwd())
-  #   dir.create(shinyDir)
-  # }
-  
+  if(usingBuiltIn == TRUE & trainTest == TRUE){
+    stop("You have specified trainTest == TRUE and usingBuiltIn == TRUE. \n
+         This does not make sense because you do not want to make separate train and \n
+         test files if you are using the built in model. trainTest is only used if \n
+         you are building a model. ")
+  }
+  if(trainTest==TRUE & images_classified == FALSE){
+    stop("You have specified trainTest == TRUE and images_classified == FALSE. \n
+         This does not make sense because you cannot train a model if you do not \n
+         have classified images.")
+  }
+  if(find_file_names == TRUE & images_classified == TRUE){
+    stop("You have specified find_file_names==TRUE and images_classified==TRUE. \n
+         When MLWIC2 executes the find_file_names option it cannot accept image \n
+         classifications associated with each image. If you want to supply \n
+         image classifications, you need to supply an input_file. ")
+  }
+  if(find_file_names == TRUE & is.null(path_prefix)){
+    stop("You have specified find_file_names==TRUE and but you have not specified the \n
+         directory where your image files are located on your computer.")
+  }
+
   # set directory to output location
   wd1 <- getwd() # so we can return user to their previous wd
   setwd(output_dir)
   
-  # create a new directory so that shiny can edit it
+  # if using shiny, I need to create a new directory to put the file
   if(shiny){
     shinyDir <- "MLWIC2_inputFile_dir"
+    setwd(output_dir)
     if(dir.exists(shinyDir)){
-    } else{
+    }else {
       dir.create(shinyDir)
     }
   }
   
   # make input file using only the path
-  if(find_file_names){
+  if(find_file_names){ #** Option 4
     # make a pattern argument for list_files because it cannot take a vector
     pattern <- paste0(image_file_suffixes, collapse="|")
     
     # find file names in directory
-    file_names <- list.files(path = path_prefix,  
+    file_names <- list.files(path = output_dir,  
                              pattern=pattern,
                              full.names=FALSE, recursive=recursive)
     df <- data.frame(file_names, rep(0, length(file_names)))
     if(shiny){
       shinyDir <- "MLWIC2_inputFile_dir"
-      if(dir.exists(paste0(path_prefix, "/", shinyDir))){
+      if(dir.exists(paste0(output_dir, "/", shinyDir))){
       } else{
-        dir.create(paste0(path_prefix, "/", shinyDir))
+        dir.create(paste0(output_dir, "/", shinyDir))
       }
-      output.file <- file(paste0(path_prefix, "/", shinyDir, "/","image_labels.csv"), "wb")
+      output.file <- file(paste0(output_dir, "/", shinyDir, "/","image_labels.csv"), "wb")
     } else {
-      output.file <- file(paste0(path_prefix, "/","image_labels.csv"), "wb")
+      output.file <- file(paste0(output_dir, "/","image_labels.csv"), "wb")
     }
     utils::write.table(df, row.names = FALSE, col.names = FALSE, file = output.file, quote = FALSE,append = TRUE, sep = ",")
     close(output.file)
     rm(output.file) 
-    cat(paste0("Your file is located at '", path_prefix, "/", "image_labels.csv'. This is the same location where your images are stored."))
+    if(shiny){
+      cat(paste0("Your file is located at '", output_dir, "/", shinyDir, "/", "image_labels.csv'."))
+    } else{
+      cat(paste0("Your file is located at '", output_dir, "/", "image_labels.csv'."))
+    }
+    
   } else {
     # load in file
     inFile <- utils::read.csv(input_file)
@@ -378,8 +389,8 @@ make_input <- function(
   setwd(wd1)
 }
 
-# make_input(path_prefix="/Users/mikeytabak/MLWIC_examples/images/", find_file_names = TRUE, 
+# make_input(path_prefix="/Users/mikeytabak/MLWIC_examples/images/", 
 #            option=4)
-make_input(input_file ="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv", 
-                      option=1)
+# make_input(input_file ="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv", 
+#                       option=1)
 
