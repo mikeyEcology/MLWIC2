@@ -38,7 +38,7 @@
 #'  \code{classify} function. You will want to use unique names if you are training
 #'  multiple models on your computer; otherwise they will be over-written.
 #' @param batch_size the number of images simultaneously passed to the model for training.
-#'  It must be a multiple of 64. Smaller numbers will train models that are more accurate, but it will
+#'  It must be a multiple of 16. Smaller numbers will train models that are more accurate, but it will
 #'  take longer to train. The default is 128.
 #' @param retrain If TRUE, the model you train will be a retraining of the model presented in
 #'  the Tabak et al. MEE paper. If FALSE, you are starting training from scratch. Retraining will be faster

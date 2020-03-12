@@ -2,15 +2,19 @@
 
 MLWIC2 is similar to the [MLWIC](https://github.com/mikeyEcology/MLWIC) package, it contains two models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen. 
 
-You need to have Anaconda Navigator installed, along with Python 3.7 (Python 3.6 or 3.5 will also work just as well). 
-
+You need to have [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/) installed, along with Python 3.7 (Python 3.6 or 3.5 will also work just as well). 
+If you are using a Windows computer, you will likely need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) if you don't already have it installed. 
 
 ## <b>Step 1: Install the `MLWIC2` package in R</b>
 ```
 # install devtools if you don't have it
 if (!require('devtools')) install.packages('devtools')
+# check error messages and ensure that devtools installed properly. 
+
 # install MLWIC2 from github
-devtools::install_github("mikeyEcology/MLWIC2") # This line might prompt you to update some packages. It would be wise to make these updates. 
+devtools::install_github("mikeyEcology/MLWIC2") 
+# This line might prompt you to update some packages. It would be wise to make these updates. 
+
 library(MLWIC2)
 ```
 

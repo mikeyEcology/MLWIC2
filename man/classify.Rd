@@ -99,3 +99,9 @@ this function can also be used to evalute images using the model developed by
 \code{train} by specifying the \code{log_dir} of the trained model. If this is your first time using
 this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2 .
 }
+\details{
+If you specify \code{make_output=TRUE}, the function will generate a csv with
+ depicting your results. \code{answer} is the ground truth label that you supplied. 
+ \code{guess1} is the model's top guess, and \code{confidence1} is the model's
+ confidence in the top guess.
+}

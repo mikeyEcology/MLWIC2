@@ -52,6 +52,13 @@
 #' @param test_tensorflow logical. Do you want to test your installation of tensorflow before running 
 #'  \code{classify}? You want to do this the first time you run this function and any time you have made
 #'  software changes on your computer, but on subsequent runs you can set this to FALSE. 
+#'  
+#' @details
+#'  If you specify \code{make_output=TRUE}, the function will generate a csv with
+#'  depicting your results. \code{answer} is the ground truth label that you supplied. 
+#'  \code{guess1} is the model's top guess, and \code{confidence1} is the model's
+#'  confidence in the top guess. 
+#' 
 #' @export
 classify <- function(
   path_prefix = paste0(getwd(), "/images"), # absolute path to location of the images on your computer

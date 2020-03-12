@@ -58,7 +58,7 @@ If you are using densenet, the options are c(121, 161, 169, 201).
 If you are an architecture other than resnet or densenet, the number of layers will be automatically set.}
 
 \item{batch_size}{the number of images simultaneously passed to the model for training.
-It must be a multiple of 64. Smaller numbers will train models that are more accurate, but it will
+It must be a multiple of 16. Smaller numbers will train models that are more accurate, but it will
 take longer to train. The default is 128.}
 
 \item{log_dir_train}{directory where you will store the model information.
