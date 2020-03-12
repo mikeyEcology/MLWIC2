@@ -88,14 +88,14 @@ train <- function(
   model_dir = model_dir
   
   # navigate to directory with trained model
-  if(endsWith(model_dir, "/")){
-    wd <- model_dir #(paste0(model_dir, log_dir))
-  } else {
-    wd <- model_dir #(paste0(model_dir, "/", log_dir))
-  }
-  if(shiny==FALSE){
+  # if(endsWith(model_dir, "/")){
+  #   wd <- model_dir #(paste0(model_dir, log_dir))
+  # } else {
+   wd <- model_dir #(paste0(model_dir, "/", log_dir))
+  # }
+  #if(shiny==FALSE){
     setwd(wd)
-  }
+  #}
   
   # add a / to the end of python directory if applicable
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
@@ -183,12 +183,12 @@ train <- function(
   } else {
     # run code
     toc <- Sys.time()
-    if(shiny){
-      system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
-                    train_py))
-    } else{
+    # if(shiny){
+    #   system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
+    #                 train_py))
+    # } else{
       system(train_py)
-    }
+    # }
 
     tic <- Sys.time()
     runtime <- difftime(tic, toc, units="auto")

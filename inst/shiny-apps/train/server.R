@@ -48,7 +48,7 @@ server <- function(input, output, session) {
   
   # print output for running function as one element
   output$print <- renderText({
-    inFile <<- input$data_info
+    inFile <- input$data_info
     if(is.integer(inFile)){
       return("This printout will appear once you select your input file.")
     } else{
@@ -90,7 +90,7 @@ server <- function(input, output, session) {
   #- run train
   shiny::observeEvent(input$runTrain, {
     showModal(modalDialog("Running train function. Some output will appear in your R console during this process. You may press Dismiss at any time."))
-    inFile <- input$data_info
+    inFile <<- input$data_info
     if(is.integer(inFile)){
       return(NULL)
       #data_info_collapse <- ""
@@ -136,4 +136,3 @@ server <- function(input, output, session) {
   
  
 }
-
