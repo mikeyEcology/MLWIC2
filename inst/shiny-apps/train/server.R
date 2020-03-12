@@ -67,10 +67,8 @@ server <- function(input, output, session) {
                              " data_info = '", data_info_collapse, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
-                             " log_dir = '", input$log_dir, "',\n",
                              " log_dir_train = '", input$log_dir_train, "',\n",
                              "num_classes = ", input$num_classes, ",\n",
-                             "save_predictions = '", input$save_predictions, "',\n",
                              "architecture = '", input$architecture, "',\n",
                              "depth = ", input$depth, ",\n",
                              "num_cores = ", input$num_cores, ",\n",
@@ -82,7 +80,6 @@ server <- function(input, output, session) {
                              "max_to_keep = ", input$max_to_keep, ",",
                              "randomize = ", input$randomize, ",",
                              "batch_size = ", input$batch_size, ",\n",
-                             "output_name = '", input$output_name, "',\n",
                              "os = '", os,
                              "'\n
     )"
@@ -128,6 +125,7 @@ server <- function(input, output, session) {
       retrain = input$retrain,
       retrain_from = input$retrain_from,
       num_epochs = input$num_epochs,
+      top_n = input$top_n,
       max_to_keep = input$max_to_keep,
       randomize = input$randomize,
       shiny=TRUE,
@@ -138,3 +136,4 @@ server <- function(input, output, session) {
   
  
 }
+

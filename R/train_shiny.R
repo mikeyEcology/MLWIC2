@@ -67,10 +67,8 @@ server <- function(input, output, session) {
                              " data_info = '", data_info_collapse, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
-                             " log_dir = '", input$log_dir, "',\n",
                              " log_dir_train = '", input$log_dir_train, "',\n",
                              "num_classes = ", input$num_classes, ",\n",
-                             "save_predictions = '", input$save_predictions, "',\n",
                              "architecture = '", input$architecture, "',\n",
                              "depth = ", input$depth, ",\n",
                              "num_cores = ", input$num_cores, ",\n",
@@ -82,7 +80,6 @@ server <- function(input, output, session) {
                              "max_to_keep = ", input$max_to_keep, ",",
                              "randomize = ", input$randomize, ",",
                              "batch_size = ", input$batch_size, ",\n",
-                             "output_name = '", input$output_name, "',\n",
                              "os = '", os,
                              "'\n
     )"
@@ -128,6 +125,7 @@ server <- function(input, output, session) {
       retrain = input$retrain,
       retrain_from = input$retrain_from,
       num_epochs = input$num_epochs,
+      top_n = input$top_n,
       max_to_keep = input$max_to_keep,
       randomize = input$randomize,
       shiny=TRUE,
@@ -158,7 +156,7 @@ ui <- shiny::fluidPage(
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       #shiny::textOutput('python_loc'),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, you can leave all remaining windows with the default option)", formals(train)[["num_classes"]]),
-      shiny::textInput("log_dir_train", "Directory name of trained model (=`log_dir_train`)", formals(train)[["log_dir_train"]]),
+      shiny::textInput("log_dir_train", "Desired name of trained model (=`log_dir_train`)", formals(train)[["log_dir_train"]]),
       shiny::textInput("architecture", "CNN Architecture: must be either `alexnet`, `densenet`, `googlenet`, `nin`, `resnet`, `vgg`", formals(train)[["architecture"]]),
       shiny::textInput("depth", "CNN Depth: if architecture=renset, this must be either (18, 34, 50, 101, 152). If architecture=densenet, this must be either (121, 161, 169, 201). Otherwise, automatic", formals(train)[["depth"]]),
       shiny::textInput("batch_size", "Batch size", formals(train)[["batch_size"]]),
@@ -170,6 +168,7 @@ ui <- shiny::fluidPage(
       )),
       shiny::textInput("retrain_from", "Name of model you are retraining from", formals(train)[["retrain_from"]]),
       shiny::textInput("num_epochs", "Number of epochs to use for training", formals(train)[["num_epochs"]]),
+      shiny::textInput("top_n", "Number of guesses to save", formals(train)[["top_n"]]),
       shiny::textInput("max_to_keep", "Maximum number of checkpoints to save", formals(train)[["max_to_keep"]]),
       shiny::selectInput("randomize", "Do you want to randomize the order of images for training", c(
         "Yes" = "TRUE",

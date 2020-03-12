@@ -21,6 +21,7 @@ train(
   retrain = TRUE,
   retrain_from = "species_model",
   num_epochs = 55,
+  top_n = 5,
   num_cores = 1,
   randomize = TRUE,
   max_to_keep = 5,

@@ -15,6 +15,7 @@ if (!require('devtools')) install.packages('devtools')
 devtools::install_github("mikeyEcology/MLWIC2") 
 # This line might prompt you to update some packages. It would be wise to make these updates. 
 
+# load this package
 library(MLWIC2)
 ```
 
