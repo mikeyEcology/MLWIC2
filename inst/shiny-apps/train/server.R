@@ -67,7 +67,7 @@ server <- function(input, output, session) {
                              " data_info = '", data_info_collapse, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
-                             " log_dir_train = '", input$log_dir_train, "',\n",
+                             #" log_dir_train = '", input$log_dir_train, "',\n",
                              "num_classes = ", input$num_classes, ",\n",
                              "architecture = '", input$architecture, "',\n",
                              "depth = ", input$depth, ",\n",
@@ -118,7 +118,7 @@ server <- function(input, output, session) {
       architecture = input$architecture,
       depth = input$depth,
       batch_size = input$batch_size,
-      log_dir_train= input$log_dir_train,
+      #log_dir_train= input$log_dir_train,
       os = os,
       num_cores = input$num_cores,
       num_gpus = input$num_gpus,
@@ -136,3 +136,4 @@ server <- function(input, output, session) {
   
  
 }
+
