@@ -162,7 +162,8 @@ train <- function(
                        " --retrain_from ", retrain_from,
                        " --shuffle ", randomize,
                        " --max_to_keep ", max_to_keep,
-                       " --log_dir ", log_dir_train, "\n")
+                       #" --log_dir ", log_dir_train,  # commenting this out-might need to for Windows
+                       "\n")
   }else {
     train_py <- paste0(python_loc,
                        "python run.py train", 
@@ -179,7 +180,8 @@ train <- function(
                        " --num_classes ", num_classes,
                        " --shuffle ", randomize,
                        " --max_to_keep ", max_to_keep,
-                       " --log_dir ", log_dir_train, "\n")
+                       #" --log_dir ", log_dir_train, 
+                       "\n")
   }
   
   
