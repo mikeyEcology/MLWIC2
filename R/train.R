@@ -16,7 +16,7 @@
 #' absolute paths for you.
 #'
 #' @param path_prefix Absolute path to location of the images on your computer
-#' @param data_info csv with file names for each photo (absolute path to file). This file must have no headers (column names).
+#' @param data_info csv with file names for each photo (relative path to file). This file must have no headers (column names).
 #'  column 1 must be the file name of each image including the extention (i.e., .jpg). Column 2
 #'  must be a number corresponding to the species. Give each species (or group of species) a
 #'  number identifying it. The first species must be 0, the next species 1, and so on.
@@ -91,11 +91,18 @@ train <- function(
   # if(endsWith(model_dir, "/")){
   #   wd <- model_dir #(paste0(model_dir, log_dir))
   # } else {
-   wd <- model_dir #(paste0(model_dir, "/", log_dir))
+  wd <- model_dir #(paste0(model_dir, "/", log_dir))
   # }
   #if(shiny==FALSE){
-    setwd(wd)
+  setwd(wd)
   #}
+  
+  # if windows computer I need to create the log_dir within model_dir?
+  if(os=="Windows"){
+    if(!dir.exists(log_dir_train)){
+      dir.create(log_dir_train)
+    }
+  }
   
   # add a / to the end of python directory if applicable
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
@@ -137,7 +144,6 @@ train <- function(
     depth <- 32
   }
   
-  # python run.py train --path_prefix /project/iwctml/mtabak/images/resized_all/ --architecture resnet --depth 18 --num_gpus 2 --train_info train_20191127.csv --delimiter , --batch_size 256 --val_info test_20191127.csv  --retrain_from resnet_Run-13-09-2019_06-14-30 --num_epochs 55
   # run function
   if(retrain){
     train_py <- paste0(python_loc,
@@ -187,9 +193,9 @@ train <- function(
     #   system(paste0("cd ", wd, "\n", # set directory using system because it can't be done in shiny
     #                 train_py))
     # } else{
-      system(train_py)
+    system(train_py)
     # }
-
+    
     tic <- Sys.time()
     runtime <- difftime(tic, toc, units="auto")
     
@@ -197,11 +203,11 @@ train <- function(
     if(dir.exists(paste0(model_dir, "/", log_dir_train))){
       txt <- paste0("the train function ran for ", runtime, " ", units(runtime),  ". ",
                     "The trained model is in ", log_dir_train, ". ",
-                    "Specify this directory as the log_dir when you use classify(). ")
+                    "Specify this directory as the log_dir when you use classify(). \n")
     } else {
-      txt <- paste0("the train function did not run properly.")
+      txt <- paste0("the train function did not run properly.\n")
     }
- 
+    
     cat(txt)
   }
   

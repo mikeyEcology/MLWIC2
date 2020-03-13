@@ -32,7 +32,7 @@ train(
 \arguments{
 \item{path_prefix}{Absolute path to location of the images on your computer}
 
-\item{data_info}{csv with file names for each photo (absolute path to file). This file must have no headers (column names).
+\item{data_info}{csv with file names for each photo (relative path to file). This file must have no headers (column names).
 column 1 must be the file name of each image including the extention (i.e., .jpg). Column 2
 must be a number corresponding to the species. Give each species (or group of species) a
 number identifying it. The first species must be 0, the next species 1, and so on.}
