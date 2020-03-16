@@ -8,7 +8,8 @@ write_metadata(
   output_file = paste0(getwd(), "/", "MLWIC2_output.csv"),
   model_type = c("species_model", "empty_animal"),
   exiftool_loc = NULL,
-  show_sys_output = FALSE
+  show_sys_output = FALSE,
+  ...
 )
 }
 \arguments{
@@ -16,6 +17,9 @@ write_metadata(
 This is likely in the MLWIC2_helpers_folder unless you deviated from the defaults.}
 
 \item{model_type}{Did you run the (`species_model`) or the (`empty_animal`) model?}
+
+\item{exiftool_loc}{The path to your exiftool installation. It is only necessary to 
+specify this on some computers, especially those running Windows.}
 
 \item{show_sys_output}{logical. If TRUE, shows the output from the system command}
 }
