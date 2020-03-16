@@ -80,7 +80,7 @@ server <- function(input, output, session) {
       }
     }
     gsub("\\\\", "/", paste0("classify(\n
-                               path_prefix = '", normalizePath(dirname_path_prefix()), "',",
+                              path_prefix = '", normalizePath(dirname_path_prefix()), "',",
                              " data_info = '", data_info_collapse, "',",
                              #" data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",

@@ -77,7 +77,7 @@ classify <- function(
   batch_size = 128,
   num_gpus = 2,
   make_output=FALSE,
-  output_location=getwd(),
+  output_location=NULL,
   output_name = "MLWIC2_output.csv",
   test_tensorflow = FALSE,
   shiny=FALSE,
@@ -91,6 +91,11 @@ classify <- function(
   path_prefix = path_prefix
   data_info = data_info
   model_dir = model_dir
+  
+  # added this so that the default is storing the output in the helper_files folder
+  if(is.null(output_location)){
+    output_location <- model_dir
+  }
   
   # check if data_info file exists and if path_prefix exists
   if(!file.exists(data_info)){

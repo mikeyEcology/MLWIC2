@@ -21,7 +21,7 @@ classify(
   batch_size = 128,
   num_gpus = 2,
   make_output = FALSE,
-  output_location = getwd(),
+  output_location = NULL,
   output_name = "MLWIC2_output.csv",
   test_tensorflow = FALSE,
   shiny = FALSE,

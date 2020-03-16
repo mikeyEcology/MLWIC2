@@ -97,13 +97,6 @@ train <- function(
   setwd(wd)
   #}
   
-  # if windows computer I need to create the log_dir within model_dir?
-  if(os=="Windows"){
-    if(!dir.exists(log_dir_train)){
-      dir.create(log_dir_train)
-    }
-  }
-  
   # add a / to the end of python directory if applicable
   python_loc <- ifelse(endsWith(python_loc, "/"), python_loc, paste0(python_loc, "/"))
   
@@ -112,7 +105,7 @@ train <- function(
   # utils::write.csv(labels, "data_info_train.csv", row.names=FALSE)
   
   if(os=="Windows"){
-    # deal with windows file format issues
+    # deal with windows cp not working
     data_file <- read.table(data_info, header=FALSE, sep=",")
     output.file <- file("data_info_train.csv", "wb")
     write.table(data_file,
@@ -145,44 +138,87 @@ train <- function(
   }
   
   # run function
-  if(retrain){
-    train_py <- paste0(python_loc,
-                       "python run.py train", 
-                       " --path_prefix ", path_prefix,
-                       " --architecture ", architecture,
-                       " --depth ", depth,
-                       " --num_gpus ", num_gpus,
-                       " --batch_size ", batch_size,
-                       " --train_info data_info_train.csv",
-                       " --delimiter ", delimiter,
-                       " --num_epochs ", num_epochs,
-                       " --top_n ", top_n, 
-                       " --num_threads ", num_cores, 
-                       " --num_classes ", num_classes,
-                       " --retrain_from ", retrain_from,
-                       " --shuffle ", randomize,
-                       " --max_to_keep ", max_to_keep,
-                       #" --log_dir ", log_dir_train,  # commenting this out-might need to for Windows
-                       "\n")
-  }else {
-    train_py <- paste0(python_loc,
-                       "python run.py train", 
-                       " --path_prefix ", path_prefix,
-                       " --architecture ", architecture,
-                       " --depth ", depth,
-                       " --num_gpus ", num_gpus,
-                       " --batch_size ", batch_size,
-                       " --train_info data_info_train.csv",
-                       " --delimiter ", delimiter,
-                       " --num_epochs ", num_epochs,
-                       " --top_n ", top_n, 
-                       " --num_threads ", num_cores, 
-                       " --num_classes ", num_classes,
-                       " --shuffle ", randomize,
-                       " --max_to_keep ", max_to_keep,
-                       #" --log_dir ", log_dir_train, 
-                       "\n")
+  if(os=="Windows"){
+    # if Windows cannot specify log_dir_train
+    if(retrain){
+      train_py <- paste0(python_loc,
+                         "python run.py train", 
+                         " --path_prefix ", path_prefix,
+                         " --architecture ", architecture,
+                         " --depth ", depth,
+                         " --num_gpus ", num_gpus,
+                         " --batch_size ", batch_size,
+                         " --train_info data_info_train.csv",
+                         " --delimiter ", delimiter,
+                         " --num_epochs ", num_epochs,
+                         " --top_n ", top_n, 
+                         " --num_threads ", num_cores, 
+                         " --num_classes ", num_classes,
+                         " --retrain_from ", retrain_from,
+                         " --shuffle ", randomize,
+                         " --max_to_keep ", max_to_keep,
+                         #" --log_dir ", log_dir_train,  # commenting this out-might need to for Windows
+                         "\n")
+    }else {
+      train_py <- paste0(python_loc,
+                         "python run.py train", 
+                         " --path_prefix ", path_prefix,
+                         " --architecture ", architecture,
+                         " --depth ", depth,
+                         " --num_gpus ", num_gpus,
+                         " --batch_size ", batch_size,
+                         " --train_info data_info_train.csv",
+                         " --delimiter ", delimiter,
+                         " --num_epochs ", num_epochs,
+                         " --top_n ", top_n, 
+                         " --num_threads ", num_cores, 
+                         " --num_classes ", num_classes,
+                         " --shuffle ", randomize,
+                         " --max_to_keep ", max_to_keep,
+                         #" --log_dir ", log_dir_train, 
+                         "\n")
+    }
+  } else{
+    if(retrain){
+      train_py <- paste0(python_loc,
+                         "python run.py train", 
+                         " --path_prefix ", path_prefix,
+                         " --architecture ", architecture,
+                         " --depth ", depth,
+                         " --num_gpus ", num_gpus,
+                         " --batch_size ", batch_size,
+                         " --train_info data_info_train.csv",
+                         " --delimiter ", delimiter,
+                         " --num_epochs ", num_epochs,
+                         " --top_n ", top_n, 
+                         " --num_threads ", num_cores, 
+                         " --num_classes ", num_classes,
+                         " --retrain_from ", retrain_from,
+                         " --shuffle ", randomize,
+                         " --max_to_keep ", max_to_keep,
+                         " --log_dir ", log_dir_train,  # commenting this out-might need to for Windows
+                         "\n")
+    }else {
+      train_py <- paste0(python_loc,
+                         "python run.py train", 
+                         " --path_prefix ", path_prefix,
+                         " --architecture ", architecture,
+                         " --depth ", depth,
+                         " --num_gpus ", num_gpus,
+                         " --batch_size ", batch_size,
+                         " --train_info data_info_train.csv",
+                         " --delimiter ", delimiter,
+                         " --num_epochs ", num_epochs,
+                         " --top_n ", top_n, 
+                         " --num_threads ", num_cores, 
+                         " --num_classes ", num_classes,
+                         " --shuffle ", randomize,
+                         " --max_to_keep ", max_to_keep,
+                         " --log_dir ", log_dir_train, 
+                         "\n")
+    }
   }
+ 
   
   
   # printing only?
@@ -202,14 +238,19 @@ train <- function(
     runtime <- difftime(tic, toc, units="auto")
     
     # end function
-    if(dir.exists(paste0(model_dir, "/", log_dir_train))){
-      txt <- paste0("the train function ran for ", runtime, " ", units(runtime),  ". ",
-                    "The trained model is in ", log_dir_train, ". ",
-                    "Specify this directory as the log_dir when you use classify(). \n")
+    if(os!="Windows"){
+      if(dir.exists(paste0(model_dir, "/", log_dir_train))){
+        txt <- paste0("the train function ran for ", runtime, " ", units(runtime),  ". ",
+                      "The trained model is in ", log_dir_train, ". ",
+                      "Specify this directory as the log_dir when you use classify(). \n")
+      } else {
+        txt <- paste0("the train function did not run properly.\n")
+      }
     } else {
-      txt <- paste0("the train function did not run properly.\n")
+      txt <- paste0("the train function is complete.\n")
     }
-    
+
+
     cat(txt)
   }
   

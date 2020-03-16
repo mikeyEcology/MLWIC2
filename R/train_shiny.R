@@ -67,7 +67,7 @@ server <- function(input, output, session) {
                              " data_info = '", data_info_collapse, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
-                             #" log_dir_train = '", input$log_dir_train, "',\n",
+                             " log_dir_train = '", input$log_dir_train, "',\n",
                              "num_classes = ", input$num_classes, ",\n",
                              "architecture = '", input$architecture, "',\n",
                              "depth = ", input$depth, ",\n",
@@ -85,6 +85,24 @@ server <- function(input, output, session) {
     )"
     ))
   })
+  output$helpText2 <- renderText({
+    if(os=="Windows"){
+      if(is.integer(inFile)){
+        return("")
+      } else{
+        return("On Windows computers you cannot control the name of the trained model (=`log_dir_train`)
+               The trained model will be saved in a folder named with the architecture you used and the time/date of training. 
+               This folder will be stored within your MLWIC2_helper_files directory. \n")
+      }
+    } else{
+      if(is.integer(inFile)){
+        return("")
+      } else{
+        return("")
+      }
+    }
+  })
+  
   
   
   #- run train
@@ -118,7 +136,7 @@ server <- function(input, output, session) {
       architecture = input$architecture,
       depth = input$depth,
       batch_size = input$batch_size,
-      #log_dir_train= input$log_dir_train,
+      log_dir_train= input$log_dir_train,
       os = os,
       num_cores = input$num_cores,
       num_gpus = input$num_gpus,
@@ -156,7 +174,7 @@ ui <- shiny::fluidPage(
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       #shiny::textOutput('python_loc'),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, you can leave all remaining windows with the default option)", formals(train)[["num_classes"]]),
-      #shiny::textInput("log_dir_train", "Desired name of trained model (=`log_dir_train`)", formals(train)[["log_dir_train"]]),
+      shiny::textInput("log_dir_train", "Desired name of trained model (=`log_dir_train`)", formals(train)[["log_dir_train"]]),
       shiny::textInput("architecture", "CNN Architecture: must be either `alexnet`, `densenet`, `googlenet`, `nin`, `resnet`, `vgg`", formals(train)[["architecture"]]),
       shiny::textInput("depth", "CNN Depth: if architecture=renset, this must be either (18, 34, 50, 101, 152). If architecture=densenet, this must be either (121, 161, 169, 201). Otherwise, automatic", formals(train)[["depth"]]),
       shiny::textInput("batch_size", "Batch size", formals(train)[["batch_size"]]),
@@ -182,7 +200,8 @@ ui <- shiny::fluidPage(
     shiny::mainPanel(
       shiny::helpText("After selecting inputs, you can use the values below in the train() function instead of running Shiny.
                       This printout is designed to allow you to avoid using Shiny in future runs."),
-      shiny::textOutput("print")
+      shiny::textOutput("print"),
+      shiny::textOutput("helpText2")
     )
   )
 )

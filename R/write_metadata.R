@@ -6,18 +6,19 @@
 #' for those users who want to be able to view their classified images along with the classifications
 #' from \code{MLWIC} in software like digiKam, MediaPro, and Lighthouse. 
 #' 
-#' @param output_location The path to the output file that you created with \code{classify} or \code{make_output}
-#' @param output_name The name of the output file that you created with \code{classify} or \code{make_output}
-#' @param model_type Did you run the model to ID species (`species`) or just determine if images are empty or
-#'  containing animals (`empty_animal`)? 
+#' @param output_file The path to- and file name of the file that you created with \code{classify} or \code{make_output}.
+#'  This is likely in the MLWIC2_helpers_folder unless you deviated from the defaults. 
+#' @param model_type Did you run the (`species_model`) or the (`empty_animal`) model? 
 #' @param show_sys_output logical. If TRUE, shows the output from the system command
 #' @export
 write_metadata <- function(
-  output_location = getwd(),
-  output_name = "MLWIC2_output.csv",
-  model_type = c("species", "empty_animal"), 
+  #path_prefix = getwd(),
+  output_file = paste0(getwd(),"/","MLWIC2_output.csv"),
+  model_type = c("species_model", "empty_animal"), 
   show_sys_output = FALSE
 ){
+  
+  #setwd(path_prefix)
   
   # create the config file that adds categories for output to the metadata
  txt <-"%Image::ExifTool::UserDefined = (
@@ -54,18 +55,28 @@ write_metadata <- function(
  close(fileConn)
  
  # read in output file created by MLWIC2
- output <- read.csv(paste0(output_location, "/", output_name))
+ output <- read.csv(output_file)
  filenames <- gsub("b'", "", output$fileName) # remove quotes and b' from filenames
  filenames2 <- gsub("'", "", filenames)
  output$fileName <- filenames2
  
- # merge speciesID csv with output
- out_m <- merge(output, speciesID, by.x="guess1", by.y="class_ID")
+ # make a lookup table for empty_animal model
+ EA_lookup <- data.frame(class_ID=c(0,1),
+                         group_name=c("empty", "animal"))
+ 
+ # determine lookup table based on model
+ if(model_type=="species_model"){
+   ID_tbl <- speciesID
+ } else {
+   ID_tbl <- EA_lookup
+ }
+ # merge lookup table with output
+ out_m <- merge(output, ID_tbl, by.x="guess1", by.y="class_ID")
  
  # write call to exiftool
  n_files <- nrow(output)
  for(i in 1:n_files){
-   if(model_type == "species"){
+   if(model_type == "species_model"){
      exif_call <- paste0("exiftool -config ", getwd(), "/MLWIC2_exif.config -MLWIC2_speciesmodel_classID=", 
                          out_m$guess1[i], " -MLWIC2_speciesmodel_species=", shQuote(out_m$group_name[i]), 
                          " -MLWIC2_speciesmodel_confidence=", out_m$confidence1[i],
@@ -78,9 +89,14 @@ write_metadata <- function(
                          " ", out_m$fileName[i])
    }
    system(exif_call, ignore.stdout = !show_sys_output, ignore.stderr = !show_sys_output)
+   if(i==1){
+     cat(paste0("completed writing metadata for ", i, " of ", n_files, " images.\nThis function will provide status updates after every 100 image files updated.\n"))
+   }
    if(i %% 100 == 0){
      cat(paste0("completed writing metadata for ", i, " of ", n_files, " images.\n"))
    }
  }
  
 }
+#write_metadata("/Users/mikeytabak/MLWIC_examples/images","/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files/MLWIC2_output.csv", model_type="species_model", show_sys_output = TRUE)
+#write_metadata(output_file = '/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files/MLWIC2_output.csv', model_type = species_model)
