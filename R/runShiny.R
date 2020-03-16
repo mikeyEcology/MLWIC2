@@ -23,7 +23,7 @@ runShiny <- function(app="classify") {
       call. = FALSE)
   }
   
-  cat(paste0("NOTE: When selecting directories and files, you can only navigate in the top half of the screen. \n
+  cat(paste0("NOTE: When selecting directories, you can only navigate in the top half of the screen. \n
       The bottom half of the screen only displays what is in each directory. It is not clickable.\n"))
   
   # find and launch the app

@@ -25,7 +25,7 @@ server <- function(input, output, session) {
   # })
   
   # output_file
-   shinyFiles::shinyFileChoose(input, "output_file", roots=volumes, session=session, filetypes=c('txt', 'csv'))
+   shinyFiles::shinyFileChoose(input, "output_file", roots=volumes, session=session, filetypes=c('csv'))
    filename_output_file <- shiny::reactive({shinyFiles::parseFilePaths(volumes, input$output_file)[length(shinyFiles::parseFilePaths(volumes, input$output_file))]})
   
    # make printout

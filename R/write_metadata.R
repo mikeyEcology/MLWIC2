@@ -6,7 +6,7 @@
 #' for those users who want to be able to view their classified images along with the classifications
 #' from \code{MLWIC} in software like digiKam, MediaPro, and Lighthouse. 
 #' 
-#' @param output_file The path to- and file name of the file that you created with \code{classify} or \code{make_output}.
+#' @param output_file The path to- and file name of the csv file that you created with \code{classify} or \code{make_output}.
 #'  This is likely in the MLWIC2_helpers_folder unless you deviated from the defaults. 
 #' @param model_type Did you run the (`species_model`) or the (`empty_animal`) model? 
 #' @param show_sys_output logical. If TRUE, shows the output from the system command
