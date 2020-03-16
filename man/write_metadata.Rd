@@ -7,11 +7,12 @@
 write_metadata(
   output_file = paste0(getwd(), "/", "MLWIC2_output.csv"),
   model_type = c("species_model", "empty_animal"),
+  exiftool_loc = NULL,
   show_sys_output = FALSE
 )
 }
 \arguments{
-\item{output_file}{The path to- and file name of the file that you created with \code{classify} or \code{make_output}.
+\item{output_file}{The path to- and file name of the csv file that you created with \code{classify} or \code{make_output}.
 This is likely in the MLWIC2_helpers_folder unless you deviated from the defaults.}
 
 \item{model_type}{Did you run the (`species_model`) or the (`empty_animal`) model?}

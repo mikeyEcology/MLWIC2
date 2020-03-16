@@ -15,6 +15,7 @@ write_metadata <- function(
   #path_prefix = getwd(),
   output_file = paste0(getwd(),"/","MLWIC2_output.csv"),
   model_type = c("species_model", "empty_animal"), 
+  exiftool_loc = NULL, 
   show_sys_output = FALSE
 ){
   
@@ -73,17 +74,25 @@ write_metadata <- function(
  # merge lookup table with output
  out_m <- merge(output, ID_tbl, by.x="guess1", by.y="class_ID")
  
+ # add a prefix to location of exiftool when needed (Windows computers)
+ if(!is.null(exiftool_loc)){
+   prefix <- ifelse(endsWith(exiftool_loc, "/"), python_loc, paste0(exiftool_loc, "/")) #paste0(exiftool_loc, "/") 
+ } else{
+   prefix <- "" # no prefix if exiftool_loc isn't specified
+ }
+ 
  # write call to exiftool
  n_files <- nrow(output)
  for(i in 1:n_files){
+ #for(i in 1:10){ 
    if(model_type == "species_model"){
-     exif_call <- paste0("exiftool -config ", getwd(), "/MLWIC2_exif.config -MLWIC2_speciesmodel_classID=", 
+     exif_call <- paste0(prefix, "exiftool -config ", getwd(), "/MLWIC2_exif.config -MLWIC2_speciesmodel_classID=", 
                          out_m$guess1[i], " -MLWIC2_speciesmodel_species=", shQuote(out_m$group_name[i]), 
                          " -MLWIC2_speciesmodel_confidence=", out_m$confidence1[i],
                          out_m$fileName[i])
    } 
    if(model_type == "empty_animal"){
-     exif_call <- paste0("exiftool -config ", getwd(), "/MLWIC2_exif.config -MLWIC2_emptyanimalmodel_emptyID ", 
+     exif_call <- paste0(prefix, "exiftool -config ", getwd(), "/MLWIC2_exif.config -MLWIC2_emptyanimalmodel_emptyID ", 
                          out_m$guess1[i], " -MLWIC2_emptyanimalmodel_answer ", out_m$group_name[i], 
                          " -MLWIC2_emptyanimalmodel_confidence ", out_m$confidence1[i],
                          " ", out_m$fileName[i])
@@ -98,5 +107,5 @@ write_metadata <- function(
  }
  
 }
-#write_metadata("/Users/mikeytabak/MLWIC_examples/images","/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files/MLWIC2_output.csv", model_type="species_model", show_sys_output = TRUE)
+#write_metadata(output_file="/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files/MLWIC2_output.csv", exiftool_loc="/usr/local/bin", model_type="species_model", show_sys_output = TRUE)
 #write_metadata(output_file = '/Users/mikeytabak/MLWIC_examples/MLWIC2_helper_files/MLWIC2_output.csv', model_type = species_model)

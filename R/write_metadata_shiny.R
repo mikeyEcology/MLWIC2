@@ -14,16 +14,15 @@ server <- function(input, output, session) {
   # base directory for fileChoose
   #volumes =  c(home = "") 
   volumes = shinyFiles::getVolumes()
-  # path_prefix
-  # shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
-  # dirname_path_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path_prefix)})
-  # # # Observe path_prefix changes
-  # shiny::observe({
-  #   if(!is.null(dirname_path_prefix)){
-  #     print(dirname_path_prefix())
-  #     output$path_prefix <- shiny::renderText(dirname_path_prefix())
-  #   }
-  # })
+  shinyFiles::shinyDirChoose(input, 'exiftool_loc', roots=volumes, session=session)
+  dirname_exiftool_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$exiftool_loc)})
+  # # Observe exiftool_loc changes
+  shiny::observe({
+    if(!is.null(dirname_exiftool_loc)){
+      print(dirname_exiftool_loc())
+      output$exiftool_loc <- shiny::renderText(dirname_exiftool_loc())
+    }
+  })
   
   # output_file
    shinyFiles::shinyFileChoose(input, "output_file", roots=volumes, session=session, filetypes=c('csv'))
@@ -73,10 +72,11 @@ server <- function(input, output, session) {
       }
     }
     wm_list <<- list(output_file=output_file_collapse,
-                    model_type = input$model_type)
+                    model_type = input$model_type,
+                    exiftool_loc = normalizePath(dirname_exiftool_loc()))
     do.call(write_metadata, wm_list)
     # write_metadata( # if I skip this line there is no error, but it doesnt run
-    #   #path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
+    #   #exiftool_loc = gsub("\\\\", "/", normalizePath(dirname_exiftool_loc())),
     #   output_file = output_file_collapse,
     #   model_type = input$model_type,
     #   show_sys_output = input$show_sys_output
@@ -93,8 +93,9 @@ ui <- shiny::fluidPage(
   shiny::sidebarLayout(
     
     shiny::sidebarPanel(
-      #shinyFiles::shinyDirButton('path_prefix', 'Image directory', title='Select the parent directory where images are stored'),
       shinyFiles::shinyFilesButton('output_file', "Output file from classify", title="Select the file containing predictions from classify. This is in your MLWIC2_helper_files folder unless you deviated from defaults. ", multiple=FALSE),
+      shiny::helpText("You only need to select ExifTool location if your computer is having trouble finding it. Windows users will likely need to do this"),
+      shinyFiles::shinyDirButton('exiftool_loc', 'ExifTool location', title='Select the directory where ExifTool is stored.'),
       shiny::selectInput('model_type', 'What type of model did you use for classification', c(
         "species model" = "species_model",
         "empty-animal model" = "empty_animal"
