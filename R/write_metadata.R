@@ -75,7 +75,7 @@ write_metadata <- function(
  out_m <- merge(output, ID_tbl, by.x="guess1", by.y="class_ID")
  
  # add a prefix to location of exiftool when needed (Windows computers)
- if(!is.null(exiftool_loc)){
+ if(!is.null(exiftool_loc) & !identical(exiftool_loc, character(0))){
    prefix <- ifelse(endsWith(exiftool_loc, "/"), python_loc, paste0(exiftool_loc, "/")) #paste0(exiftool_loc, "/") 
  } else{
    prefix <- "" # no prefix if exiftool_loc isn't specified

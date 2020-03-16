@@ -72,7 +72,8 @@ server <- function(input, output, session) {
     }
     wm_list <<- list(output_file=output_file_collapse,
                     model_type = input$model_type,
-                    exiftool_loc = normalizePath(dirname_exiftool_loc()))
+                    exiftool_loc = gsub("\\\\", "/", normalizePath(dirname_exiftool_loc()))
+                    )
     do.call(write_metadata, wm_list)
     # write_metadata( # if I skip this line there is no error, but it doesnt run
     #   #exiftool_loc = gsub("\\\\", "/", normalizePath(dirname_exiftool_loc())),

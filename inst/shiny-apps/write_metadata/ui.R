@@ -28,4 +28,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-
