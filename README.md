@@ -73,11 +73,11 @@ classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your 
 
 ## Step 7: Update the metadata of your image files using `write_metadata` (optional)
 ###### <i> Shiny option: `MLWIC2::runShiny('write_metadata')` </i>
--This function uses [Exiftool software](https://exiftool.org/index.html). This is a command line tool and `write_metadata` is a wrapper that will run the software to create metadata categories and fill them with the output of `classify`. If you want to use this function you will need to first [install Exiftool following the directions here](https://exiftool.org/install.html).  
--`output_file` is the path to and file name of your output file from classify (`output_name`). Unless you deviated from the default settings, this file should be located in your `MLWIC2_helper_files` folder. 
--`model_type` is either the "species_model" or the "empty_animal" model
--You might need to specify your `exiftool_loc` if you are running on a Windows computer. This is the path to your exiftool installation. 
--Here is how I would run this function given my example call to classify above. 
+- This function uses [Exiftool software](https://exiftool.org/index.html). Exiftool is a command line tool and `write_metadata` is a wrapper that will run the software to create metadata categories and fill them with the output of `classify`. If you want to use this function you will need to first [install Exiftool following the directions here](https://exiftool.org/install.html).  
+- `output_file` is the path to and file name of your output file from classify (`model_dir`+ `/` +`output_name`). Unless you deviated from the default settings, this file should be located in your `MLWIC2_helper_files` folder. 
+- `model_type` is either the "species_model" or the "empty_animal" model
+- You might need to specify your `exiftool_loc` if you are running on a Windows computer. This is the path to your exiftool installation. 
+- Here is how I would run this function given my example call to classify above. 
 ```
 write_metadata(output_file="/Users/mikeytabak/Desktop/MLWIC2_helper_files/MLWIC2_output.csv", # note that if you look at the classify command above, this is the [model_dir]/[output_name]
                model_type="species_model", # the type of model I used for classify
