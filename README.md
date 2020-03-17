@@ -55,19 +55,35 @@ Unzip the folder and then store this folder in a location that makes sense on yo
 - `os` is your operating system type. If you are using MS Windows, set `os="Windows"`, otherwise, you can ignore this argument. 
 - `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=59`; if you're using the empty_animal model`num_classes=2`. If you trained your own model, this is the number that you specified.
 - `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).
+- `num_cores` is the number of cores on your computer that you want to use. Running `parallel::detectCores()` will tell you how many cores you have on your computer. Depending on how long you intend to run the model, you might not want to use all of your cores. For example, you could specify `num_cores = parallel::detectCores() - 2` so that you would keep two cores available for other processes. 
 - See `?classify` for more options. 
  ###### If you are having trouble finding your absolute paths, you can use the shiny option `MLWIC2::runShiny('classify')` and select your files/directories from a drop down menu. Your paths will be printed on the screen so that next time you can run directly in the R console if you prefer (this is a good way to begin learning how to code). 
  - If you are using the [example images](https://github.com/mikeyEcology/MLWIC_examples/tree/master), the command would look something like this (modified based on your computer-specific paths). 
 ```
 classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your images are stored
          data_info = "/Users/mikeytabak/Desktop/image_labels.csv", # path to csv containing file names and labels
-         model_dir = "/Users/mikeytabak/Desktop/MLWIC2_helper_files", # path to the helper files that you downloaded in step 3
+         model_dir = "/Users/mikeytabak/Desktop/MLWIC2_helper_files", # path to the helper files that you downloaded in step 3, including the name of this directory (i.e., `MLWIC2_helper_files`)
          python_loc = "/anaconda2/bin/", # location of python on your computer
          save_predictions = "model_predictions.txt", # how you want to name the raw output file
          make_output = TRUE, # if TRUE, this will produce a csv with a more friendly output
          output_name = "MLWIC2_output.csv", # if make_output==TRUE, this will be the name of your friendly output file
-         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. 
+         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. If i
          ) 
+```
+
+## Step 7: Update the metadata of your image files using `write_metadata` (optional)
+###### <i> Shiny option: `MLWIC2::runShiny('write_metadata')` </i>
+-This function uses [Exiftool software](https://exiftool.org/index.html). This is a command line tool and `write_metadata` is a wrapper that will run the software to create metadata categories and fill them with the output of `classify`. If you want to use this function you will need to first [install Exiftool following the directions here](https://exiftool.org/install.html).  
+-`output_file` is the path to and file name of your output file from classify (`output_name`). Unless you deviated from the default settings, this file should be located in your `MLWIC2_helper_files` folder. 
+-`model_type` is either the "species_model" or the "empty_animal" model
+-You might need to specify your `exiftool_loc` if you are running on a Windows computer. This is the path to your exiftool installation. 
+-Here is how I would run this function given my example call to classify above. 
+```
+write_metadata(output_file="/Users/mikeytabak/Desktop/MLWIC2_helper_files/MLWIC2_output.csv", # note that if you look at the classify command above, this is the [model_dir]/[output_name]
+               model_type="species_model", # the type of model I used for classify
+               exiftool_loc="/usr/local/bin", # location where exiftool is stored, you might not need to specify this. 
+               show_sys_output = FALSE
+               )
 ```
 
 This package will be associated with a new publication, but for now, please cite this manuscript if you use this pacakge: \

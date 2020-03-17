@@ -76,7 +76,7 @@ classify <- function(
   top_n = 5,
   batch_size = 128,
   num_gpus = 2,
-  make_output=FALSE,
+  make_output=TRUE,
   output_location=NULL,
   output_name = "MLWIC2_output.csv",
   test_tensorflow = FALSE,
