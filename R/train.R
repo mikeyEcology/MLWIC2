@@ -40,8 +40,8 @@
 #' @param batch_size the number of images simultaneously passed to the model for training.
 #'  It must be a multiple of 16. Smaller numbers will train models that are more accurate, but it will
 #'  take longer to train. The default is 128.
-#' @param retrain If TRUE, the model you train will be a retraining of the model presented in
-#'  the Tabak et al. MEE paper. If FALSE, you are starting training from scratch. Retraining will be faster
+#' @param retrain If TRUE, the model you train will be a retraining of the model you 
+#'  specify in `retrain_from`. If FALSE, you are starting training from scratch. Retraining will be faster
 #'  but training from scratch will be more flexible.
 #' @param retrain_from name of the directory from which you want to retrain the model.
 #' @param num_epochs the number of epochs you want to use for training. The default is 55 and this is

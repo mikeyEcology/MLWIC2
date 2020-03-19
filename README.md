@@ -67,7 +67,7 @@ classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your 
          save_predictions = "model_predictions.txt", # how you want to name the raw output file
          make_output = TRUE, # if TRUE, this will produce a csv with a more friendly output
          output_name = "MLWIC2_output.csv", # if make_output==TRUE, this will be the name of your friendly output file
-         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. If i
+         num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. You might want to use something like parallel::detectCores()-1 so that you have a core left on your machine for accomplishing other tasks. 
          ) 
 ```
 
@@ -85,6 +85,25 @@ write_metadata(output_file="/Users/mikeytabak/Desktop/MLWIC2_helper_files/MLWIC2
                show_sys_output = FALSE
                )
 ```
+
+## Step 8: Train a new model to recognize species in your images `train`
+###### <i> Shiny option: `MLWIC2::runShiny('train')` </i>
+If you aren't satisfied with the accuracy of the builtin models, you can train train your own model using your images. The parameters will be similar to those for `classify`, but you will want to specify some more options based on how you want to train the model.
+- `path_prefix` is the absolute path where your images are stored. 
+- `data_info` is the absolute path to where your input file is stored. Check your output from `make_input`. 
+- `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
+- `num_classes` is the number of species (or groups of species) you want the model to recognize
+- `architecture` is the DNN architecture. The options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg"). I recommend starting with "resnet" and set `depth=18`. If you get poor accuracy with this, "densenet" is another good option. 
+- `depth` is the number of layers in the DNN. If you are using resnet, the options are c(18, 34, 50, 101, 152). If you are using densenet, the options are c(121, 161, 169, 201), otherwise, the depth will be automatically set for you. 
+- `batch_size` is the number of images simultaneously passed to the model for training. It must be a multiple of 16. Smaller numbers will train models that are more accurate, but it will take longer to train. The default is 128.
+- `log_dir_train` is the directory where you will store the model information. This will be called when you what you specify in the `log_dir` option of the `classify` function. <b>You will want to use unique names if you are training multiple models on your computer; otherwise they will be over-written</b>
+- `retrain` If TRUE, the model you train will be a retraining of the model you specify in `retrain_from`. If FALSE, you are starting training from scratch. Retraining will be faster but training from scratch will be more flexible.
+- `retrain_from` name of the directory from which you want to retrain the model. If you are retraining from the species model, you would set `retrain_from="species_model"`. If you need to stop training (e.g., you have to turn off your computer), you can `retrain_from` what you set as your `log_dir_train` and set your `num_epochs` to the total number you want minus the number that have completed. 
+- `num_epochs` the number of epochs you want to use for training. The default is 55 and this is recommended for training a full model. But if you need to start and stop training, you can decrease this number. 
+- You can read about more options by typing `?train` into the console. 
+
+
+
 
 This package will be associated with a new publication, but for now, please cite this manuscript if you use this pacakge: \
 Tabak, M. A., M. S. Norouzzadeh, D. W. Wolfson, S. J. Sweeney, K. C. VerCauteren, N. P. Snow, J. M. Halseth, P. A. D. Salvo, J. S. Lewis, M. D. White, B. Teton, J. C. Beasley, P. E. Schlichting, R. K. Boughton, B. Wight, E. S. Newkirk, J. S. Ivan, E. A. Odell, R. K. Brook, P. M. Lukacs, A. K. Moeller, E. G. Mandeville, J. Clune, and R. S. Miller. (2019). [Machine learning to classify animal species in camera trap images: Applications in ecology](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13120). <i>Methods in Ecology and Evolution</i> 10(4): 585-590.

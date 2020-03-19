@@ -67,8 +67,8 @@ This will be called when you what you specify in the \code{log_dir} option of th
 \code{classify} function. You will want to use unique names if you are training
 multiple models on your computer; otherwise they will be over-written.}
 
-\item{retrain}{If TRUE, the model you train will be a retraining of the model presented in
-the Tabak et al. MEE paper. If FALSE, you are starting training from scratch. Retraining will be faster
+\item{retrain}{If TRUE, the model you train will be a retraining of the model you 
+specify in `retrain_from`. If FALSE, you are starting training from scratch. Retraining will be faster
 but training from scratch will be more flexible.}
 
 \item{retrain_from}{name of the directory from which you want to retrain the model.}
