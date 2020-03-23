@@ -106,4 +106,4 @@ If you aren't satisfied with the accuracy of the builtin models, you can train t
 
 
 If you use this package in a publication, please site our manuscript: \
-Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v1). BioRxiv, 2020.03.18.997700. doi:[10.1101/2020.03.18.997700](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v1)
+Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v2). BioRxiv, 2020.03.18.997700. doi:[10.1101/2020.03.18.997700](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v2)
