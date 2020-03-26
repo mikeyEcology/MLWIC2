@@ -26,9 +26,10 @@ Really any version of tensorflow > 1.8 and < 2.0 will do. \
 The function `tensorflow` will do this on Macintosh and Linux machines, but the installation of this software is inconsistent. If you have trouble using our function or you are using a Windows computer, you can do this independently by following the directions [here](https://www.tensorflow.org/install/), except when the instructions say to run `pip install tensorflow`, you should instead run:  `pip install tensorflow==1.14`.
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1M1pl9edaaIZqcQkCndLcvEcbOOkSrTQB/view?usp=sharing).</b> 
-Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `4f3d57ea4d17055cac5df3591f87bbb3`. 
+- This link was updated 25 March 2020. The previous link will run the models the same, but the output will be cleaner if you download this newer zipped folder. 
+- Unzip the folder and then store this folder in a location that makes sense on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `4f3d57ea4d17055cac5df3591f87bbb3`. 
 
-## <b>Step 4: Setup your environment for using `MLWIC` using the function `setup`</b>
+## <b>Step 4: Setup your environment for using `MLWIC2` using the function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
 - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. In Windows you can open your command prompt and type `where python`. 
 - If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. \
