@@ -117,7 +117,7 @@ Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K.
   month = mar,
   pages = {2020.03.18.997700},
   publisher = {{Cold Spring Harbor Laboratory}},
-  doi = {[10.1101/2020.03.18.997700](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v2.full)},
+  doi = {10.1101/2020.03.18.997700},
   journal = {bioRxiv},
   language = {en}
 }
