@@ -77,6 +77,9 @@ but training from scratch will be more flexible.}
 recommended for training a full model. But if you need to start and stop training, you may want to use
 a smaller number at times.}
 
+\item{top_n}{The number of guesses that you want the model to save. This needs to be less than or 
+equal to the number of classes.}
+
 \item{num_cores}{The number of cores you want to use. You can find the number on your computer using
 parallel::detectCores()}
 

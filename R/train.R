@@ -47,6 +47,8 @@
 #' @param num_epochs the number of epochs you want to use for training. The default is 55 and this is
 #'  recommended for training a full model. But if you need to start and stop training, you may want to use
 #'  a smaller number at times.
+#' @param top_n The number of guesses that you want the model to save. This needs to be less than or 
+#'  equal to the number of classes.
 #' @param num_cores The number of cores you want to use. You can find the number on your computer using
 #'  parallel::detectCores()
 #' @param randomize If TRUE, this will randomize the order in which images are passed to training
@@ -86,6 +88,11 @@ train <- function(
   path_prefix = path_prefix
   data_info = data_info
   model_dir = model_dir
+  
+  # check some numbers
+  if(top_n > num_classes){
+    stop(paste0("You specified a top_n (", top_n, ") that is greater than num_classes (", num_classes, "). Make sure that top_n <= num_classes."))
+  }
   
   # navigate to directory with trained model
   # if(endsWith(model_dir, "/")){
