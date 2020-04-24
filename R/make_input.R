@@ -15,7 +15,7 @@
 #'  If you already have a spreadsheet (eg. a `.csv`) with the names of files and their classifications,
 #'  this is not the option for you. 
 #' @param path_prefix Path to where your images are stored. You need to specify this if 
-#'  you want MLWIC2 to `find_file_names`. 
+#'  you want MLWIC2 to `find_file_names` (or if you are using option 4). 
 #' @param image_file_suffixes The suffix for your image files. Only specify this if you are 
 #'  using the `find_file_names` option. The default is .jpg files. This is case-sensitive.
 #' @param recursive logical. Only necessary if you are using the `find_file_names` option. 
@@ -152,7 +152,7 @@ make_input <- function(
     pattern <- paste0(image_file_suffixes, collapse="|")
     
     # find file names in directory
-    file_names <- list.files(path = output_dir,  
+    file_names <- list.files(path = path_prefix,  
                              pattern=pattern,
                              full.names=FALSE, recursive=recursive)
     df <- data.frame(file_names, rep(0, length(file_names)))

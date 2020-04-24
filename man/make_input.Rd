@@ -39,7 +39,7 @@ If you already have a spreadsheet (eg. a `.csv`) with the names of files and the
 this is not the option for you.}
 
 \item{path_prefix}{Path to where your images are stored. You need to specify this if 
-you want MLWIC2 to `find_file_names`.}
+you want MLWIC2 to `find_file_names` (or if you are using option 4).}
 
 \item{image_file_suffixes}{The suffix for your image files. Only specify this if you are 
 using the `find_file_names` option. The default is .jpg files. This is case-sensitive.}
