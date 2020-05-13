@@ -390,8 +390,11 @@ make_input <- function(
   setwd(wd1)
 }
 
-# make_input(path_prefix="/Users/mikeytabak/MLWIC_examples/images/", 
-#            option=4)
+ make_input(output_dir = "/Users/mikeytabak/MLWIC_examples/",
+   path_prefix="/Users/mikeytabak/MLWIC_examples/images/", 
+            option=4,
+   image_file_suffixes = c(".JPG", ".jpg"
+                           ))
 # make_input(input_file ="/Users/mikeytabak/MLWIC_examples/image_labels_headers.csv", 
 #                       option=1)
 
