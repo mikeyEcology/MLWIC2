@@ -68,7 +68,7 @@ classify <- function(
   save_predictions = "model_predictions.txt", # txt file where you want model output to go
   python_loc = "/anaconda3/bin/", # location of the python that Anacnoda uses on your machine
   os="Mac",
-  num_classes = 59, # number of classes in model
+  num_classes = 1000, # number of classes in model
   num_cores = 1, 
   delimiter = ",", # this will be , for a csv.
   architecture = "resnet",
@@ -186,7 +186,7 @@ classify <- function(
                       " --save_predictions ", paste0(wd, "/", save_predictions),
                       " --top_n ", top_n,
                       " --num_gpus ", num_gpus,
-                      #" --num_classes ", num_classes, 
+                      " --num_classes ", num_classes, 
                       "\n")
   } else{
     eval_py <- paste0(python_loc,
@@ -202,7 +202,7 @@ classify <- function(
                       " --save_predictions ", paste0(wd, "/", save_predictions),
                       " --top_n ", top_n,
                       " --num_gpus ", num_gpus,
-                      #" --num_classes ", num_classes, 
+                      " --num_classes ", num_classes, 
                       "\n")
   }
 

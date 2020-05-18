@@ -12,7 +12,7 @@ classify(
   save_predictions = "model_predictions.txt",
   python_loc = "/anaconda3/bin/",
   os = "Mac",
-  num_classes = 59,
+  num_classes = 1000,
   num_cores = 1,
   delimiter = ",",
   architecture = "resnet",
