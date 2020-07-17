@@ -4,7 +4,7 @@ server <- function(input, output, session) {
   # base directory for fileChoose
   #volumes =  c(home = "") 
   volumes = shinyFiles::getVolumes()
-  shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes(), session=session)
   dirname_python_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$python_loc)})
   # Observe python_loc changes
   shiny::observe({
