@@ -123,3 +123,5 @@ Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K.
   language = {en}
 }
 ```
+
+Disclaimer: MLWIC2 is a free software that comes with no warranty. You are recommended to test the software's ability to classify images in your dataset and not assume that the reported accuracy will be found on your images. The authors of this paper are not responsible for any decisions or interpretations that are made as a result of using MLWIC2. 
