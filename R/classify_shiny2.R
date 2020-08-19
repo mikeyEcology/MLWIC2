@@ -99,7 +99,7 @@ server <- function(input, output, session) {
       )"
     ))
   })
-  
+
   
   #- run classify
   shiny::observeEvent(input$runClassify, {

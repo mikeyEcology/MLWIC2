@@ -37,8 +37,8 @@ column 1 must be the file name of each image including the extention (i.e., .jpg
 must be a number corresponding to the species. Give each species (or group of species) a
 number identifying it. The first species must be 0, the next species 1, and so on.}
 
-\item{model_dir}{Absolute path to the location where you stored the trained_model folder
-that you downloaded from github.}
+\item{model_dir}{Absolute path to the location where you stored the \code{MLWIC2_helper_files}
+folder that you downloaded from github.}
 
 \item{python_loc}{The location of python on your machine.}
 

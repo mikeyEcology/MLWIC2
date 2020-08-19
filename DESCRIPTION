@@ -1,7 +1,7 @@
 Package: MLWIC2
 Type: Package
 Title: Machine Learning for Wildlife Image Classification
-Version: 0.1
+Version: 1.0
 Author: Mikey Tabak
 Maintainer: Mikey Tabak <tabakma@gmail.com>
 Description: This package evaluates images from 59 animal species using the species model

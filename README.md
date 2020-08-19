@@ -40,7 +40,7 @@ The function `tensorflow` will do this on Macintosh and Linux machines, but the 
 
 ## <b> Step 5: Create a properly formatted input file using `make_input`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('make_input')` </i>
-- Option 1: If you have labels for your images and you want to test the model on your images (set `images_classified=TRUE`), you need to have an `input_file` csv that has at last two columns and one of these must be "filename" and the other must be "class_ID".
+- Option 1: If you have labels for your images and you want to test the model on your images (set `images_classified=TRUE`), you need to have an `input_file` csv that has at least two columns and one of these must be "filename" and the other must be "class_ID".
    - `class_ID` is a column containing a number for the label for each species. If you're using the "species_model", you can find the class_ID associated with each species in  [this table](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and put them in this column. 
 - Option 2: This is the same as option 1, excpet instead of having a column `class_ID` containing the number associated with each species, you have a column called `class` containing your classifications as words (e.g., "dog" or "cattle", "empty"), the function will find the appropriate `class_ID` associated with these words.
 - Option 3: If you do not have your images classified, but you have all of the filenames for the images you want to classify, you can have an `input_file` csv in your with a column called "filename" and whatever other columns you would like. 
@@ -55,7 +55,7 @@ The function `tensorflow` will do this on Macintosh and Linux machines, but the 
 - `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
 - `log_dir` is the absolute path to the model you want to use. If you are using the built in models, it is either "species_model" or "empty_animal". If you trained a model with MLWIC2, this would be what you specified as your `log_dir_train`.  
 - `os` is your operating system type. If you are using MS Windows, set `os="Windows"`, otherwise, you can ignore this argument. 
-- `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=59`; if you're using the empty_animal model`num_classes=2`. If you trained your own model, this is the number that you specified.
+- `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=1000`; if you're using the empty_animal model, `num_classes=2`. If you trained your own model, this is the number that you specified.
 - `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).
 - `num_cores` is the number of cores on your computer that you want to use. Running `parallel::detectCores()` will tell you how many cores you have on your computer. Depending on how long you intend to run the model, you might not want to use all of your cores. For example, you could specify `num_cores = parallel::detectCores() - 2` so that you would keep two cores available for other processes. 
 - See `?classify` for more options. 

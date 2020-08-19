@@ -24,8 +24,8 @@
 #' @param num_gpus The number of GPUs available. If you are using a CPU, leave this as default.
 #' @param num_classes The number of classes (species or groups of species) in your model.
 #' @param delimiter this will be a `,` for a csv.
-#' @param model_dir Absolute path to the location where you stored the trained_model folder
-#'  that you downloaded from github.
+#' @param model_dir Absolute path to the location where you stored the \code{MLWIC2_helper_files}
+#'  folder that you downloaded from github.
 #' @param os the operating system you are using. If you are using windows, set this to
 #'  "Windows", otherwise leave as default
 #' @param architecture the architecture of the deep neural network (DNN). Resnet-18 is the default.

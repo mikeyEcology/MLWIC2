@@ -11,7 +11,7 @@
 #' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2 .
 #'
 #' @param path_prefix Absolute path to location of the images on your computer (or computing cluster).
-#'  All images must be stored in one folder.
+#'  All images must be stored in this dictory, or a subdirectory from here.
 #' @param data_info Name of a csv containing the file names of each image (including relative path from the \code{path_prefix}).
 #'  It is recommended that you use the \code{make_input} function to make this \code{data_info} file
 #'  in the proper format. See \code{speciesID} for the numbers (if using the built in model) of each
@@ -27,7 +27,7 @@
 #' @param os the operating system you are using. If you are using windows, set this to
 #'  "Windows", otherwise leave as default
 #' @param num_classes The number of classes in your model. If you are using
-#'  the built in model, the number is `59`.
+#'  the built in model, the number is `1000`.
 #' @param delimiter this will be a `,` for a csv.
 #' @param log_dir If you are IDing species, this should be "species_model". If you are
 #'  determining if images contain animals or if they are empty, this should be "empty_animal".
@@ -40,12 +40,12 @@
 #'  that you used for training.
 #' @param num_cores The number of cores you want to use. You can find the number on your computer using
 #'  parallel::detectCores()
-#' @param depth the number of layers in the DNN. If you are using the built in model, do not adjust this parameter.
+#' @param depth the depth of the neural network. If you are using the built in model, do not adjust this parameter.
 #'  If you are using a model that you trained, use the same architecture and depth as that model.
 #' @param top_n the number of guesses you want the model to make (how many species do you want to
 #'  see the confidence for?). This number must be less than or equal to `num_classes`.
-#' @param model_dir Absolute path to the location where you stored the trained folder
-#'  that you downloaded from github.
+#' @param model_dir Absolute path to the location where you stored the \code{MLWIC2_helper_files}
+#'  that you downloaded from github. Note: you need to have unzipped this folder. 
 #' @param batch_size The number of images for the model to evaluate in each batch. Larger numbers will run faster
 #' @param make_output logical. Do you want the package to create a nice output file with column headers
 #' @param output_name Desired name of the output file. It must end in `.csv`

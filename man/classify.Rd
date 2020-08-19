@@ -30,7 +30,7 @@ classify(
 }
 \arguments{
 \item{path_prefix}{Absolute path to location of the images on your computer (or computing cluster).
-All images must be stored in one folder.}
+All images must be stored in this dictory, or a subdirectory from here.}
 
 \item{data_info}{Name of a csv containing the file names of each image (including relative path from the \code{path_prefix}).
 It is recommended that you use the \code{make_input} function to make this \code{data_info} file
@@ -40,8 +40,8 @@ If you choose to make this file on your own: This file must have Unix linebreaks
 This file must have only two columns and no headers. The first column must be the file name of the image
 The second column can be the number corresponding to the species or group in the image.}
 
-\item{model_dir}{Absolute path to the location where you stored the trained folder
-that you downloaded from github.}
+\item{model_dir}{Absolute path to the location where you stored the \code{MLWIC2_helper_files}
+that you downloaded from github. Note: you need to have unzipped this folder.}
 
 \item{log_dir}{If you are IDing species, this should be "species_model". If you are
 determining if images contain animals or if they are empty, this should be "empty_animal".
@@ -59,7 +59,7 @@ make the output in a more viewer friendly format}
 "Windows", otherwise leave as default}
 
 \item{num_classes}{The number of classes in your model. If you are using
-the built in model, the number is `59`.}
+the built in model, the number is `1000`.}
 
 \item{num_cores}{The number of cores you want to use. You can find the number on your computer using
 parallel::detectCores()}
@@ -72,7 +72,7 @@ If you are using the trained model that comes with MLWIC, use resnet 18 (the def
 If you trained a model using a different architechture, you need to specify this same architechture and depth
 that you used for training.}
 
-\item{depth}{the number of layers in the DNN. If you are using the built in model, do not adjust this parameter.
+\item{depth}{the depth of the neural network. If you are using the built in model, do not adjust this parameter.
 If you are using a model that you trained, use the same architecture and depth as that model.}
 
 \item{top_n}{the number of guesses you want the model to make (how many species do you want to
