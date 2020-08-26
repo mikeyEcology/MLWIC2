@@ -10,7 +10,13 @@ ui <- shiny::fluidPage(
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
       #shiny::textOutput('python_loc'),
       shiny::selectInput("r_reticulate", "Have you already installed packages in an environment called `r-reticulate that you want to keep?
-                         If you don't understand, click `No`", 
+                         If you don't understand, click `No`",
+                         choices = c(
+                           "No" = FALSE,
+                           "Yes" = TRUE
+                         )),
+      shiny::selectInput("gpu", "Do you have a GPU on your machine that you are planning to use?
+                         If you don't understand, click `No`",
                          choices = c(
                            "No" = FALSE,
                            "Yes" = TRUE

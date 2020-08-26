@@ -11,22 +11,33 @@
 #' @param conda_loc The location of conda. It is usually in the same folder as python
 #' @param r_reticulate Logical. Do you have an environment called "r-reticulate" for which you have
 #'  installed Python packages previously and want to retain these packages. Default is FALSE.
+#' @param gpu Logical. Do you want to use a GPU for classifying and training. (You must have
+#'  a GPU on your machine for this to work).
 #'
 #' @export
 setup <- function(
   python_loc = "/anaconda3/bin/",
   conda_loc = "auto", #"/anaconda2/bin/conda",
-  r_reticulate = FALSE
+  r_reticulate = FALSE,
+  gpu = FALSE
 ){
   # load reticulate
   reticulate::use_python(python_loc)
   
   # packages needed for MLWIC
-  packs <- c(#"re", "math",
-    "numpy", "cycler", "matplotlib", "tornado", #"StringIO", "sys",
-    "six", "scipy", #"datetime",
-    "tensorflow"
-  )
+  if(gpu){
+    packs <- c(
+      "numpy", "cycler", "matplotlib", "tornado", 
+      "six", "scipy", 
+      "tensorflow-gpu==1.14.0"
+    )
+  }else{
+    packs <- c(
+      "numpy", "cycler", "matplotlib", "tornado", 
+      "six", "scipy", 
+      "tensorflow==1.14.0"
+    )
+  }
   
   #- create a conda environment if it doesn't already exist
   if(!r_reticulate){

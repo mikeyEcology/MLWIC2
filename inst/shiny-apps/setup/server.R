@@ -2,7 +2,7 @@ server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  #volumes =  c(home = "") 
+  #volumes =  c(home = "")
   volumes = shinyFiles::getVolumes()
   shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes(), session=session)
   dirname_python_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$python_loc)})
@@ -23,7 +23,8 @@ server <- function(input, output, session) {
     setup(
       python_loc = normalizePath(dirname_python_loc()),
       conda_loc = "auto",
-      r_reticulate = input$r_reticulate
+      r_reticulate = input$r_reticulate,
+      gpu = input$gpu
     )
   })
   

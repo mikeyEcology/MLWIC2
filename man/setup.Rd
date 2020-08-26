@@ -4,7 +4,12 @@
 \alias{setup}
 \title{Setup your computer to run \code{MLWIC2}}
 \usage{
-setup(python_loc = "/anaconda3/bin/", conda_loc = "auto", r_reticulate = FALSE)
+setup(
+  python_loc = "/anaconda3/bin/",
+  conda_loc = "auto",
+  r_reticulate = FALSE,
+  gpu = FALSE
+)
 }
 \arguments{
 \item{python_loc}{The location of python on your machine. If you are
@@ -14,6 +19,9 @@ using a Macintosh, the default is the likely location.}
 
 \item{r_reticulate}{Logical. Do you have an environment called "r-reticulate" for which you have
 installed Python packages previously and want to retain these packages. Default is FALSE.}
+
+\item{gpu}{Logical. Do you want to use a GPU for classifying and training. (You must have
+a GPU on your machine for this to work).}
 }
 \description{
 \code{setup} installs necessary Python packages on your computer. You will
