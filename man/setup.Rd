@@ -8,7 +8,8 @@ setup(
   python_loc = "/anaconda3/bin/",
   conda_loc = "auto",
   r_reticulate = FALSE,
-  gpu = FALSE
+  gpu = FALSE,
+  envname = "r-reticulate"
 )
 }
 \arguments{
@@ -22,10 +23,13 @@ installed Python packages previously and want to retain these packages. Default 
 
 \item{gpu}{Logical. Do you want to use a GPU for classifying and training. (You must have
 a GPU on your machine for this to work).}
+
+\item{envname}{The name of the conda environment you'd like to set up. 
+If you don't manage multiple environments, leave this as default}
 }
 \description{
 \code{setup} installs necessary Python packages on your computer. You will
 need to run this before running \code{classify} and \code{train}. If this is your first time using
-this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
-If you follow the link to install Anacoda and you are using a Mac, it should be in the default location.
+this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2.
+If you follow the link to install Anacoda and you are using a Mac, python should be in the default location.
 }

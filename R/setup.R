@@ -3,23 +3,26 @@
 #'
 #' \code{setup} installs necessary Python packages on your computer. You will
 #' need to run this before running \code{classify} and \code{train}. If this is your first time using
-#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC .
-#' If you follow the link to install Anacoda and you are using a Mac, it should be in the default location.
+#' this function, you should see additional documentation at https://github.com/mikeyEcology/MLWIC2.
+#' If you follow the link to install Anacoda and you are using a Mac, python should be in the default location.
 #'
 #' @param python_loc The location of python on your machine. If you are
-#'  using a Macintosh, the default is the likely location.
+#'  using a Macintosh, the default is the likely location. 
 #' @param conda_loc The location of conda. It is usually in the same folder as python
 #' @param r_reticulate Logical. Do you have an environment called "r-reticulate" for which you have
 #'  installed Python packages previously and want to retain these packages. Default is FALSE.
 #' @param gpu Logical. Do you want to use a GPU for classifying and training. (You must have
 #'  a GPU on your machine for this to work).
+#' @param envname The name of the conda environment you'd like to set up. 
+#'  If you don't manage multiple environments, leave this as default
 #'
 #' @export
 setup <- function(
   python_loc = "/anaconda3/bin/",
   conda_loc = "auto", #"/anaconda2/bin/conda",
   r_reticulate = FALSE,
-  gpu = FALSE
+  gpu = FALSE,
+  envname="r-reticulate"
 ){
   # load reticulate
   reticulate::use_python(python_loc)
@@ -48,6 +51,9 @@ setup <- function(
   }
   
   # install python packages
-  reticulate::py_install(packs, conda=conda_loc)
+  cat("This function will now install some python packages that are required to run MLWIC2. 
+      It will take some time. You will see a lot of output regarding the installation and 
+      updating of python packages.\n")
+  reticulate::py_install(packs, conda=conda_loc, envname = envname)
   
 }
