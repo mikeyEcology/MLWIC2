@@ -19,9 +19,9 @@
 #' @export
 setup <- function(
   python_loc = "/anaconda3/bin/",
+  gpu = FALSE,
   conda_loc = "auto", #"/anaconda2/bin/conda",
   r_reticulate = FALSE,
-  gpu = FALSE,
   envname="r-reticulate"
 ){
   # load reticulate
@@ -30,13 +30,13 @@ setup <- function(
   # packages needed for MLWIC
   if(gpu){
     packs <- c(
-      "numpy", "cycler", "matplotlib", "tornado", 
+      "numpy==1.16.4", "cycler", "matplotlib", "tornado", 
       "six", "scipy", 
       "tensorflow-gpu==1.14.0"
     )
   }else{
     packs <- c(
-      "numpy", "cycler", "matplotlib", "tornado", 
+      "numpy==1.16.4", "cycler", "matplotlib", "tornado", 
       "six", "scipy", 
       "tensorflow==1.14.0"
     )
