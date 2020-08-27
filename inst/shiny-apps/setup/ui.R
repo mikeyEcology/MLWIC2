@@ -1,3 +1,4 @@
+
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -7,9 +8,9 @@ ui <- shiny::fluidPage(
   shiny::sidebarLayout(
     
     shiny::sidebarPanel(
-      shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
+      shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda. Just select the folder where it resides in the top half of the menu and press `Select`"),
       #shiny::textOutput('python_loc'),
-      shiny::selectInput("r_reticulate", "Have you already installed packages in an environment called `r-reticulate that you want to keep?
+      shiny::selectInput("r_reticulate", "Have you already installed packages in aconda environment called `r-reticulate` that you want to keep?
                          If you don't understand, click `No`",
                          choices = c(
                            "No" = FALSE,
@@ -27,8 +28,9 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      shiny::helpText("For future reference, this is your python_loc"),
+      shiny::helpText("If this shiny app throws an error, paste what is below into your R console to run setup."),
       shiny::textOutput("python_loc_print")
     )
   )
 )
+

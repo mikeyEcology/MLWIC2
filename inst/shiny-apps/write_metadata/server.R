@@ -13,7 +13,7 @@ server <- function(input, output, session) {
   # base directory for fileChoose
   #volumes =  c(home = "")
   volumes = shinyFiles::getVolumes()
-  shinyFiles::shinyDirChoose(input, 'exiftool_loc', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'exiftool_loc', roots=volumes(), session=session)
   dirname_exiftool_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$exiftool_loc)})
   # # Observe exiftool_loc changes
   shiny::observe({

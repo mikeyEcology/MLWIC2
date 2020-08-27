@@ -4,7 +4,7 @@ server <- function(input, output, session) {
   # base directory for fileChoose
   volumes = shinyFiles::getVolumes()
   # path
-  shinyFiles::shinyDirChoose(input, 'path', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'path', roots=volumes(), session=session)
   dirname_path <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path)})
   # Observe path changes
   shiny::observe({

@@ -5,7 +5,7 @@ server <- function(input, output, session) {
   #volumes =  c(home = "")
   volumes = shinyFiles::getVolumes()
   # path_prefix
-  shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'path_prefix', roots=volumes(), session=session)
   dirname_path_prefix <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$path_prefix)})
   # Observe path_prefix changes
   shiny::observe({
@@ -22,7 +22,7 @@ server <- function(input, output, session) {
   #   output$data_info <- renderText(filename$datapath)
   # })
   # model_dir
-  shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'model_dir', roots=volumes(), session=session)
   dirname_model_dir <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$model_dir)})
   # Observe model_dir changes
   observe({
@@ -32,7 +32,7 @@ server <- function(input, output, session) {
     }
   })
   # python_loc
-  shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes, session=session)
+  shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes(), session=session)
   dirname_python_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$python_loc)})
   # Observe python_loc changes
   shiny::observe({

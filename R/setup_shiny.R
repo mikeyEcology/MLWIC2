@@ -4,6 +4,8 @@ server <- function(input, output, session) {
   # base directory for fileChoose
   #volumes =  c(home = "") 
   volumes = shinyFiles::getVolumes()
+  
+  # python_loc
   shinyFiles::shinyDirChoose(input, 'python_loc', roots=volumes(), session=session)
   dirname_python_loc <- shiny::reactive({shinyFiles::parseDirPath(volumes, input$python_loc)})
   # Observe python_loc changes
@@ -15,17 +17,23 @@ server <- function(input, output, session) {
   })
   
   output$python_loc_print <- renderText({
-    paste0("python_loc = '", normalizePath(dirname_python_loc()), "'\n")
+    paste0("MLWIC2::setup(python_loc = '", normalizePath(dirname_python_loc()), "', ",
+           "r-reticulate = ", input$r_reticulate, ", ",
+           "gpu = ", input$gpu, ")",
+           
+           "\n")
   })
   
   #- run classify
-  shiny::observeEvent(input$runShiny, {
+  shiny::observeEvent(input$runSetup, {
+    shiny::showModal(modalDialog("Setting up environment. Check R console for updates; Press Dismiss at any time"))
     setup(
-      python_loc = normalizePath(dirname_python_loc()),
+      python_loc = gsub("\\\\", "/", paste0(normalizePath(dirname_python_loc()), "/")),
       conda_loc = "auto",
-      r_reticulate = input$r_reticulate,
+      #r_reticulate = promises::promise_resolve(input$r_reticulate),
       gpu = input$gpu
     )
+    showModal(modalDialog("Setup function complete."))
   })
   
 }
@@ -39,9 +47,9 @@ ui <- shiny::fluidPage(
   shiny::sidebarLayout(
     
     shiny::sidebarPanel(
-      shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda"),
+      shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python. It should be under Anaconda. Just select the folder where it resides in the top half of the menu and press `Select`"),
       #shiny::textOutput('python_loc'),
-      shiny::selectInput("r_reticulate", "Have you already installed packages in an environment called `r-reticulate that you want to keep?
+      shiny::selectInput("r_reticulate", "Have you already installed packages in aconda environment called `r-reticulate` that you want to keep?
                          If you don't understand, click `No`", 
                          choices = c(
                            "No" = FALSE,
@@ -59,7 +67,7 @@ ui <- shiny::fluidPage(
     
     # Main panel for displaying outputs ----
     shiny::mainPanel(
-      shiny::helpText("For future reference, this is your python_loc"),
+      shiny::helpText("If this shiny app throws an error, paste what is below into your R console to run setup."),
       shiny::textOutput("python_loc_print")
     )
   )
