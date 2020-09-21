@@ -13,6 +13,7 @@
 #'  installed Python packages previously and want to retain these packages. Default is FALSE.
 #' @param gpu Logical. Do you want to use a GPU for classifying and training. (You must have
 #'  a GPU on your machine for this to work).
+#' @param python_version set to the version of python you want to use. Use <= 3.7
 #' @param envname The name of the conda environment you'd like to set up. 
 #'  If you don't manage multiple environments, leave this as default
 #'
@@ -22,6 +23,7 @@ setup <- function(
   gpu = FALSE,
   conda_loc = "auto", #"/anaconda2/bin/conda",
   r_reticulate = FALSE,
+  python_version = "3.7",
   envname="r-reticulate"
 ){
   # load reticulate
@@ -54,6 +56,7 @@ setup <- function(
   cat("This function will now install some python packages that are required to run MLWIC2. 
       It will take some time. You will see a lot of output regarding the installation and 
       updating of python packages.\n")
-  reticulate::py_install(packs, conda=conda_loc, envname = envname)
+  reticulate::py_install(packs, conda=conda_loc, python_version = python_version
+                         , envname = envname)
   
 }

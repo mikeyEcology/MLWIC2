@@ -4,7 +4,9 @@ MLWIC2 can be used to automatically classify camera trap images or to train new 
 
 If you have issues, please submit them to the issues tab and do not email the authors of this package with questions. This way everyone can learn from the issue. 
 
-You need to have [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/) installed, along with Python 3.7 (Python 3.6 or 3.5 will also work just as well). 
+
+## <b>Step 0: Prerequisites </b>
+You need to have [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/) installed, along with <b>Python 3.7</b> (Python 3.6 or 3.5 will also work just as well). 
 If you are using a Windows computer, you will likely need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) if you don't already have it installed. 
 
 ## <b>Step 1: Install the `MLWIC2` package in R</b>
@@ -27,7 +29,7 @@ You only need to run steps 2-3 the first time you use this package on a computer
 ## <b>Step 2: Setup your environment for using `MLWIC2` using the function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
 - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. In Windows you can open your command prompt and type `where python`. 
-- If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. \
+- If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. 
 - This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
 - If you want to use a  graphics processing unit (GPU), set `gpu=TRUE` in this function. Using a GPU is not necessary to run MLWIC2, and if you are using a trained model to classify images it will not have a major effect, but if you are training a model, a GPU will result in much faster training; see more details [here](https://www.tensorflow.org/install/gpu). 
 

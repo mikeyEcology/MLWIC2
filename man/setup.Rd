@@ -6,9 +6,10 @@
 \usage{
 setup(
   python_loc = "/anaconda3/bin/",
+  gpu = FALSE,
   conda_loc = "auto",
   r_reticulate = FALSE,
-  gpu = FALSE,
+  python_version = "3.7",
   envname = "r-reticulate"
 )
 }
@@ -16,13 +17,15 @@ setup(
 \item{python_loc}{The location of python on your machine. If you are
 using a Macintosh, the default is the likely location.}
 
+\item{gpu}{Logical. Do you want to use a GPU for classifying and training. (You must have
+a GPU on your machine for this to work).}
+
 \item{conda_loc}{The location of conda. It is usually in the same folder as python}
 
 \item{r_reticulate}{Logical. Do you have an environment called "r-reticulate" for which you have
 installed Python packages previously and want to retain these packages. Default is FALSE.}
 
-\item{gpu}{Logical. Do you want to use a GPU for classifying and training. (You must have
-a GPU on your machine for this to work).}
+\item{python_version}{set to the version of python you want to use. Use <= 3.7}
 
 \item{envname}{The name of the conda environment you'd like to set up. 
 If you don't manage multiple environments, leave this as default}
