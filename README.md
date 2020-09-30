@@ -108,7 +108,7 @@ If you aren't satisfied with the accuracy of the builtin models, you can train t
 
 
 If you use this package in a publication, please site our manuscript: \
-Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020-In Press). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v2). BioRxiv, 2020.03.18.997700. doi:[10.1101/2020.03.18.997700](https://www.biorxiv.org/content/10.1101/2020.03.18.997700v2)
+Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020-In Press). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692). Ecology & Evolution, ece3.6692 doi:[10.1002/ece3.6692](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692)
 ```
 @article{tabakImprovingAccessibilityTransferability2020,
   title = {Improving the Accessibility and Transferability of Machine Learning Algorithms for Identification of Animals in Camera Trap Images: {{MLWIC2}}},
@@ -116,10 +116,10 @@ Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K.
   author = {Tabak, Michael A. and Norouzzadeh, Mohammad S. and Wolfson, David W. and Newton, Erica J. and Boughton, Raoul K. and Ivan, Jacob S. and Odell, Eric A. and Newkirk, Eric S. and Conrey, Reesa Y. and Stenglein, Jennifer and Iannarilli, Fabiola and Erb, John and Brook, Ryak K. and Davis, Amy J. and Lewis, Jesse and Walsh, Daniel P. and Beasley, James C. and VerCauteren, Kurt C. and Clune, Jeff and Miller, Ryan S.},
   year = {2020},
   month = mar,
-  pages = {2020.03.18.997700},
-  publisher = {{Cold Spring Harbor Laboratory}},
-  doi = {10.1101/2020.03.18.997700},
-  journal = {bioRxiv},
+  pages = {ece3.6692},
+  publisher = {{Wiley}},
+  doi = {10.1002/ece3.6692},
+  journal = {Ecology & Evolution},
   language = {en}
 }
 ```
