@@ -26,15 +26,15 @@ When running `install_github`, some users will get an error about Rcpp or Rlang.
 
 You only need to run steps 2-3 the first time you use this package on a computer. If you have already run [MLWIC](https://github.com/mikeyEcology/MLWIC) on your computer, you can skip step 2
 
-## <b>Step 2: Setup your environment for using `MLWIC2` using the function `setup`</b>
+## <b>Step 2: Setup your environment for using `MLWIC2` using the R function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
 - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. In Windows you can open your command prompt and type `where python`. 
 - If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. 
 - This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
 - If you want to use a  graphics processing unit (GPU), set `gpu=TRUE` in this function. Using a GPU is not necessary to run MLWIC2, and if you are using a trained model to classify images it will not have a major effect, but if you are training a model, a GPU will result in much faster training; see more details [here](https://www.tensorflow.org/install/gpu). 
 
-## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1M1pl9edaaIZqcQkCndLcvEcbOOkSrTQB/view?usp=sharing).</b> 
-- Unzip the folder and then store this folder in a location where you can find it on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `4f3d57ea4d17055cac5df3591f87bbb3`. 
+## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1VkIBdA-oIsQ_Y83y0OWL6Afw6S9AQAbh/view?usp=sharing).</b> 
+- Unzip the folder and then store this folder in a location where you can find it on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `14432A502FB78943890751608A8DAECC`. 
 
 ###### Before running models on your own data, I recommend you try running using the [example  provided](https://github.com/mikeyEcology/MLWIC_examples/tree/master). 
 
@@ -72,6 +72,7 @@ classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your 
          num_cores = 4 # the number of cores you want to use on your computer. Try runnning parallel::detectCores() to see what you have available. You might want to use something like parallel::detectCores()-1 so that you have a core left on your machine for accomplishing other tasks. 
          ) 
 ```
+ - (Optional) Use the `evaluate_performance` function to see how the model worked on your images. This function is easy, use `?evaluate_performance` to get details.
 
 ## Step 6: Update the metadata of your image files using `write_metadata` (optional)
 ###### <i> Shiny option: `MLWIC2::runShiny('write_metadata')` </i>
