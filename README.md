@@ -65,7 +65,7 @@ You only need to run steps 2-3 the first time you use this package on a computer
 ```
 classify(path_prefix = "/Users/mikeytabak/Desktop/images", # path to where your images are stored
          data_info = "/Users/mikeytabak/Desktop/image_labels.csv", # path to csv containing file names and labels
-         model_dir = "/Users/mikeytabak/Desktop/MLWIC2_helper_files", # path to the helper files that you downloaded in step 3, including the name of this directory (i.e., `MLWIC2_helper_files`)
+         model_dir = "/Users/mikeytabak/Desktop/MLWIC2_helper_files", # path to the helper files that you downloaded in step 3, including the name of this directory (i.e., `MLWIC2_helper_files`). Check to make sure this directory includes files like arch.py and run.py. If not, look for another folder inside this folder called `MLWIC2_helper_files`
          python_loc = "/anaconda2/bin/", # location of python on your computer
          save_predictions = "model_predictions.txt", # how you want to name the raw output file
          make_output = TRUE, # if TRUE, this will produce a csv with a more friendly output
@@ -110,7 +110,7 @@ If you aren't satisfied with the accuracy of the builtin models, you can train t
 
 
 If you use this package in a publication, please site our manuscript: \
-Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692). Ecology & Evolution, ece3.6692, 10(9): 10374-10383.\ doi:[10.1002/ece3.6692](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692)
+Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692). Ecology & Evolution, 10(9): 10374-10383. doi:[10.1002/ece3.6692](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692)
 ```
 @article{tabakImprovingAccessibilityTransferability2020,
   title = {Improving the Accessibility and Transferability of Machine Learning Algorithms for Identification of Animals in Camera Trap Images: {{MLWIC2}}},
