@@ -46,7 +46,8 @@ that you downloaded from github. Note: you need to have unzipped this folder.}
 \item{log_dir}{If you are IDing species, this should be "species_model". If you are
 determining if images contain animals or if they are empty, this should be "empty_animal".
 If you trained a model with \code{train}, this
-will be the log_directory that you specified when using that function.}
+will be the log_directory that you specified when using that function.
+If you are using the CFTEP model, specify "CFTEP" here.}
 
 \item{save_predictions}{File name where model predictions will be stored.
 You should not need to change this parameter.
@@ -59,7 +60,8 @@ make the output in a more viewer friendly format}
 "Windows", otherwise leave as default}
 
 \item{num_classes}{The number of classes in your model. If you are using
-the built in model, the number is `1000`.}
+the `species_model`, the number is `1000`. If using `empty_animal`, `num_classes=2`.
+If using `CFTEP`, `num_classes=10`}
 
 \item{num_cores}{The number of cores you want to use. You can find the number on your computer using
 parallel::detectCores()}

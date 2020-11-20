@@ -1,4 +1,3 @@
-
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -24,7 +23,7 @@ ui <- shiny::fluidPage(
       #textInput("python_loc", "Location of Python on your computer"),
       shinyFiles::shinyDirButton('python_loc', "Python location", title="Select the location of Python on your computer. It should be under Anaconda"),
       #shiny::textOutput('python_loc'),
-      shiny::textInput("log_dir", "Directory name of trained model. Either `species_model`, `empty_animal`, or if using a model you trained, it's what you set as your `log_dir_train`", formals(classify)[["log_dir"]]),
+      shiny::textInput("log_dir", "Directory name of trained model. Either `species_model`, `empty_animal`, `CFTEP`, or if using a model you trained, it's what you set as your `log_dir_train`", formals(classify)[["log_dir"]]),
       shiny::textInput("num_classes", "Number of classes in trained model (If you are using the built in model, leave all remaining windows with the default option)", formals(classify)[["num_classes"]]),
       shiny::textInput("save_predictions", "Name of text file to save predictions (must end in .txt)", formals(classify)[["save_predictions"]]) ,
       shiny::textInput("architecture", "CNN Architecture", formals(classify)[["architecture"]]),
@@ -45,4 +44,3 @@ ui <- shiny::fluidPage(
     )
   )
 )
-

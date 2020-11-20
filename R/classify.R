@@ -27,12 +27,14 @@
 #' @param os the operating system you are using. If you are using windows, set this to
 #'  "Windows", otherwise leave as default
 #' @param num_classes The number of classes in your model. If you are using
-#'  the built in model, the number is `1000`.
+#'  the `species_model`, the number is `1000`. If using `empty_animal`, `num_classes=2`.
+#'  If using `CFTEP`, `num_classes=10`
 #' @param delimiter this will be a `,` for a csv.
 #' @param log_dir If you are IDing species, this should be "species_model". If you are
 #'  determining if images contain animals or if they are empty, this should be "empty_animal".
 #'  If you trained a model with \code{train}, this
 #'  will be the log_directory that you specified when using that function.
+#'  If you are using the CFTEP model, specify "CFTEP" here. 
 #' @param architecture the architecture of the deep neural network (DNN). Resnet-18 is the default.
 #'  Options are c("alexnet", "densenet", "googlenet", "nin", "resnet", "vgg").
 #'  If you are using the trained model that comes with MLWIC, use resnet 18 (the default).

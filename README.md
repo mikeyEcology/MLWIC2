@@ -35,6 +35,7 @@ You only need to run steps 2-3 the first time you use this package on a computer
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1VkIBdA-oIsQ_Y83y0OWL6Afw6S9AQAbh/view?usp=sharing).</b> 
 - Unzip the folder and then store this folder in a location where you can find it on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `14432A502FB78943890751608A8DAECC`. 
+- If you are on a Windows computer, some unzipping software will add extra folders. When you need to specify this folder at later steps (as the `model_dir`), be sure that you are using the directory that actually contains the helper files. The correct directory will contain a file called `arch.py` and `run.py`, among others. Specifically Windows sometimes puts the files in a location `.../MLWIC2_helper_files/MLWIC2_helper_files` instead of simply `MLWIC2_helper_files`, as you would expect. 
 
 ###### Before running models on your own data, I recommend you try running using the [example  provided](https://github.com/mikeyEcology/MLWIC_examples/tree/master). 
 
@@ -53,9 +54,9 @@ You only need to run steps 2-3 the first time you use this package on a computer
   - You can have image files in subdirectories within your `path_prefix`, but this must be relfected in your `data_info` file. For example, if you have a file located at `.../images/subdirectory1/imagefile.jpg`, and your `path_prefix=.../images/`, your filename for this image in your `data_info` file would be `subdirectory/imagefile.jpg`. 
 - `data_info` is the absolute path to where your input file is stored. Check your output from `make_input`. 
 - `model_dir` is the absolute path to where you stored the MLWIC2_helper_files folder in step 3.
-- `log_dir` is the absolute path to the model you want to use. If you are using the built in models, it is either "species_model" or "empty_animal". If you trained a model with MLWIC2, this would be what you specified as your `log_dir_train`.  
+- `log_dir` is the absolute path to the model you want to use. If you are using the built in models, it is either "species_model",  "empty_animal", or "CFTEP". If you trained a model with MLWIC2, this would be what you specified as your `log_dir_train`.  
 - `os` is your operating system type. If you are using MS Windows, set `os="Windows"`, otherwise, you can ignore this argument. 
-- `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=1000`; if you're using the empty_animal model, `num_classes=2`. If you trained your own model, this is the number that you specified.
+- `num_classes` is the number of species or groups of species in the model. If you are using the species_model, `num_classes=1000`; if you're using the empty_animal model, `num_classes=2`, If you are using the CFTEP model, `num_classes=10`. If you trained your own model, this is the number that you specified.
 - `top_n` is the number of guesses that classes that the model will provide guesses for. E.g., if `top_n=5`, the output will include the top 5 classes that it thinks are in the image (and the confidences that are associated with these guesses).
 - `num_cores` is the number of cores on your computer that you want to use. Running `parallel::detectCores()` will tell you how many cores you have on your computer. Depending on how long you intend to run the model, you might not want to use all of your cores. For example, you could specify `num_cores = parallel::detectCores() - 2` so that you would keep two cores available for other processes. 
 - See `?classify` for more options. 
@@ -109,7 +110,7 @@ If you aren't satisfied with the accuracy of the builtin models, you can train t
 
 
 If you use this package in a publication, please site our manuscript: \
-Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020-In Press). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692). Ecology & Evolution, ece3.6692 doi:[10.1002/ece3.6692](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692)
+Tabak, M. A., Norouzzadeh, M. S., Wolfson, D. W., Newton, E. J., Boughton, R. K., Ivan, J. S., … Miller, R. S. (2020). [Improving the accessibility and transferability of machine learning algorithms for identification of animals in camera trap images: MLWIC2](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692). Ecology & Evolution, ece3.6692, 10(9): 10374-10383.\ doi:[10.1002/ece3.6692](https://onlinelibrary.wiley.com/doi/10.1002/ece3.6692)
 ```
 @article{tabakImprovingAccessibilityTransferability2020,
   title = {Improving the Accessibility and Transferability of Machine Learning Algorithms for Identification of Animals in Camera Trap Images: {{MLWIC2}}},

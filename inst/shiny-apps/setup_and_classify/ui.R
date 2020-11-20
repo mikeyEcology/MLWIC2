@@ -40,7 +40,8 @@ ui <- shiny::fluidPage(
       shiny::selectInput("model_type", "What type of model do you want to use?",
                          choices = c(
                            "Animal / Empty" = "empty_animal",
-                           "Identify animal species" = "species_model"
+                           "Identify animal species" = "species_model",
+                           "CFTEP" = "CFTEP"
                          )),
       
       shiny::textInput("output_name", "Name of cleaned output file"
