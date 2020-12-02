@@ -28,10 +28,11 @@ You only need to run steps 2-3 the first time you use this package on a computer
 
 ## <b>Step 2: Setup your environment for using `MLWIC2` using the R function `setup`</b>
 ###### <i> Shiny option: `MLWIC2::runShiny('setup')` </i>
-- `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. In Windows you can open your command prompt and type `where python`. 
-- If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. 
-- This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
-- If you want to use a  graphics processing unit (GPU), set `gpu=TRUE` in this function. Using a GPU is not necessary to run MLWIC2, and if you are using a trained model to classify images it will not have a major effect, but if you are training a model, a GPU will result in much faster training; see more details [here](https://www.tensorflow.org/install/gpu). 
+- In R, you can probably run `MLWIC2::setup()` and not specify any options, but if you need to specify options, they are described below:
+  - `python_loc` is the location of Python on your computer. On Macs, it is often in the default-you can determine the location by opening a terminal window and typing `which python`. In Windows you can open your command prompt and type `where python`. 
+  - If you already have a conda environment called "r-reticulate" with Python packages installed, you can specify `r_reticulate = TRUE`; if you don't know what this means, leave this argument as the default by not specifying it. 
+  - This function installs several necessary Python packages. Running this function will take a few minutes. You may see some errors when you run `setup` - you can ignore these; if there are problems with the installation, whey will become apparent when you run `classify`. 
+  - If you want to use a  graphics processing unit (GPU), set `gpu=TRUE` in this function. Using a GPU is not necessary to run MLWIC2, and if you are using a trained model to classify images it will not have a major effect, but if you are training a model, a GPU will result in much faster training; see more details [here](https://www.tensorflow.org/install/gpu). 
 
 ## <b>Step 3: Download the [MLWIC2_helper_files folder from this link](https://drive.google.com/file/d/1VkIBdA-oIsQ_Y83y0OWL6Afw6S9AQAbh/view?usp=sharing).</b> 
 - Unzip the folder and then store this folder in a location where you can find it on your computer (e.g., Desktop). Note the location, as you will specify this as `model_dir` when you run the functions `classify`, `make_output`, and `train`. (optional) If you want to check md5sums for this file, the value should be `14432A502FB78943890751608A8DAECC`. 
