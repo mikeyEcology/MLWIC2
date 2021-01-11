@@ -81,7 +81,7 @@ server <- function(input, output, session) {
     }
     gsub("\\\\", "/", paste0("classify(\n
                               path_prefix = '", normalizePath(dirname_path_prefix()), "',",
-                             " data_info = '", data_info_collapse, "',",
+                             " data_info = '", gsub("OS ","", data_info_collapse), "',",
                              #" data_info = '", normalizePath(dirname_data_prefix()), slash(), input$data_info, "',",
                              " model_dir = '", normalizePath(dirname_model_dir()), "',",
                              " python_loc = '", normalizePath(dirname_python_loc()), "',",
@@ -122,7 +122,8 @@ server <- function(input, output, session) {
     classify(#path_prefix = input$path_prefix,
       #path_prefix = renderText(dirname_path_prefix()),
       path_prefix = gsub("\\\\", "/", normalizePath(dirname_path_prefix())),
-      data_info = data_info_collapse, 
+      data_info = gsub("OS ","", data_info_collapse),
+      #data_info = data_info_collapse, 
       #data_info = input$data_info,
       #data_info = normalizePath(filename_data_info()),
       #data_info =  gsub("\\\\", "/", paste0(normalizePath(dirname_data_prefix()), slash(), input$data_info)),
@@ -146,7 +147,7 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=FALSE
+      print_cmd=TRUE
     )
     showModal(modalDialog("Classify function complete. Check you R console for information. You may press dismiss and close the Shiny window now."))
   })
