@@ -146,7 +146,7 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=TRUE
+      print_cmd=FALSE
     )
     showModal(modalDialog("Classify function complete. Check you R console for information. You may press dismiss and close the Shiny window now."))
   })
