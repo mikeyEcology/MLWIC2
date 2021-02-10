@@ -214,8 +214,7 @@ classify <- function(
   if(print_cmd){
     print(eval_py)
   }else{
-      system(paste0("conda activate r-reticulate", "\n", "\n",
-        eval_py))
+      system(paste0(eval_py))
       #system(paste0("export PYTHONWARNINGS='ignore'\n",
       #              eval_py))
 
