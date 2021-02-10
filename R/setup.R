@@ -32,13 +32,13 @@ setup <- function(
   # packages needed for MLWIC
   if(gpu){
     packs <- c(
-      "numpy", "cycler", "matplotlib", "tornado", 
+      "numpy==1.16.4", "cycler", "matplotlib", "tornado", 
       "six", "scipy", 
       "tensorflow-gpu==1.14.0"
     )
   }else{
     packs <- c(
-      "numpy", "cycler", "matplotlib", "tornado", 
+      "numpy==1.16.4", "cycler", "matplotlib", "tornado", 
       "six", "scipy", 
       "tensorflow==1.14.0"
     )
