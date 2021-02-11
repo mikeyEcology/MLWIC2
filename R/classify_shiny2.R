@@ -94,8 +94,9 @@ server <- function(input, output, session) {
                              "top_n = ", input$top_n, ",\n", 
                              "batch_size = ", input$batch_size, ",\n",
                              "output_name = '", input$output_name, "',\n",
-                             "os = '", os,
-                             "'\n
+                             "os = '", os, "'",
+                             "print_cmd = ", input$print_cmd,
+                             "\n
       )"
     ))
   })
@@ -147,7 +148,7 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=TRUE
+      print_cmd=input$print_cmd
     )
     showModal(modalDialog("Classify function complete. Check you R console for information. You may press dismiss and close the Shiny window now."))
   })
@@ -215,6 +216,10 @@ ui <- shiny::fluidPage(
       shiny::textInput("top_n", "Number of guesses to save", formals(classify)[["top_n"]]),
       shiny::textInput("batch_size", "Batch size (must be a multiple of 16)", formals(classify)[["batch_size"]]),
       shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
+      shiny::selectInput("print_cmd", "Print command only? (alternative is run directly from this window)", choices=c(
+        "No" = "FALSE",
+        "Yes" = "TRUE"
+      )),
       shiny::actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
     

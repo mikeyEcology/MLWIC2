@@ -1,3 +1,4 @@
+# shiny
 server <- function(input, output, session) {
   
   # determine if Windows and create appropriate slashes
@@ -93,8 +94,9 @@ server <- function(input, output, session) {
                              "top_n = ", input$top_n, ",\n", 
                              "batch_size = ", input$batch_size, ",\n",
                              "output_name = '", input$output_name, "',\n",
-                             "os = '", os,
-                             "'\n
+                             "os = '", os, "'",
+                             "print_cmd = ", input$print_cmd,
+                             "\n
       )"
     ))
   })
@@ -146,7 +148,7 @@ server <- function(input, output, session) {
       output_name=input$output_name,
       test_tensorflow = FALSE,
       os = os,
-      print_cmd=FALSE
+      print_cmd=input$print_cmd
     )
     showModal(modalDialog("Classify function complete. Check you R console for information. You may press dismiss and close the Shiny window now."))
   })

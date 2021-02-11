@@ -212,6 +212,9 @@ classify <- function(
   # run code
   toc <- Sys.time()
   if(print_cmd){
+    print(paste0("Navigate to your helper files in Anaconda Prompt by typing:",
+                 "`cd ", model_dir, "`", 
+                 " Then paste the command below"))
     print(eval_py)
   }else{
       system(paste0(eval_py))

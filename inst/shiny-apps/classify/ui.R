@@ -1,3 +1,4 @@
+
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -32,6 +33,10 @@ ui <- shiny::fluidPage(
       shiny::textInput("top_n", "Number of guesses to save", formals(classify)[["top_n"]]),
       shiny::textInput("batch_size", "Batch size (must be a multiple of 16)", formals(classify)[["batch_size"]]),
       shiny::textInput("output_name", "Name of cleaned output file", formals(classify)[["output_name"]]),
+      shiny::selectInput("print_cmd", "Print command only? (alternative is run directly from this window)", choices=c(
+        "No" = "FALSE",
+        "Yes" = "TRUE"
+      )),
       shiny::actionButton("runClassify", "Run Classify Function")
     ), # this works with option 2
     
