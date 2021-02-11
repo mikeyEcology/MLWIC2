@@ -215,7 +215,7 @@ classify <- function(
     print(paste0("Navigate to your helper files in Anaconda Prompt by typing:",
                  "`cd ", model_dir, "`", 
                  " Then paste the command below"))
-    print(eval_py)
+    print(gsub("\n", "", eval_py))
   }else{
       system(paste0(eval_py))
       #system(paste0("export PYTHONWARNINGS='ignore'\n",
