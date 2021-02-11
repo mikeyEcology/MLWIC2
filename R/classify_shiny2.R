@@ -94,7 +94,7 @@ server <- function(input, output, session) {
                              "top_n = ", input$top_n, ",\n", 
                              "batch_size = ", input$batch_size, ",\n",
                              "output_name = '", input$output_name, "',\n",
-                             "os = '", os, "'",
+                             "os = '", os, "',\n",
                              "print_cmd = ", input$print_cmd,
                              "\n
       )"
