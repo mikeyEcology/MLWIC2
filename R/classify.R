@@ -265,7 +265,7 @@ classify <- function(
   
   # return to previous working directory
   setwd(wd1)
-  
+  #return(gsub("\n", "", eval_py))
 }
 
 # classify( path_prefix = '/Users/mikeytabak/MLWIC_examples/images/',

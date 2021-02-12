@@ -12,7 +12,7 @@ server <- function(input, output, session) {
   
   #- make file selection for some variables
   # base directory for fileChoose
-  #volumes =  c(home = "")
+  #volumes =  c(home = "") 
   volumes = shinyFiles::getVolumes()
   # input_file
   shinyFiles::shinyFileChoose(input, "input_file", roots=volumes, session=session, filetypes=c('txt', 'csv'))
@@ -44,7 +44,7 @@ server <- function(input, output, session) {
   })
   
   
-  #- run classify
+  #- run make_input
   shiny::observeEvent(input$runMake_input, {
     showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information."))
     # dealing with null path prefix
@@ -81,11 +81,11 @@ server <- function(input, output, session) {
       output_dir = gsub("\\\\", "/", normalizePath(dirname_output_dir())),
       image_file_suffixes = c(".jpg", ".JPG"),
       recursive = input$recursive,
-      usingBuiltIn = input$usingBuiltIn,
+      usingBuiltIn = input$usingBuiltIn, 
       model_type = input$model_type,
       images_classified = input$images_classified,
       find_class_IDs = input$find_class_IDs,
-      trainTest = input$train_test,
+      trainTest = input$train_test, 
       file_prefix = "",
       shiny=TRUE,
       propTrain = input$propTrain

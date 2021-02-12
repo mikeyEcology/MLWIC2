@@ -44,7 +44,7 @@ server <- function(input, output, session) {
   })
   
   
-  #- run classify
+  #- run make_input
   shiny::observeEvent(input$runMake_input, {
     showModal(modalDialog("Making input file(s). You may press dismiss at any time. Check your R console for more information."))
     # dealing with null path prefix
@@ -124,7 +124,7 @@ ui <- shiny::fluidPage(
         "Empty/Animal model" = "empty_animal"
       )),
       shiny::helpText("Only set training proportion if you are using option 5."),
-      shiny::textInput("propTrain", "Proportion of images for training.", formals(classify)[["propTrain"]]),
+      shiny::textInput("propTrain", "Proportion of images for training.", formals(make_input)[["propTrain"]]),
       shiny::actionButton("runMake_input", "Make an input file")
     ), # this works with option 2
     

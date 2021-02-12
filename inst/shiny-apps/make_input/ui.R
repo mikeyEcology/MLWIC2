@@ -1,4 +1,3 @@
-
 ui <- shiny::fluidPage(
   
   # App title ----
@@ -25,11 +24,11 @@ ui <- shiny::fluidPage(
                            "Yes" = "FALSE" # yes is false because recusrive is false
                          )),
       shiny::selectInput("model_type", "Which model type are you using? If you trained your own model, ignore", c(
-        "Species model" = "species_model",
+        "Species model" = "species_model", 
         "Empty/Animal model" = "empty_animal"
       )),
       shiny::helpText("Only set training proportion if you are using option 5."),
-      shiny::textInput("propTrain", "Proportion of images for training.", formals(classify)[["propTrain"]]),
+      shiny::textInput("propTrain", "Proportion of images for training.", formals(make_input)[["propTrain"]]),
       shiny::actionButton("runMake_input", "Make an input file")
     ), # this works with option 2
     
@@ -37,8 +36,8 @@ ui <- shiny::fluidPage(
     # Main panel for displaying outputs ----
     shiny::mainPanel(
       shiny::helpText("Use these as a guide as you fill in the number for `Option`:",
-        shiny::br(), shiny::br(),
-        "Option 1: If you have labels for your images and you want to test the model on your images, you need to have an `Image label file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class. ",
+                      shiny::br(), shiny::br(),
+                      "Option 1: If you have labels for your images and you want to test the model on your images, you need to have an `Image label file` csv that has at last two columns and one of these must be 'filename' and the other must be 'class_ID'. The 'class_ID' column must contain the number associated with each class. ",
                       shiny::br(),
                       "Option 2: This is the same as Option 1, except instead of having a number for each class, you have a column called `class` containing your classifications as words (e.g., 'dog' or 'cattle', 'empty'), the function will find the appropriate `class_ID` associated with these words.",
                       shiny::br(),
@@ -47,10 +46,9 @@ ui <- shiny::fluidPage(
                       "Option 4: MLWIC2 will find the filenames of all of your images and create your input file. For this option, you need to specify your `Image directory` which is the parent directory of your images. ",
                       shiny::br(),
                       "Option 5: If you are planning to train a model, you will want training and testing sets of images. This function will set up these files also. You will want to set the proportion of training images (0.9 is the default).",
-        shiny::br(), shiny::br(),
-        "This function is create a directory called `MLWIC2_inputFile_dir` inside of the directory you selected to store your input file. See R console for exact location of your input file."
-        )
+                      shiny::br(), shiny::br(),
+                      "This function is create a directory called `MLWIC2_inputFile_dir` inside of the directory you selected to store your input file. See R console for exact location of your input file."
+      )
     )
   )
 )
-
