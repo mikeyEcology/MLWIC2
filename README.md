@@ -1,5 +1,7 @@
 # MLWIC2: Machine Learning for Wildlife Image Classification
 
+> MLWIC2 is no longer maintained. **Check Out** [WildObserve](https://www.qsc.earth/WildObserve/): a desktop app for Mac, Windows, and Linux that finds animals in camera-trap images, suggests species, learns your project's species as you review, and estimates occupancy and abundance, with your images staying on your computer.
+
 MLWIC2 can be used to automatically classify camera trap images or to train new models for image classification, it contains two pre-trained models: the `species_model` identifies [58 species](https://github.com/mikeyEcology/MLWIC2/blob/master/speciesID.csv) and empty images, and the `empty_animal` model distinguishes between images with animals and those that are empty. MLWIC2 also contains Shiny apps for running the functions. These can be accessed using `runShiny`. In the steps below, you can see <i>Shiny options</i> for some steps. This indicates that you can run these steps with Shiny apps by running the function provied. Note that when you are using Shiny apps to select directories and files, you can only navigate using the top part half of the screen and you must scroll to the bottom of the window to find the `Select` button. 
 
 If you have issues, please submit them to the issues tab and do not email the authors of this package with questions. This way everyone can learn from the issue. 
